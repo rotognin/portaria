@@ -1,0 +1,8 @@
+teste.php
+error_log
+.vscode/
+composer.*
+vendor/
+log.txt
+config.php
+informacoes.php
