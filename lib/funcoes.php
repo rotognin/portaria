@@ -42,3 +42,15 @@ function criarCsrf()
 {
     $_SESSION['csrf'] = sha1(date('d-m-Y H-i-s'));
 }
+
+/**
+ * Formatar o CNPJ
+ */
+function Cnpj(string $cnpj)
+{
+    return substr($cnpj, 0, 2) . '.' . 
+           substr($cnpj, 2, 3) . '.' .
+           substr($cnpj, 5, 3) . '/' .
+           substr($cnpj, 8, 4) . '-' .
+           substr($cnpj, 12, 2);
+}

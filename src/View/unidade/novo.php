@@ -4,14 +4,14 @@
 <body>
     <div class="container-fluid">
         <?php 
-            $titulo = 'Alteração de usuário';
+            $titulo = 'Criação de nova Unidade de Negócio';
             require_once 'html/admin/topo.php';
         ?>
 
         <br>
         <?php include_once 'lib/mensagem.php'; ?>
         <?php 
-            $acao = 'atualizar';
+            $acao = 'gravar';
             require('formulario.php'); 
         ?>
     </div>

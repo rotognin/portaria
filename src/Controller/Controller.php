@@ -3,10 +3,6 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Login;
-use Src\Model\Funcoes\Portarias;
-use Src\Model\Entidades\Login as Registro;
-use Src\Model\Entidades\Portaria;
-use Src\Model\Entidades\Unidade;
 
 class Controller
 {

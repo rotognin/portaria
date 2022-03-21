@@ -14,12 +14,14 @@ CREATE TABLE `unidades` (
   `nome` varchar(80) NOT NULL,
   `cnpj` varchar(14) DEFAULT NULL,
   `tipo` tinyint(1) DEFAULT NULL,
-  `endedreco` varchar(80) DEFAULT NULL,
+  `endereco` varchar(80) DEFAULT NULL,
   `complemento` varchar(80) DEFAULT NULL,
   `municipio` varchar(60) DEFAULT NULL,
   `uf` varchar(2) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `visitantes` (

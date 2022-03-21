@@ -23,6 +23,12 @@ define ("STATUS", array(
     '3' => 'Bloqueado'
 ));
 
+define("TIPO_UNIDADE", array(
+    '0' => 'Matriz',
+    '1' => 'Filial',
+    '2' => 'Cooperado'
+));
+
 define("MES", array(
     '1' => 'Janeiro',
     '2' => 'Fevereiro',

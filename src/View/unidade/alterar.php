@@ -4,7 +4,7 @@
 <body>
     <div class="container-fluid">
         <?php 
-            $titulo = 'Alteração de usuário';
+            $titulo = 'Alteração de Unidade de Negócio';
             require_once 'html/admin/topo.php';
         ?>
 
