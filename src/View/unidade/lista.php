@@ -61,7 +61,7 @@
                     }
                 } else {
                     echo '<tr>';
-                        echo '<td colspan="5"><i>Nenhuma unidade cadastrada...</i></td>';
+                        echo '<td colspan="7"><i>Nenhuma unidade cadastrada...</i></td>';
                     echo '</tr>';
                 }
             ?>

@@ -38,17 +38,20 @@ class Usuarios
         return true;
     }
 
-    public function obter()
-    {
-        return $this->usuarios ?? false;
-    }
-
     /**
      * Traz um registro de Usuário do banco e o carrega internamente
      */
     public function carregar(int $id)
     {
         $this->usuario = (new Usuario())->findById($id);
+    }
+
+    /**
+     * Retorna o array com os objetos
+     */
+    public function obter()
+    {
+        return $this->usuarios ?? false;
     }
 
     /**

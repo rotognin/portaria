@@ -38,17 +38,17 @@ class Unidades
         return true;
     }
 
-    public function obter()
-    {
-        return $this->unidades ?? false;
-    }
-
     /**
      * Traz um registro de Unidade do banco e o carrega internamente
      */
     public function carregar(int $id)
     {
         $this->unidade = (new Unidade())->findById($id);
+    }
+
+    public function obter()
+    {
+        return $this->unidades ?? false;
     }
 
     /**
@@ -139,5 +139,10 @@ class Unidades
     {
         $this->unidade->status = $status;
         $this->gravar();
+    }
+
+    public function contar()
+    {
+        return (new Unidade())->find()->count();
     }
 }
