@@ -52,6 +52,11 @@ class Portarias
         $this->portaria = (new Portaria())->findById($id);
     }
 
+    public function obter()
+    {
+        return $this->portarias ?? false;
+    }
+
     /**
      * Retorna a portaria carregada do banco
      */

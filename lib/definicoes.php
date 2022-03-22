@@ -24,9 +24,9 @@ define ("STATUS", array(
 ));
 
 define("TIPO_UNIDADE", array(
-    '0' => 'Matriz',
-    '1' => 'Filial',
-    '2' => 'Cooperado'
+    '1' => 'Matriz',
+    '2' => 'Filial',
+    '3' => 'Cooperado'
 ));
 
 define("MES", array(
