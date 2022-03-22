@@ -31,10 +31,7 @@ class PortariaController extends Controller
             $botaoNovo = true;
 
             $portarias = new Portarias();
-            if (!$portarias->listar()){
-                $mensagem = 'Não há Unidades de Negócio cadastradas.';
-                $botaoNovo = false;
-            }
+            $portarias->listar();
         }
 
         criarCsrf();
