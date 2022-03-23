@@ -4,7 +4,7 @@
 <body>
     <div class="container-fluid">
         <?php 
-            $titulo = 'Criação de nova Portaria';
+            $titulo = 'Criação de novo Crachá';
             require_once 'html/admin/topo.php';
         ?>
 
