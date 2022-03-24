@@ -10,7 +10,7 @@ class PortariaController extends Controller
     /**
      * Selecionar a portaria que o usuário está logando
      */
-    public static function selecionar()
+    public static function selecionar(string $mensagem = '')
     {
         // Carregar todas as portarias cadastradas, anexando os nomes das unidades
         $portarias = new Portarias();
@@ -19,7 +19,9 @@ class PortariaController extends Controller
             exit;
         }
 
-        parent::view('portaria.selecionar', ['portarias' => $portarias->objeto()]);
+        criarCsrf();
+
+        parent::view('portaria.selecionar', ['portarias' => $portarias->obter(), 'mensagem' => $mensagem]);
     }
 
     public static function portarias(array $post, array $get, string $mensagem = '')
