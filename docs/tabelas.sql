@@ -79,14 +79,15 @@ CREATE TABLE `logins` (
   `id` int NOT NULL AUTO_INCREMENT,
   `usuario_id` int NOT NULL,
   `portaria_id` int NOT NULL,
-  `data` date NOT NULL,
-  `hora` time NOT NULL,
+  `data_entrada` date NOT NULL,
+  `hora_entrada` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_login_usuario_id_idx` (`usuario_id`),
   KEY `fk_login_portaria_id_idx` (`portaria_id`),
   CONSTRAINT `fk_login_portaria_id` FOREIGN KEY (`portaria_id`) REFERENCES `portarias` (`id`),
   CONSTRAINT `fk_login_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `movimentacoes` (

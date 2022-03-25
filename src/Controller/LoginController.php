@@ -2,7 +2,7 @@
 
 namespace Src\Controller;
 
-use Src\Model\Funcoes\Login;
+use Src\Model\Funcoes\Logins;
 
 class LoginController extends Controller
 {
@@ -13,7 +13,7 @@ class LoginController extends Controller
             exit;
         }
 
-        $login = new Login();
+        $login = new Logins();
         if (!$login->atribuirPortaria($post['portaria_id'])){
             PortariaController::selecionar($login->mensagem);
             exit;

@@ -8,6 +8,6 @@ class Login extends DataLayer
 {
     public function __construct()
     {
-        parent::__construct('logins', ['data', 'hora'], 'id', false);
+        parent::__construct('logins', ['data_entrada', 'hora_entrada'], 'id', false);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Src\Controller;
 
-use Src\Model\Funcoes\Login;
+use Src\Model\Funcoes\Logins;
 
 class Controller
 {
     public static function login(array $post, array $get)
     {
-        $login = new Login($post['login'], $post['senha']);
+        $login = new Logins($post['login'], $post['senha']);
         if (!$login->realizar()){
             self::view('index', ['mensagem' => $login->mensagem]);
             exit;

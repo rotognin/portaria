@@ -5,8 +5,9 @@ namespace Src\Model\Funcoes;
 use Src\Model\Entidades\Usuario;
 use Src\Model\Entidades\Portaria;
 use Src\Model\Entidades\Login;
+use Src\Model\Entidades\Unidade;
 
-class Login
+class Logins
 {
     private string $login;
     private string $senha;
@@ -18,6 +19,7 @@ class Login
     {
         $this->login = verificarString($login);
         $this->senha = sha1($senha);
+        $this->mensagem = '';
     }
 
     public function realizar()
@@ -77,8 +79,26 @@ class Login
     {
         // Continuar...
         // Gravar o login do usuário na tabela
+        $login = new Login();
+        $login->usuario_id = $_SESSION['usuID'];
+        $login->portaria_id = $this->portaria;
+        $login->data_entrada = date('Y-m-d');
+        $login->hora_entrada = date('H:i');
 
-        
+        if (!$login->save()){
+            $this->mensagem = $login->fail()->getMessage();
+            return false;
+        }
+
+        $portaria = (new Portaria())->findById($login->portaria_id);
+        $unidade = (new Unidade())->findById($portaria->unidade_id);
+
+        $_SESSION['uniID'] = $unidade->id;
+        $_SESSION['uniNome'] = $unidade->nome;
+        $_SESSION['porID'] = $portaria->id;
+        $_SESSION['porNome'] = $portaria->descricao;
+
+        return true;
     }
 
 }
