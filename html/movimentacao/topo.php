@@ -9,8 +9,6 @@
                 <span class="nav-link text-white">|</span>
                 <a class="nav-link text-white" href="index.php?action=empresas&control=empresa">Empresas</a>
                 <span class="nav-link text-white">|</span>
-                <a class="nav-link text-white" href="index.php?action=visitantes&control=visitante">Visitantes</a>
-                <span class="nav-link text-white">|</span>
                 <a class="nav-link text-white" href="index.php?action=entrada&control=movimentacao">Movimentar Entrada</a>
                 <span class="nav-link text-white">|</span>
                 <a class="nav-link text-white" href="index.php?action=logout">Sair</a>
