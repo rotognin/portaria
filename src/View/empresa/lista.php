@@ -10,7 +10,7 @@
     </div>
 
     <div class="container-fluid">
-        <a class="btn fundo-azul text-white" href="index.php?action=novo&control=portaria">Nova Empresa</a>
+        <a class="btn fundo-azul text-white" href="index.php?action=novo&control=empresa">Nova Empresa</a>
 
         <table class="table table-hover table-sm">
             <thead class="fundo-azul branco">
