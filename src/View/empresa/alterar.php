@@ -4,7 +4,7 @@
 <body>
     <div class="container-fluid">
         <?php 
-            $titulo = 'Alteração de Portaria';
+            $titulo = 'Alteração de Empresa';
             require_once 'html/admin/topo.php';
         ?>
 
