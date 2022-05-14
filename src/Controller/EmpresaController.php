@@ -12,4 +12,12 @@ class EmpresaController extends Controller
         $empresas->listar();
         parent::view('empresa.lista', ['empresas' => $empresas->obter()]);
     }
+
+    // Criação de nova Empresa
+    public static function novo(array $post, array $get, string $mensagem = '')
+    {
+        criarCsrf();
+
+        parent::view('empresa.novo', ['mensagem' => $mensagem]);
+    }
 }
