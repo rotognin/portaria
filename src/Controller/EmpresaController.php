@@ -20,4 +20,26 @@ class EmpresaController extends Controller
 
         parent::view('empresa.novo', ['mensagem' => $mensagem]);
     }
+
+    // Gravação da Empresa
+    public static function gravar(array $post, array $get)
+    {
+        self::persistir($post, $get, true);
+    }
+
+    public static function atualizar(array $post, array $get)
+    {
+        self::persistir($post, $get, false);
+    }
+
+    private static function persistir(array $post, array $get, bool $novo)
+    {
+        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+            parent::logout();
+            exit;
+        }
+
+        // Continuar...
+    }
+
 }
