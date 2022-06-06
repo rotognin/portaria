@@ -39,7 +39,57 @@ class EmpresaController extends Controller
             exit;
         }
 
-        // Continuar...
+        $view = ($novo) ? 'novo' : 'alterar';
+
+        $empresa = new Empresas();
+        if (!$empresa->dados($post)){
+            criarCsrf();
+            parent::view('empresa.' . $view, ['mensagem' => $empresa->mensagem, 'empresa' => $empresa->objeto()]);
+            exit;
+        }
+
+        if ($empresa->gravar()){
+            self::empresas([], [], 'Empresa gravada com sucesso.');
+        } else {
+            criarCsrf();
+            parent::view('empresa.' . $view, ['mensagem' => $empresa->mensagem, 'empresa' => $empresa->objeto()]);
+        }
+    }
+
+    public static function alterar(array $post, array $get, string $mensagem = '')
+    {
+        criarCsrf();
+        $id = filter_var($post['empresa_id'], FILTER_VALIDATE_INT);
+        $empresa = new Empresas();
+        $empresa->carregar($id);
+
+        parent::view('empresa.alterar', ['empresa' => $empresa->objeto(), 'mensagem' => $mensagem]);
+    }
+
+    public static function ativar(array $post, array $get)
+    {
+        self::alterarStatus($post, $get, 0);
+    }
+
+    public static function inativar(array $post, array $get)
+    {
+        self::alterarStatus($post, $get, 1);
+    }
+
+    private static function alterarStatus(array $post, array $get, int $status)
+    {
+        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+            parent::logout();
+            exit;
+        }
+
+        $id = filter_var($post['empresa_id'], FILTER_VALIDATE_INT);
+
+        $empresa = new Empresas();
+        $empresa->carregar($id);
+        $empresa->alterarStatus($status);
+
+        self::empresas([], []);
     }
 
 }

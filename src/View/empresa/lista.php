@@ -32,7 +32,7 @@
                         echo '<tr>';
                             echo '<td>' . $empresa->id . '</td>';
                             echo '<td>' . $empresa->nome . '</td>';
-                            echo '<td>' . $empresa->município . '/'. $empresa->uf . '</td>';
+                            echo '<td>' . $empresa->municipio . '/'. $empresa->uf . '</td>';
 
                             echo '<td>';
                                 echo '<form method="post" action="index.php?control=empresa&action=' . $acao . '">';
@@ -55,7 +55,7 @@
                                 echo '<form method="post" action="index.php?control=visitante&action=visitantes">';
                                     echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
                                     echo '<input type="hidden" name="empresa_id" value="' . $empresa->id . '">';
-                                    echo '<input type="submit" style="margin-left: 10px" value="Alterar" class="btn botao btn-sm float-left">';
+                                    echo '<input type="submit" style="margin-left: 10px" value="Visitantes" class="btn botao btn-sm float-left">';
                                 echo '</form>';
                             echo '</td>';
                         echo '</tr>';
