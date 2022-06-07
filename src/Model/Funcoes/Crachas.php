@@ -98,7 +98,7 @@ class Crachas
         }
 
         $this->cracha->identificacao = verificarString($dados['identificacao']);
-        $this->cracha->unidade_id = $dados['unidade_id'];
+        $this->cracha->unidade_id = filter_var($dados['unidade_id'], FILTER_VALIDATE_INT);
 
         if ($this->novo){
             $this->cracha->status = 0;

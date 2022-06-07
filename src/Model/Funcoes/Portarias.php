@@ -98,7 +98,7 @@ class Portarias
         }
 
         $this->portaria->descricao = verificarString($dados['descricao']);
-        $this->portaria->unidade_id = $dados['unidade_id'];
+        $this->portaria->unidade_id = filter_var($dados['unidade_id'], FILTER_VALIDATE_INT);
 
         if ($this->novo){
             $this->portaria->status = 0;

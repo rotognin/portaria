@@ -71,7 +71,7 @@ class Logins
             return false;
         }
 
-        $this->portaria = $portaria->id;
+        $this->portaria_id = $portaria->id;
         return true;
     }
 
@@ -81,7 +81,7 @@ class Logins
         // Gravar o login do usuário na tabela
         $login = new Login();
         $login->usuario_id = $_SESSION['usuID'];
-        $login->portaria_id = $this->portaria;
+        $login->portaria_id = $this->portaria_id;
         $login->data_entrada = date('Y-m-d');
         $login->hora_entrada = date('H:i');
 
