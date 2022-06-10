@@ -5,8 +5,11 @@
     <div class="container-fluid">
         <?php 
             $titulo = 'Visitantes da Empresa';
-            require_once 'html/admin/topo.php';
+            require_once 'html/movimentacao/topo.php';
         ?>
+        <p><i>
+            <?php echo $empresa->nome; ?>
+        </i></p>
     </div>
 
     <div class="container-fluid">
@@ -65,6 +68,7 @@
             ?>
             </tbody>
         </table>
+        <?php include 'lib/mensagem.php'; ?>
     </div>
 
     <?php include 'html/scriptsjs.php'; ?>

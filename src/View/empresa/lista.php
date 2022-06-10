@@ -32,7 +32,7 @@
                         echo '<tr>';
                             echo '<td>' . $empresa->id . '</td>';
                             echo '<td>' . $empresa->nome . '</td>';
-                            echo '<td>' . $empresa->municipio . '/'. $empresa->uf . '</td>';
+                            echo '<td>' . $empresa->municipio . ' / '. $empresa->uf . '</td>';
 
                             echo '<td>';
                                 echo '<form method="post" action="index.php?control=empresa&action=' . $acao . '">';

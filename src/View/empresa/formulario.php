@@ -28,7 +28,9 @@
     <div class="form-group">
         <label for="municipio" style="margin:0px"><b>Município / UF: &nbsp;</b></label><br>
         <input type="text" id="municipio" name="municipio" value="<?php echo ($empresa->municipio ?? ''); ?>" size="30">
-        <input type="text" id="uf" name="uf" value="<?php echo ($empresa->uf ?? ''); ?>" size="3" style="margin-left:10px">
+        <input type="text" id="uf" name="uf" 
+               value="<?php echo ($empresa->uf ?? ''); ?>" size="3" 
+               style="margin-left:10px; text-transform: uppercase;">
     </div>
     
     <input type="hidden" id="tipo" name="tipo" value="<?php echo ($empresa->tipo ?? '0'); ?>">

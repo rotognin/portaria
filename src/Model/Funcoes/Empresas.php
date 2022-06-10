@@ -109,7 +109,7 @@ class Empresas
         $this->empresa->complemento = $dados['complemento'];
         $this->empresa->cep = $dados['cep'];
         $this->empresa->municipio = $dados['municipio'];
-        $this->empresa->uf = $dados['uf'];
+        $this->empresa->uf = strtoupper($dados['uf']);
 
         if ($this->novo){
             $this->empresa->status = 0;

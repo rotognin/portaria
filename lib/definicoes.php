@@ -23,6 +23,11 @@ define ("STATUS", array(
     '3' => 'Bloqueado'
 ));
 
+define ("STATUS_ATIVO", 0);
+define ("STATUS_INATIVO", 1);
+define ("STATUS_CONSULTA", 2);
+define ("STATUS_BLOQUEADO", 3);
+
 define("TIPO_UNIDADE", array(
     '1' => 'Matriz',
     '2' => 'Filial',

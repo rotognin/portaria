@@ -68,12 +68,12 @@ class EmpresaController extends Controller
 
     public static function ativar(array $post, array $get)
     {
-        self::alterarStatus($post, $get, 0);
+        self::alterarStatus($post, $get, STATUS_ATIVO);
     }
 
     public static function inativar(array $post, array $get)
     {
-        self::alterarStatus($post, $get, 1);
+        self::alterarStatus($post, $get, STATUS_INATIVO);
     }
 
     private static function alterarStatus(array $post, array $get, int $status)
