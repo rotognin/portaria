@@ -96,10 +96,11 @@ class Visitantes
         $this->visitante->documento = verificarString($dados['documento']);
         $this->visitante->empresa_id = filter_var($dados['empresa_id'], FILTER_VALIDATE_INT);
         $this->visitante->telefone = verificarString($dados['telefone']);
+        $this->visitante->status = filter_var($dados['status'], FILTER_VALIDATE_INT);
+        $this->visitante->observacoes = verificarString($dados['observacoes']);
 
         if ($this->novo){
             $this->visitante->data_cadastro = date('Y-m-d');
-            $this->visitante->status = 0;
         }
 
         if (!$this->validarCampos()){

@@ -26,7 +26,7 @@
                     <th>Visitante</th>
                     <th>Documento</th>
                     <th>Telefone</th>
-                    <th>Status</th>
+                    <th>Situação</th>
                     <th></th>
                 </tr>
             </thead>
@@ -41,15 +41,7 @@
                             echo '<td>' . $visitante->nome . '</td>';
                             echo '<td>' . $visitante->documento . '</td>';
                             echo '<td>' . $visitante->telefone . '</td>';
-
-                            echo '<td>';
-                                echo '<form method="post" action="index.php?control=visitante&action=' . $acao . '">';
-                                    echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
-                                    echo '<input type="hidden" name="visitante_id" value="' . $visitante->id . '">';
-                                    echo STATUS[$visitante->status] . '&nbsp;&nbsp;&nbsp;';
-                                    echo '<input type="submit" style="margin-left: 10px" value="' . ucfirst($acao) . '" class="btn botao btn-sm">';
-                                echo '</form>';
-                            echo '</td>';
+                            echo '<td>' . STATUS[$visitante->status] . '</td>';
 
                             echo '<td>';
                                 echo '<form method="post" action="index.php?control=visitante&action=alterar">';

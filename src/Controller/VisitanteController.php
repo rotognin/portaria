@@ -69,7 +69,9 @@ class VisitanteController extends Controller
         }
 
         if ($visitante->gravar()){
-            self::visitantes($post, $get, 'Visitante registrado com sucesso.');
+            $mensagem = ($novo) ? 'Visitante cadastrado com sucesso' : 'Registro atualizado com sucesso';
+
+            self::visitantes($post, $get, $mensagem);
         } else {
             criarCsrf();
             parent::view('visitante.' . $view, ['mensagem' => $visitante->mensagem, 'visitante' => $visitante->objeto()]);
@@ -84,41 +86,5 @@ class VisitanteController extends Controller
         $visitante->carregar($id);
 
         parent::view('visitante.alterar', ['visitante' => $visitante->objeto(), 'mensagem' => $mensagem]);
-    }
-
-    public static function ativar(array $post, array $get)
-    {
-        self::alterarStatus($post, $get, STATUS_ATIVO);
-    }
-
-    public static function inativar(array $post, array $get)
-    {
-        self::alterarStatus($post, $get, STATUS_INATIVO);
-    }
-
-    public static function sobConsulta(array $post, array $get)
-    {
-        self::alterarStatus($post, $get, STATUS_CONSULTA);
-    }
-
-    public static function bloquear(array $post, array $get)
-    {
-        self::alterarStatus($post, $get, STATUS_BLOQUEADO);
-    }
-
-    private static function alterarStatus(array $post, array $get, int $status)
-    {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
-            parent::logout();
-            exit;
-        }
-
-        $id = filter_var($post['visitante_id'], FILTER_VALIDATE_INT);
-
-        $visitante = new Visitantes();
-        $visitante->carregar($id);
-        $visitante->alterarStatus($status);
-
-        self::visitantes($post, $get, 'Status do visitante alterado');
     }
 }
