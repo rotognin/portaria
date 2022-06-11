@@ -27,7 +27,7 @@ class Controller
         self::view('index');
     }
 
-    public static function inicio()
+    public function principal()
     {
         self::logout();
     }

@@ -32,6 +32,7 @@ CREATE TABLE `visitantes` (
   `data_cadastro` date DEFAULT NULL,
   `telefone` varchar(45) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
+  `observacoes` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_visitante_empresa_id_idx` (`empresa_id`),
   CONSTRAINT `fk_visitante_empresa_id` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)

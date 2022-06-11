@@ -126,5 +126,17 @@ class Visitantes
         $this->gravar();
     }
 
+    public function montarOption()
+    {
+        $html = '';
+
+        foreach ($this->visitantes as $visitante){
+            $html .= '<option value="' . $visitante->id . '">';
+            $html .= $visitante->nome . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            $html .= '</option>';
+        }
+
+        return $html;
+    }
 
 }

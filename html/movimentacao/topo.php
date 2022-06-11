@@ -15,7 +15,7 @@
             <span class="nav-link text-white">|</span>
             <a class="nav-link text-white" href="index.php?action=empresas&control=empresa">Empresas</a>
             <span class="nav-link text-white">|</span>
-            <a class="nav-link text-white" href="index.php?action=entrada&control=movimentacao">Movimentar Entrada</a>
+            <a class="nav-link text-white" href="index.php?action=novo&control=movimentacao">Movimentar Entrada</a>
             <span class="nav-link text-white">|</span>
             <a class="nav-link text-white" href="index.php?action=logout">Sair</a>
         </div>

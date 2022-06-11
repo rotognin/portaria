@@ -87,4 +87,27 @@ class VisitanteController extends Controller
 
         parent::view('visitante.alterar', ['visitante' => $visitante->objeto(), 'mensagem' => $mensagem]);
     }
+
+    public static function buscar(array $post, array $get)
+    {
+        $empresa_id = filter_var($get['empresa_id'], FILTER_VALIDATE_INT);
+
+        if (!$empresa_id || $empresa_id == 0){
+            echo 'nada...';
+            exit;
+        }
+
+        if (!isset($get['_token']) || $get['_token'] != $_SESSION['csrf']){
+            echo 'nada..';
+            exit;
+        }
+
+        $visitantes = new Visitantes();
+        if (!$visitantes->listar($empresa_id, false)){
+            echo '';
+            exit;
+        }
+
+        echo $visitantes->montarOption();
+    }
 }
