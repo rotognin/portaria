@@ -23,6 +23,7 @@
         a.acesso:visited { color:#003366; }
         a.acesso:hover { color:#cc9900; }
         .borda-redonda { border-radius:0.25rem; }
+        .margem-baixo { margin-bottom: 8px; }
     </style>
    
     <title>Controle de portaria - Visitantes</title>

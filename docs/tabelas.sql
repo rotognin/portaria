@@ -44,6 +44,7 @@ CREATE TABLE `acompanhantes` (
   `movimentacao_id` int DEFAULT NULL,
   `nome` varchar(60) DEFAULT NULL,
   `documento` varchar(20) DEFAULT NULL,
+  `observacoes` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_acompanhante_movimentacoes_id_idx` (`movimentacao_id`),
   CONSTRAINT `fk_acompanhante_movimentacoes_id` FOREIGN KEY (`movimentacao_id`) REFERENCES `movimentacoes` (`id`)

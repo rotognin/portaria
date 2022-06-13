@@ -9,7 +9,6 @@
             require_once 'html/movimentacao/topo.php';
         ?>
 
-        <br>
         <?php include_once 'lib/mensagem.php'; ?>
         <?php 
             $acao = 'gravar';

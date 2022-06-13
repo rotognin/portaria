@@ -115,5 +115,23 @@ class Movimentacoes
         return true;
     }
 
+    /**
+     * Checar se vieram aconpanhantes e fazer a validação dos dados
+     */
+    public function acompanhantes(array $dados)
+    {
+        foreach ($dados['nome'] as $codigo => $nome){
+            echo 'Código: ' . $codigo . ' - Nome: ' . $nome . ' - Documento: ' . $dados['documento'][$codigo] . ' - Observações: ' . $dados['obsacompanhante'][$codigo] .'<br>';
+        }
+    }
+
+    /**
+     * Se vieram acompanhantes, gravá-los atrelando-os à movimentação
+     */
+    public function gravarAcompanhantes()
+    {
+
+    }
+
 
 }

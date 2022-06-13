@@ -64,7 +64,19 @@ class MovimentacaoController extends Controller
             exit;
         }
 
+        if (!$movimentacao->acompanhantes($post)){
+            criarCsrf();
+            parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+            exit;
+        }
+
+        exit; // Testes para inclusão dos Acompanhantes
+
         if ($movimentacao->gravar()){
+            if ($novo){
+                $movimentacao->gravarAcompanhantes();
+            }
+
             $mensagem = ($novo) ? 'Movimentação cadastrada com sucesso' : 'Movimentação atualizada com sucesso';
             self::inicio([], [], $mensagem);
         } else {

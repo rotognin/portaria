@@ -18,14 +18,13 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-link text-white" href="index.php?action=inicio&control=movimentacao">Início</a>
-            <span class="nav-link text-white">|</span>
+            <span class="nav-link text-white"><b>|</b></span>
             <a class="nav-link text-white" href="index.php?action=empresas&control=empresa">Empresas</a>
-            <span class="nav-link text-white">|</span>
+            <span class="nav-link text-white"><b>|</b></span>
             <a class="nav-link text-white" href="index.php?action=novo&control=movimentacao">Movimentar Entrada</a>
-            <span class="nav-link text-white">|</span>
+            <span class="nav-link text-white"><b>|</b></span>
             <a class="nav-link text-white" href="index.php?action=logout">Sair</a>
         </div>
     </div>
 </nav>
-<br>
-<h4><?php echo $titulo; ?></h4>
+<h4 style="margin-top:5px"><?php echo $titulo; ?></h4>
