@@ -62,6 +62,6 @@
         <input type="text" id="observacoes" name="observacoes" value="<?php echo ($movimentacao->observacoes ?? ''); ?>" size="100">
     </div>
     
-    <!-- Adicionar os campos necessários: ID do usuário logado, ID da portaria logada -->
+    <input type="hidden" id="usuario_id" name="usuario_id" value="<?php $_SESSION['usuID'] ?>">
     <button type="submit" value="<?php echo ucfirst($acao); ?>" class="btn botao"><?php echo ucfirst($acao); ?></button>
 </form>
