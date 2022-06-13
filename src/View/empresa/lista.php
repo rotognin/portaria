@@ -5,6 +5,7 @@
     <div class="container-fluid">
         <?php 
             $titulo = 'Empresas - Clientes';
+            $exibirTopo = false;
             require_once 'html/movimentacao/topo.php';
         ?>
     </div>

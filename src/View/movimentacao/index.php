@@ -5,6 +5,7 @@
     <div class="container-fluid">
         <?php 
             $titulo = 'Registro de visitas';
+            $exibirTopo = true;
             require_once 'html/movimentacao/topo.php';
         ?>
     </div>

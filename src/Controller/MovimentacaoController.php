@@ -4,6 +4,7 @@ namespace Src\Controller;
 
 use Src\Model\Funcoes\Empresas;
 use Src\Model\Funcoes\Crachas;
+use Src\Model\Funcoes\Movimentacoes;
 
 class MovimentacaoController extends Controller
 {
@@ -35,5 +36,40 @@ class MovimentacaoController extends Controller
             'empresas' => $empresas->obter(),
             'crachas' => $crachas->obter()
         ]);
+    }
+
+    public static function gravar(array $post, array $get)
+    {
+        self::persistir($post, $get, true);
+    }
+
+    public static function atualizar(array $post, array $get)
+    {
+        self::persistir($post, $get, false);
+    }
+
+    public static function persistir(array $post, array $get, bool $novo)
+    {
+        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+            parent::logout();
+            exit;
+        }
+
+        $view = ($novo) ? 'novo' : 'alterar';
+
+        $movimentacao = new Movimentacoes();
+        if (!$movimentacao->dados($post)){
+            criarCsrf();
+            parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+            exit;
+        }
+
+        if ($movimentacao->gravar()){
+            $mensagem = ($novo) ? 'Movimentação cadastrada com sucesso' : 'Movimentação atualizada com sucesso';
+            self::inicio([], [], $mensagem);
+        } else {
+            criarCsrf();
+            parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+        }
     }
 }

@@ -5,6 +5,7 @@
     <div class="container-fluid">
         <?php 
             $titulo = 'Movimentação de Entrada';
+            $exibirTopo = false;
             require_once 'html/movimentacao/topo.php';
         ?>
 

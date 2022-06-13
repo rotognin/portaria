@@ -106,7 +106,7 @@ CREATE TABLE `movimentacoes` (
   `portaria_saida_id` int DEFAULT NULL,
   `contato` varchar(45) DEFAULT NULL,
   `motivo` varchar(200) DEFAULT NULL,
-  `observaoces` varchar(200) DEFAULT NULL,
+  `observacoes` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_movimentacoes_visitante_id_idx` (`visitante_id`),
   KEY `fk_movimentacoes_cracha_id_idx` (`cracha_id`),

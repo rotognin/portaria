@@ -16,3 +16,21 @@ function buscarVisitantes(){
         });
     }
 }
+
+function validarMovimentacao(){
+    var empresa_id = $("#empresa_id").val();
+
+    if (empresa_id == 0){
+        $("#mensagem").html("Necessário informar a empresa").show();
+        return false;
+    }
+
+    var cracha_id = $("#cracha_id").val();
+
+    if (cracha_id == 0){
+        $("#mensagem").html("É necessário selecionar um crachá").show();
+        return false;
+    }
+
+    return true;
+}

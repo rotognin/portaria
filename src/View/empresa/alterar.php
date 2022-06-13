@@ -5,6 +5,7 @@
     <div class="container-fluid">
         <?php 
             $titulo = 'Alteração de Empresa';
+            $exibirTopo = false;
             require_once 'html/movimentacao/topo.php';
         ?>
 

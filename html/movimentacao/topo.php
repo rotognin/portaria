@@ -1,8 +1,14 @@
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-8"><h3 class="azul">Sistemas de visitas - Entrada e Saída</h3></div>
-    </div>
-</div>
+<?php
+    if ($exibirTopo){
+    ?>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-8"><h3 class="azul">Sistemas de visitas - Entrada e Saída</h3></div>
+            </div>
+        </div>
+    <?php
+    }
+?>
 
 <p><b>Operador: </b> <?php echo $_SESSION['usuNome']; ?><br>
 <b>Unidade: </b><?php echo $_SESSION['uniNome']; ?><br>

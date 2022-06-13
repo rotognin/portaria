@@ -1,4 +1,6 @@
-<form class="col-12" method="post" action="index.php?control=movimentacao&action=<?php echo $acao; ?>">
+<form class="col-12" method="post" 
+      onsubmit="return validarMovimentacao()" 
+      action="index.php?control=movimentacao&action=<?php echo $acao; ?>">
     <input type="hidden" id="_token" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
 
     <div class="form-group">
@@ -62,6 +64,8 @@
         <input type="text" id="observacoes" name="observacoes" value="<?php echo ($movimentacao->observacoes ?? ''); ?>" size="100">
     </div>
     
-    <input type="hidden" id="usuario_id" name="usuario_id" value="<?php $_SESSION['usuID'] ?>">
+    <div class="alert alert-danger" role="alert" id="mensagem" style="display:none">
+    </div>
+
     <button type="submit" value="<?php echo ucfirst($acao); ?>" class="btn botao"><?php echo ucfirst($acao); ?></button>
 </form>

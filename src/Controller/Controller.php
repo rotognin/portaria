@@ -27,7 +27,7 @@ class Controller
         self::view('index');
     }
 
-    public function principal()
+    public static function principal()
     {
         self::logout();
     }

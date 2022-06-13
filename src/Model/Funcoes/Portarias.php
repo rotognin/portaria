@@ -65,9 +65,6 @@ class Portarias
         return $this->portaria ?? false;
     }
 
-    /**
-     * Validação dos campos da Unidade
-     */
     private function validarCampos()
     {
         $retorno = true;
