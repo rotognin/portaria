@@ -2,6 +2,7 @@
       onsubmit="return validarMovimentacao()" 
       action="index.php?control=movimentacao&action=<?php echo $acao; ?>">
     <input type="hidden" id="_token" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
+    <input type="hidden" id="movimentacao_id" name="movimentacao_id" value="0">
 
     <div class="form-group margem-baixo">
         <label for="id" style="margin:0px"><b>ID: &nbsp;</b></label>

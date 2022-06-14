@@ -3,6 +3,7 @@
 namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Movimentacao;
+use Src\Model\Funcoes\Acompanhantes;
 
 class Movimentacoes
 {
@@ -36,6 +37,11 @@ class Movimentacoes
     public function objeto()
     {
         return $this->movimentacao ?? false;
+    }
+
+    public function obterId()
+    {
+        return $this->movimentacao->id ?? 0;
     }
 
     private function validarCampos()
@@ -115,23 +121,55 @@ class Movimentacoes
         return true;
     }
 
-    /**
-     * Checar se vieram aconpanhantes e fazer a validação dos dados
-     */
-    public function acompanhantes(array $dados)
+    public function existemAcompanhantes(array $dados)
     {
-        foreach ($dados['nome'] as $codigo => $nome){
-            echo 'Código: ' . $codigo . ' - Nome: ' . $nome . ' - Documento: ' . $dados['documento'][$codigo] . ' - Observações: ' . $dados['obsacompanhante'][$codigo] .'<br>';
+        return is_array($dados['nome']);
+    }
+
+    public function ajustarAcompanhantes(array $dados)
+    {
+        $qtd = count($dados['nome']);
+
+        while ($qtd > 0){
+            $qtd--;
+
+            $dados['nome'][$qtd] = verificarString($dados['nome'][$qtd]);
+            $dados['documento'][$qtd] = verificarString($dados['documento'][$qtd]);
+            $dados['obsacompanhante'][$qtd] = verificarString($dados['obsacompanhante'][$qtd]);
+
+            if ($dados['nome'][$qtd] == ''){
+                $this->mensagem = 'Verificar o nome do(s) acompanhante(s), pois não pode estar em branco.';
+                return false;
+            }
         }
+
+        return true;
     }
 
     /**
      * Se vieram acompanhantes, gravá-los atrelando-os à movimentação
      */
-    public function gravarAcompanhantes()
+    public function gravarAcompanhantes(array $dados)
     {
+        foreach ($dados['nome'] as $codigo => $nome){
+            $acompanhante = new Acompanhantes();
+            if (!$acompanhante->dados(array (
+                    'id' => 0,
+                    'movimentacao_id' => $dados['movimentacao_id'],
+                    'nome' => $dados['nome'][$codigo],
+                    'documento' => $dados['documento'][$codigo], 
+                    'observacoes' => $dados['obsacompanhante'][$codigo]))){
+                $this->mensagem = $acompanhante->mensagem;
+                return false;
+            }
 
+            if (!$acompanhante->gravar()){
+                return false;
+            }
+
+            unset($acompanhante);
+        }
+
+        return true;
     }
-
-
 }

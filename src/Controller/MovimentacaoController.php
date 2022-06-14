@@ -64,20 +64,25 @@ class MovimentacaoController extends Controller
             exit;
         }
 
-        if (!$movimentacao->acompanhantes($post)){
-            criarCsrf();
-            parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
-            exit;
+        if ($movimentacao->existemAcompanhantes($post)){
+            if (!$movimentacao->ajustarAcompanhantes($post)){
+                criarCsrf();
+                parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+                exit;
+            }
         }
 
-        exit; // Testes para inclusão dos Acompanhantes
-
         if ($movimentacao->gravar()){
-            if ($novo){
-                $movimentacao->gravarAcompanhantes();
+            $mensagem = ($novo) ? 'Movimentação cadastrada com sucesso' : 'Movimentação atualizada com sucesso';
+
+            if ($novo && $movimentacao->existemAcompanhantes($post)){
+                $post['movimentacao_id'] = $movimentacao->obterId();
+                
+                if (!$movimentacao->gravarAcompanhantes($post)){
+                    $mensagem .= '<br>Acompanhantes não gravados corretamente.';
+                }
             }
 
-            $mensagem = ($novo) ? 'Movimentação cadastrada com sucesso' : 'Movimentação atualizada com sucesso';
             self::inicio([], [], $mensagem);
         } else {
             criarCsrf();
