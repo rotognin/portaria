@@ -8,6 +8,7 @@
             $exibirTopo = true;
             require_once 'html/movimentacao/topo.php';
         ?>
+        <?php include_once 'lib/mensagem.php'; ?>
     </div>
 
     <?php include 'html/scriptsjs.php'; ?>

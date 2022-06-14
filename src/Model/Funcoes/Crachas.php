@@ -19,20 +19,36 @@ class Crachas
     }
 
     // Carregar todos os crachas cadastrados com os dados das unidades também
-    public function listar(bool $todas = true)
+    public function listar(bool $todas = true, int $unidade_id = 0)
     {
         $params = '';
         $find = '';
 
+        $param_array = array();
+
         if (!$todas){
-            $params = http_build_query(['status' => 0]);
+            $param_array['status'] = 0;
             $find = 'status = :status';
+        }
+
+        if ($unidade_id > 0){
+            $param_array['unidade_id'] = $unidade_id;
+
+            if ($find == ''){
+                $find = 'unidade_id = :unidade_id';
+            } else {
+                $find .= ' AND unidade_id = :unidade_id';
+            }
+        }
+
+        if (count($param_array) > 0){
+            $params = http_build_query($param_array);
         }
         
         $crachas = (new Cracha())->find($find, $params)->fetch(true);
 
         if (!$crachas){
-            $this->mensagem = 'Nenhum crachá cadastrado.';
+            $this->mensagem = 'Não existem crachás disponíveis.';
             return false;
         }
 
@@ -136,5 +152,15 @@ class Crachas
         foreach ($this->crachas as $cracha){
             $cracha->unidade = (new Unidade())->findById($cracha->unidade_id);
         }
+    }
+
+    /**
+     * Assim que gravada a movimentação, atribuir o crachá para ela
+     */
+    public function atribuir(int $cracha_id, int $movimentacao_id)
+    {
+        $this->cracha = (new Cracha())->findById($cracha_id);
+        // Continuar...
+
     }
 }

@@ -97,9 +97,9 @@ class Movimentacoes
         $this->movimentacao->visitante_id = filter_var($dados['visitante_id'], FILTER_VALIDATE_INT);
         $this->movimentacao->cracha_id = filter_var($dados['cracha_id'], FILTER_VALIDATE_INT);
         $this->movimentacao->usuario_entrada_id = $_SESSION['usuID'];
-        $this->movimentacao->data_entrada = $dados['data_entrada']; // Validar Data
-        $this->movimentacao->hora_entrada = $dados['hora_entrada']; // Validar Hora
-        $this->movimentacao->portaria_entrada_id = $_SESSION['porID'];
+        $this->movimentacao->data_entrada = $dados['data_entrada'];
+        $this->movimentacao->hora_entrada = $dados['hora_entrada'];
+        $this->movimentacao->portaria_entrada_id = filter_var($_SESSION['porID'], FILTER_VALIDATE_INT);
         $this->movimentacao->contato = verificarString($dados['contato']);
         $this->movimentacao->motivo = verificarString($dados['motivo']);
         $this->movimentacao->observacoes = verificarString($dados['observacoes']);

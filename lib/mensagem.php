@@ -13,4 +13,5 @@ if (isset($mensagem) && $mensagem != ''){
 TEXTO;
 }
 
+$mensagem = '';
 echo $html;

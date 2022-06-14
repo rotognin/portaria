@@ -26,7 +26,7 @@ class MovimentacaoController extends Controller
 
         $crachas = new Crachas();
 
-        if (!$crachas->listar(false)){
+        if (!$crachas->listar(false, $_SESSION['uniID'])){
             self::inicio($post, $get, $crachas->mensagem);
             exit;
         }
@@ -75,9 +75,14 @@ class MovimentacaoController extends Controller
         if ($movimentacao->gravar()){
             $mensagem = ($novo) ? 'Movimentação cadastrada com sucesso' : 'Movimentação atualizada com sucesso';
 
+            if ($novo){
+                $cracha = new Crachas();
+                $cracha->atribuir($post['cracha_id'], $movimentacao->obterId());
+            }
+
             if ($novo && $movimentacao->existemAcompanhantes($post)){
                 $post['movimentacao_id'] = $movimentacao->obterId();
-                
+
                 if (!$movimentacao->gravarAcompanhantes($post)){
                     $mensagem .= '<br>Acompanhantes não gravados corretamente.';
                 }
