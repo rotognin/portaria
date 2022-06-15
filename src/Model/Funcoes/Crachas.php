@@ -23,24 +23,25 @@ class Crachas
     {
         $params = '';
         $find = '';
+        $and = '';
 
         $param_array = array();
 
         if ($livres){
             $param_array['movimentacao_id'] = 0;
             $find = 'movimentacao_id = :movimentacao_id';
-        } else {
-            $find = 'movimentacao_id > 0';
+            $and = ' AND ';
         }
 
         if (!$todas){
             $param_array['status'] = 0;
-            $find .= ' AND status = :status';
+            $find .= $and . 'status = :status';
+            $and = ' AND ';
         }
 
         if ($unidade_id > 0){
             $param_array['unidade_id'] = $unidade_id;
-            $find .= ' AND unidade_id = :unidade_id';
+            $find .= $and . 'unidade_id = :unidade_id';
         }
 
         if (count($param_array) > 0){

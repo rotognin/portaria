@@ -16,7 +16,7 @@ class CrachaController extends Controller
             $botaoNovo = true;
 
             $crachas = new Crachas();
-            $crachas->listar();
+            $crachas->listar(true, 0, false);
         }
 
         criarCsrf();

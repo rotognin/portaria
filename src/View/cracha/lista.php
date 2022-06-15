@@ -22,8 +22,9 @@
             <thead class="fundo-azul branco">
                 <tr>
                     <th>ID</th>
-                    <th>Unidade</th>
                     <th>Identificação</th>
+                    <th>Unidade</th>
+                    <th>ID Movimentação</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -36,24 +37,32 @@
 
                         echo '<tr>';
                             echo '<td>' . $cracha->id . '</td>';
-                            echo '<td>' . $cracha->unidade->nome . '</td>';
                             echo '<td>' . $cracha->identificacao . '</td>';
+                            echo '<td>' . $cracha->unidade->nome . '</td>';
+                            echo '<td>' . $cracha->movimentacao_id . '</td>';
 
                             echo '<td>';
                                 echo '<form method="post" action="index.php?control=cracha&action=' . $acao . '">';
                                     echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
                                     echo '<input type="hidden" name="cracha_id" value="' . $cracha->id . '">';
                                     echo STATUS[$cracha->status] . '&nbsp;&nbsp;&nbsp;';
-                                    echo '<input type="submit" style="margin-left: 10px" value="' . ucfirst($acao) . '" class="btn botao btn-sm">';
+
+                                    if ($cracha->movimentacao_id == 0){
+                                        echo '<input type="submit" style="margin-left: 10px" value="' . ucfirst($acao) . '" class="btn botao btn-sm">';
+                                    }
+                                    
                                 echo '</form>';
                             echo '</td>';
 
                             echo '<td>';
-                                echo '<form method="post" action="index.php?control=cracha&action=alterar">';
-                                    echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
-                                    echo '<input type="hidden" name="cracha_id" value="' . $cracha->id . '">';
-                                    echo '<input type="submit" style="margin-left: 10px" value="Alterar" class="btn botao btn-sm float-left">';
-                                echo '</form>';
+                                if ($cracha->movimentacao_id == 0){
+                                    echo '<form method="post" action="index.php?control=cracha&action=alterar">';
+                                        echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
+                                        echo '<input type="hidden" name="cracha_id" value="' . $cracha->id . '">';
+                                        echo '<input type="submit" style="margin-left: 10px" value="Alterar" class="btn botao btn-sm float-left">';
+                                    echo '</form>';
+                                }
+                                
                             echo '</td>';
                         echo '</tr>';
                     }
