@@ -24,6 +24,6 @@ class LoginController extends Controller
             exit;
         }
 
-        parent::view('movimentacao.index');
+        MovimentacaoController::inicio([], []);
     }
 }

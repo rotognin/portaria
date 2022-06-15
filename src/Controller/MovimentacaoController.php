@@ -5,6 +5,9 @@ namespace Src\Controller;
 use Src\Model\Funcoes\Empresas;
 use Src\Model\Funcoes\Crachas;
 use Src\Model\Funcoes\Movimentacoes;
+use Src\Model\Entidades\Visitante;
+use Src\Model\Entidades\Empresa;
+use Src\Model\Entidades\Cracha;
 
 class MovimentacaoController extends Controller
 {
@@ -106,4 +109,40 @@ class MovimentacaoController extends Controller
             parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
         }
     }
+
+    public static function saida(array $post, array $get)
+    {
+        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+            parent::logout();
+            exit;
+        }
+
+        if (!isset($post['movimentacao_id']) || $post['movimentacao_id'] == 0){
+            $mensagem = 'Movimentação não informada.';
+            self::inicio([], [], $mensagem);
+            exit;
+        }
+
+        $movimentacao_id = filter_var($post['movimentacao_id'], FILTER_VALIDATE_INT);
+
+        $movimentacao = new Movimentacoes();
+        $movimentacao->carregar($movimentacao_id);
+
+        $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
+        $movimentacao->visitante->empresa = (new Empresa())->findById($movimentacao->visitante->empresa_id);
+        $movimentacao->cracha = (new Cracha())->findById($movimentacao->cracha_id);
+
+        $acompanhantes = new Acompanhantes();
+        $acompanhantes->listar($movimentacao->id);
+        $movimentacao->acompanhantes = $acompanhantes->obter();
+
+        criarCsrf();
+        parent::view('movimentacao.saida', ['movimentacao' => $movimentacao->objeto()]);
+    }
+
+    public static function finalizar(array $post, array $get)
+    {
+
+    }
+
 }
