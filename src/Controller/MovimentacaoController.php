@@ -10,7 +10,17 @@ class MovimentacaoController extends Controller
 {
     public static function inicio(array $post, array $get, string $mensagem = '')
     {
-        parent::view('movimentacao.index', ['mensagem' => $mensagem]);
+        // Carregar as movimentações em aberto no momento
+        $movimentacoes = new Movimentacoes();
+
+        $filtros = array(
+            'status' => 0
+        );
+
+        $movimentacoes->listar($filtros);
+
+        criarCsrf();
+        parent::view('movimentacao.index', ['mensagem' => $mensagem, 'movimentacoes' => $movimentacoes->obter()]);
     }
 
     public static function novo(array $post, array $get, string $mensagem = '')

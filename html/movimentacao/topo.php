@@ -23,6 +23,8 @@
             <span class="nav-link text-white"><b>|</b></span>
             <a class="nav-link text-white" href="index.php?action=novo&control=movimentacao">Movimentar Entrada</a>
             <span class="nav-link text-white"><b>|</b></span>
+            <a class="nav-link text-white" href="index.php?action=novo&control=relatorio">Relatório</a>
+            <span class="nav-link text-white"><b>|</b></span>
             <a class="nav-link text-white" href="index.php?action=logout">Sair</a>
         </div>
     </div>

@@ -92,7 +92,6 @@ CREATE TABLE `logins` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `movimentacoes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `visitante_id` int DEFAULT NULL,
@@ -109,6 +108,7 @@ CREATE TABLE `movimentacoes` (
   `contato` varchar(45) DEFAULT NULL,
   `motivo` varchar(200) DEFAULT NULL,
   `observacoes` varchar(200) DEFAULT NULL,
+  `status` int DEFAULT '0' COMMENT '0 - Em aberto, 1 - Finalizado, 2 - Cancelado',
   PRIMARY KEY (`id`),
   KEY `fk_movimentacoes_visitante_id_idx` (`visitante_id`),
   KEY `fk_movimentacoes_cracha_id_idx` (`cracha_id`),
@@ -123,6 +123,7 @@ CREATE TABLE `movimentacoes` (
   CONSTRAINT `fk_mov_usuario_saida_id` FOREIGN KEY (`usuario_saida_id`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `fk_mov_visitante_id` FOREIGN KEY (`visitante_id`) REFERENCES `visitantes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `portarias` (

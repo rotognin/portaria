@@ -3,6 +3,9 @@
 namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Movimentacao;
+use Src\Model\Entidades\Visitante;
+use Src\Model\Entidades\Cracha;
+use Src\Model\Entidades\Empresa;
 use Src\Model\Funcoes\Acompanhantes;
 
 class Movimentacoes
@@ -16,6 +19,43 @@ class Movimentacoes
     {
         $this->mensagem = '';
         $this->novo = false;
+    }
+
+    /**
+     * Listar as movimentações.
+     * Passar um array com filtros a serem considerados
+     */
+    public function listar(array $filtros)
+    {
+        $params = '';
+        $find = '';
+        $and = '';
+
+        foreach ($filtros as $campo => $valor){
+            $find .= $and . $campo . ' = :' . $campo;
+            $and = ' AND ';
+        }
+
+        if (count($filtros) > 0){
+            $params = http_build_query($filtros);
+        }
+
+        $movimentacoes = (new Movimentacao())->find($find, $params)->fetch(true);
+
+        // Trazer os registros do Visitante e do crachá da movimentação
+        foreach($movimentacoes as $movimentacao){
+            $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
+            $movimentacao->visitante->empresa = (new Empresa())->findById($movimentacao->visitante->empresa_id);
+            $movimentacao->cracha = (new Cracha())->findById($movimentacao->cracha_id);
+
+            $acompanhantes = new Acompanhantes();
+            $acompanhantes->listar($movimentacao->id);
+            $movimentacao->acompanhantes = $acompanhantes->obter();
+            unset($acompanhantes);
+        }
+
+        $this->movimentacoes = $movimentacoes;
+        return true;
     }
 
     public function carregar(int $id)
@@ -103,6 +143,7 @@ class Movimentacoes
         $this->movimentacao->contato = verificarString($dados['contato']);
         $this->movimentacao->motivo = verificarString($dados['motivo']);
         $this->movimentacao->observacoes = verificarString($dados['observacoes']);
+        $this->movimentacao->status = 0;
 
         if (!$this->validarCampos()){
             return false;
