@@ -56,11 +56,9 @@ CREATE TABLE `crachas` (
   `identificacao` varchar(40) NOT NULL,
   `unidade_id` int DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
-  `movimentacao_id` int DEFAULT NULL,
+  `movimentacao_id` int DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_unidade_id_idx` (`unidade_id`),
-  KEY `fk_cracha_movimentacao_id_idx` (`movimentacao_id`),
-  CONSTRAINT `fk_cracha_movimentacao_id` FOREIGN KEY (`movimentacao_id`) REFERENCES `movimentacoes` (`id`),
   CONSTRAINT `fk_cracha_unidade_id` FOREIGN KEY (`unidade_id`) REFERENCES `unidades` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

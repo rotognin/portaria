@@ -19,26 +19,28 @@ class Crachas
     }
 
     // Carregar todos os crachas cadastrados com os dados das unidades também
-    public function listar(bool $todas = true, int $unidade_id = 0)
+    public function listar(bool $todas = true, int $unidade_id = 0, bool $livres = true)
     {
         $params = '';
         $find = '';
 
         $param_array = array();
 
+        if ($livres){
+            $param_array['movimentacao_id'] = 0;
+            $find = 'movimentacao_id = :movimentacao_id';
+        } else {
+            $find = 'movimentacao_id > 0';
+        }
+
         if (!$todas){
             $param_array['status'] = 0;
-            $find = 'status = :status';
+            $find .= ' AND status = :status';
         }
 
         if ($unidade_id > 0){
             $param_array['unidade_id'] = $unidade_id;
-
-            if ($find == ''){
-                $find = 'unidade_id = :unidade_id';
-            } else {
-                $find .= ' AND unidade_id = :unidade_id';
-            }
+            $find .= ' AND unidade_id = :unidade_id';
         }
 
         if (count($param_array) > 0){
@@ -118,6 +120,7 @@ class Crachas
 
         if ($this->novo){
             $this->cracha->status = 0;
+            $this->cracha->movimentacao_id = 0;
         }
 
         if (!$this->validarCampos()){
@@ -160,7 +163,23 @@ class Crachas
     public function atribuir(int $cracha_id, int $movimentacao_id)
     {
         $this->cracha = (new Cracha())->findById($cracha_id);
-        // Continuar...
+        
+        if ($this->cracha->status == 1){
+            $this->mensagem = 'Crachá inativo. Não foi possível atribuir.';
+            return false;
+        }
 
+        if ($this->cracha->movimentacao_id != 0){
+            $this->mensagem = 'Crachá já atribuído a outra movimentação.';
+            return false;
+        }
+
+        $this->cracha->movimentacao_id = filter_var($movimentacao_id, FILTER_VALIDATE_INT);
+        if (!$this->gravar()){
+            $this->mensagem = 'Não foi possível atribuir o crachá na movimentação.';
+            return false;
+        }
+
+        return true;
     }
 }
