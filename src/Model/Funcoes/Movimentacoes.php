@@ -156,24 +156,27 @@ class Movimentacoes
     public function dados(array $dados)
     {
         if ($dados['id'] > 0){
-            $this->carregar($dados['id']);
+            $this->movimentacao = (new Movimentacao())->findById(filter_var($dados['id'], FILTER_VALIDATE_INT));
         } else {
             $this->movimentacao = new Movimentacao();
-            $this->novo = true;
         }
 
-        $this->movimentacao->placa = verificarString($dados['placa']);
-        $this->movimentacao->visitante_id = filter_var($dados['visitante_id'], FILTER_VALIDATE_INT);
-        $this->movimentacao->cracha_id = filter_var($dados['cracha_id'], FILTER_VALIDATE_INT);
-        $this->movimentacao->usuario_entrada_id = filter_var($_SESSION['usuID'], FILTER_VALIDATE_INT);
-        $this->movimentacao->data_entrada = $dados['data_entrada'];
-        $this->movimentacao->hora_entrada = $dados['hora_entrada'];
-        $this->movimentacao->portaria_entrada_id = filter_var($_SESSION['porID'], FILTER_VALIDATE_INT);
-        $this->movimentacao->contato = verificarString($dados['contato']);
-        $this->movimentacao->motivo = verificarString($dados['motivo']);
-        $this->movimentacao->observacoes = verificarString($dados['observacoes']);
         $this->movimentacao->status = filter_var($dados['status'], FILTER_VALIDATE_INT);
-        $this->movimentacao->unidade_id = $_SESSION['uniID'];
+
+        if ($this->movimentacao->status == 0){
+            $this->movimentacao->placa = verificarString($dados['placa']);
+            $this->movimentacao->visitante_id = filter_var($dados['visitante_id'], FILTER_VALIDATE_INT);
+            $this->movimentacao->cracha_id = filter_var($dados['cracha_id'], FILTER_VALIDATE_INT);
+            $this->movimentacao->usuario_entrada_id = filter_var($_SESSION['usuID'], FILTER_VALIDATE_INT);
+            $this->movimentacao->data_entrada = $dados['data_entrada'];
+            $this->movimentacao->hora_entrada = $dados['hora_entrada'];
+            $this->movimentacao->portaria_entrada_id = filter_var($_SESSION['porID'], FILTER_VALIDATE_INT);
+            $this->movimentacao->contato = verificarString($dados['contato']);
+            $this->movimentacao->motivo = verificarString($dados['motivo']);
+            $this->movimentacao->unidade_id = $_SESSION['uniID'];
+        }
+
+        $this->movimentacao->observacoes = verificarString($dados['observacoes']);
 
         if ($this->movimentacao->status == 1){
             // Está finalizando a movimentação
