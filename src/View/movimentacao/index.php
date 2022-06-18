@@ -18,7 +18,8 @@
                     <th>Empresa</th>
                     <th>Crachá</th>
                     <th>Data / Hora</th>
-                    <th>Ação</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -38,6 +39,13 @@
                                     echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
                                     echo '<input type="hidden" name="movimentacao_id" value="' . $movimentacao->id . '">';
                                     echo '<input type="submit" style="margin-left: 10px" value="Saída" class="btn botao btn-sm float-left">';
+                                echo '</form>';
+                            echo '</td>';
+                            echo '<td>';
+                                echo '<form method="post" action="index.php?control=movimentacao&action=detalhes">';
+                                    echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
+                                    echo '<input type="hidden" name="movimentacao_id" value="' . $movimentacao->id . '">';
+                                    echo '<input type="submit" style="margin-left: 10px" value="Detalhes" class="btn botao btn-sm float-left">';
                                 echo '</form>';
                             echo '</td>';
                             echo '<td>';

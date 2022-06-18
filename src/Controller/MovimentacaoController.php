@@ -107,6 +107,28 @@ class MovimentacaoController extends Controller
         }
     }
 
+    public static function detalhes(array $post, array $get)
+    {
+        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+            parent::logout();
+            exit;
+        }
+
+        if (!isset($post['movimentacao_id']) || $post['movimentacao_id'] == 0){
+            $mensagem = 'Movimentação não informada.';
+            self::inicio([], [], $mensagem);
+            exit;
+        }
+
+        $movimentacao_id = filter_var($post['movimentacao_id'], FILTER_VALIDATE_INT);
+
+        $movimentacao = new Movimentacoes();
+        $movimentacao->carregar($movimentacao_id);
+
+        criarCsrf();
+        parent::view('movimentacao.detalhes', ['movimentacao' => $movimentacao->objeto()]);
+    }
+
     public static function saida(array $post, array $get)
     {
         if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
@@ -129,6 +151,28 @@ class MovimentacaoController extends Controller
         parent::view('movimentacao.saida', ['movimentacao' => $movimentacao->objeto()]);
     }
 
+    public static function cancelar(array $post, array $get)
+    {
+        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+            parent::logout();
+            exit;
+        }
+
+        if (!isset($post['movimentacao_id']) || $post['movimentacao_id'] == 0){
+            $mensagem = 'Movimentação não informada.';
+            self::inicio([], [], $mensagem);
+            exit;
+        }
+
+        $movimentacao_id = filter_var($post['movimentacao_id'], FILTER_VALIDATE_INT);
+
+        $movimentacao = new Movimentacoes();
+        $movimentacao->carregar($movimentacao_id);
+
+        criarCsrf();
+        parent::view('movimentacao.cancelar', ['movimentacao' => $movimentacao->objeto()]);
+    }
+
     public static function finalizar(array $post, array $get, string $mensagem = '')
     {
         if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
@@ -136,15 +180,18 @@ class MovimentacaoController extends Controller
             exit;
         }
 
+        $status = filter_var($post['status'], FILTER_VALIDATE_INT);
+        $acao = ($status == 1) ? 'saida' : 'cancelar';
+
         $movimentacao = new Movimentacoes();
         if (!$movimentacao->dados($post)){
             criarCsrf();
-            parent::view('movimentacao.saida', ['mensagem' => $movimentacao->mensagem, $movimentacao->objeto()]);
+            parent::view('movimentacao.' . $acao, ['mensagem' => $movimentacao->mensagem, $movimentacao->objeto()]);
             exit;
         }
 
         if ($movimentacao->gravar()){
-            $mensagem = 'Movimentação finalizada!';
+            $mensagem = ($acao == 'saida') ? 'Movimentação finalizada!' : 'Movimentação cancelada';
 
             $cracha = new Crachas();
             if (!$cracha->liberar($post['cracha_id'])){
@@ -154,7 +201,7 @@ class MovimentacaoController extends Controller
             self::inicio([], [], $mensagem);
         } else {
             criarCsrf();
-            parent::view('movimentacao.saida', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+            parent::view('movimentacao.' . $acao, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
         }
     }
 }

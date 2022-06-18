@@ -2,7 +2,7 @@
       action="index.php?control=movimentacao&action=finalizar">
     <input type="hidden" id="_token" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
     <input type="hidden" id="movimentacao_id" name="movimentacao_id" value="<?php echo $movimentacao->id; ?>">
-    <input type="hidden" id="status" name="status" value="1">
+    <input type="hidden" id="status" name="status" value="2">
 
     <div class="form-group margem-baixo">
         <label for="id" style="margin:0px"><b>ID: &nbsp;</b></label>
@@ -57,6 +57,11 @@
                value="<?php echo $movimentacao->motivo; ?>" size="80" readonly>
     </div>
     <div class="form-group margem-baixo">
+        <label for="observacoes"><b>Observações: &nbsp;</b></label>
+        <input type="text" id="observacoes" name="observacoes" class="sem-borda"
+               value="<?php echo $movimentacao->observacoes; ?>" size="80" readonly>
+    </div>
+    <div class="form-group margem-baixo">
         <label for="acompanhantes"><b>Acompanhantes: &nbsp;</b></label>
         <?php
             if ($movimentacao->acompanhantes){
@@ -72,18 +77,18 @@
         ?>
     </div>
     <div class="form-group margem-baixo">
-        <label for="observacoes"><b>Observações: &nbsp;</b></label>
-        <input type="text" id="observacoes" name="observacoes" 
-               value="<?php echo $movimentacao->observacoes; ?>" size="100"
+        <label for="cancelamento"><b>Motivo do cancelamento: &nbsp;</b></label>
+        <input type="text" id="cancelamento" name="cancelamento" 
+               value="<?php echo $movimentacao->cancelamento; ?>" size="100"
                autofocus>
     </div>
     <div class="form-group margem-baixo">
-        <label for="data_saida" style="margin:0px"><b>Data da Saída: &nbsp;</b></label>
+        <label for="data_saida" style="margin:0px"><b>Data do Cancelamento: &nbsp;</b></label>
         <input type="date" id="data_saida" name="data_saida" value="<?php echo date('Y-m-d'); ?>">
-        <label for="hora_saida" style="margin:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Hora da Saída: &nbsp;</b></label>
+        <label for="hora_saida" style="margin:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Hora do Cancelamento: &nbsp;</b></label>
         <input type="time" id="hora_saida" name="hora_saida" value="<?php echo date('H:i'); ?>">
     </div>
 
     <br>
-    <button type="submit" value="Finalizar" class="btn botao">Finalizar</button>
+    <button type="submit" value="Cancelar" class="btn botao">Cancelar Movimentação</button>
 </form>
