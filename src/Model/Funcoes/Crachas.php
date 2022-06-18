@@ -51,7 +51,7 @@ class Crachas
         $crachas = (new Cracha())->find($find, $params)->fetch(true);
 
         if (!$crachas){
-            $this->mensagem = 'Não existem crachás disponíveis.';
+            $this->mensagem = 'Não existem crachás disponíveis para essa unidade.';
             return false;
         }
 
