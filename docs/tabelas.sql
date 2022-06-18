@@ -109,6 +109,8 @@ CREATE TABLE `movimentacoes` (
   `motivo` varchar(200) DEFAULT NULL,
   `observacoes` varchar(200) DEFAULT NULL,
   `status` int DEFAULT '0' COMMENT '0 - Em aberto, 1 - Finalizado, 2 - Cancelado',
+  `cancelamento` varchar(200) DEFAULT NULL,
+  `unidade_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_movimentacoes_visitante_id_idx` (`visitante_id`),
   KEY `fk_movimentacoes_cracha_id_idx` (`cracha_id`),
@@ -116,14 +118,15 @@ CREATE TABLE `movimentacoes` (
   KEY `fk_mov_usuario_entrada_id_idx` (`usuario_entrada_id`),
   KEY `fk_mov_usuario_saida_id_idx` (`usuario_saida_id`),
   KEY `fk_mov_portaria_saida_id_idx` (`portaria_saida_id`),
+  KEY `fk_mov_unidade_id_idx` (`unidade_id`),
   CONSTRAINT `fk_mov_cracha_id` FOREIGN KEY (`cracha_id`) REFERENCES `crachas` (`id`),
   CONSTRAINT `fk_mov_portaria_entrada_id` FOREIGN KEY (`portaria_entrada_id`) REFERENCES `portarias` (`id`),
   CONSTRAINT `fk_mov_portaria_saida_id` FOREIGN KEY (`portaria_saida_id`) REFERENCES `portarias` (`id`),
+  CONSTRAINT `fk_mov_unidade_id` FOREIGN KEY (`unidade_id`) REFERENCES `unidades` (`id`),
   CONSTRAINT `fk_mov_usuario_entrada_id` FOREIGN KEY (`usuario_entrada_id`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `fk_mov_usuario_saida_id` FOREIGN KEY (`usuario_saida_id`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `fk_mov_visitante_id` FOREIGN KEY (`visitante_id`) REFERENCES `visitantes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 CREATE TABLE `portarias` (

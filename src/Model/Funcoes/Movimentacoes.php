@@ -42,6 +42,10 @@ class Movimentacoes
 
         $movimentacoes = (new Movimentacao())->find($find, $params)->fetch(true);
 
+        if (!$movimentacoes){
+            return false;
+        }
+
         // Trazer os registros do Visitante e do crachá da movimentação
         foreach($movimentacoes as $movimentacao){
             $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
@@ -61,6 +65,19 @@ class Movimentacoes
     public function carregar(int $id)
     {
         $this->movimentacao = (new Movimentacao())->findById($id);
+        $this->carregarDados();
+    }
+
+    private function carregarDados()
+    {
+        $this->movimentacao->visitante = (new Visitante())->findById($this->movimentacao->visitante_id);
+        $this->movimentacao->visitante->empresa = (new Empresa())->findById($this->movimentacao->visitante->empresa_id);
+        $this->movimentacao->cracha = (new Cracha())->findById($this->movimentacao->cracha_id);
+
+        $acompanhantes = new Acompanhantes();
+        $acompanhantes->listar($this->movimentacao->id);
+        $this->movimentacao->acompanhantes = $acompanhantes->obter();
+        unset($acompanhantes);
     }
 
     /**
@@ -114,6 +131,18 @@ class Movimentacoes
             $retorno = false;
         }
 
+        if ($this->movimentacao->status == 1){
+            if (!dataValida($this->movimentacao->data_saida)){
+                $this->mensagem .= 'Data incorreta <br>';
+                $retorno = false;
+            }
+    
+            if (!horaValida($this->movimentacao->hora_saida)){
+                $this->mensagem .= 'Hora incorreta <br>';
+                $retorno = false;
+            }
+        }
+
         if (!$retorno){
             $this->mensagem = substr($this->mensagem, 0, -4);
         }
@@ -136,14 +165,28 @@ class Movimentacoes
         $this->movimentacao->placa = verificarString($dados['placa']);
         $this->movimentacao->visitante_id = filter_var($dados['visitante_id'], FILTER_VALIDATE_INT);
         $this->movimentacao->cracha_id = filter_var($dados['cracha_id'], FILTER_VALIDATE_INT);
-        $this->movimentacao->usuario_entrada_id = $_SESSION['usuID'];
+        $this->movimentacao->usuario_entrada_id = filter_var($_SESSION['usuID'], FILTER_VALIDATE_INT);
         $this->movimentacao->data_entrada = $dados['data_entrada'];
         $this->movimentacao->hora_entrada = $dados['hora_entrada'];
         $this->movimentacao->portaria_entrada_id = filter_var($_SESSION['porID'], FILTER_VALIDATE_INT);
         $this->movimentacao->contato = verificarString($dados['contato']);
         $this->movimentacao->motivo = verificarString($dados['motivo']);
         $this->movimentacao->observacoes = verificarString($dados['observacoes']);
-        $this->movimentacao->status = 0;
+        $this->movimentacao->status = filter_var($dados['status'], FILTER_VALIDATE_INT);
+        $this->movimentacao->unidade_id = $_SESSION['uniID'];
+
+        if ($this->movimentacao->status == 1){
+            // Está finalizando a movimentação
+            $this->movimentacao->usuario_saida_id = filter_var($_SESSION['usuID'], FILTER_VALIDATE_INT);
+            $this->movimentacao->portaria_saida_id = filter_var($_SESSION['porID'], FILTER_VALIDATE_INT);
+            $this->movimentacao->data_saida = $dados['data_saida'];
+            $this->movimentacao->hora_saida = $dados['hora_saida'];
+        }
+
+        if ($this->movimentacao->status == 2){
+            // Está cancelando a movimentação
+            $this->movimentacao->cancelamento = verificarString($dados['cancelamento']);
+        }
 
         if (!$this->validarCampos()){
             return false;
@@ -164,7 +207,7 @@ class Movimentacoes
 
     public function existemAcompanhantes(array $dados)
     {
-        return is_array($dados['nome']);
+        return isset($dados['nome']);
     }
 
     public function ajustarAcompanhantes(array $dados)

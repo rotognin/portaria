@@ -183,4 +183,20 @@ class Crachas
 
         return true;
     }
+
+    public function liberar(int $cracha_id)
+    {
+        $this->cracha = (new Cracha())->findById($cracha_id);
+
+        if ($this->cracha->movimentacao_id > 0){
+            $this->cracha->movimentacao_id = 0;
+
+            if (!$this->gravar()){
+                $this->mensagem = "Não foi possível liberar o crachá " . $this->cracha->identificacao;
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

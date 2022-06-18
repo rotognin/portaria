@@ -3,12 +3,13 @@
       action="index.php?control=movimentacao&action=<?php echo $acao; ?>">
     <input type="hidden" id="_token" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
     <input type="hidden" id="movimentacao_id" name="movimentacao_id" value="0">
+    <input type="hidden" id="status" name="status" value="0">
 
     <div class="form-group margem-baixo">
         <label for="id" style="margin:0px"><b>ID: &nbsp;</b></label>
         <input type="number" id="id" name="id" readonly 
                value="<?php echo ($movimentacao->id ?? '0'); ?>" 
-               size="5">
+               size="5" class="sem-borda">
     </div>
     <div class="form-group margem-baixo">
         <label for="empresa_id" style="margin:0px"><b>Empresa: &nbsp;</b></label>

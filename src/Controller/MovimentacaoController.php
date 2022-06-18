@@ -17,7 +17,8 @@ class MovimentacaoController extends Controller
         $movimentacoes = new Movimentacoes();
 
         $filtros = array(
-            'status' => 0
+            'status' => 0,
+            'unidade_id' => $_SESSION['uniID']
         );
 
         $movimentacoes->listar($filtros);
@@ -68,34 +69,30 @@ class MovimentacaoController extends Controller
             exit;
         }
 
-        $view = ($novo) ? 'novo' : 'alterar';
-
         $movimentacao = new Movimentacoes();
         if (!$movimentacao->dados($post)){
             criarCsrf();
-            parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+            parent::view('movimentacao.novo', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
             exit;
         }
 
         if ($movimentacao->existemAcompanhantes($post)){
             if (!$movimentacao->ajustarAcompanhantes($post)){
                 criarCsrf();
-                parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+                parent::view('movimentacao.novo', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
                 exit;
             }
         }
 
         if ($movimentacao->gravar()){
-            $mensagem = ($novo) ? 'Movimentação cadastrada com sucesso' : 'Movimentação atualizada com sucesso';
+            $mensagem = 'Movimentação cadastrada com sucesso';
 
-            if ($novo){
-                $cracha = new Crachas();
-                if (!$cracha->atribuir($post['cracha_id'], $movimentacao->obterId())){
-                    $mensagem .= '<br>' . $cracha->mensagem;
-                }
+            $cracha = new Crachas();
+            if (!$cracha->atribuir($post['cracha_id'], $movimentacao->obterId())){
+                $mensagem .= '<br>' . $cracha->mensagem;
             }
 
-            if ($novo && $movimentacao->existemAcompanhantes($post)){
+            if ($movimentacao->existemAcompanhantes($post)){
                 $post['movimentacao_id'] = $movimentacao->obterId();
 
                 if (!$movimentacao->gravarAcompanhantes($post)){
@@ -106,7 +103,7 @@ class MovimentacaoController extends Controller
             self::inicio([], [], $mensagem);
         } else {
             criarCsrf();
-            parent::view('movimentacao.' . $view, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+            parent::view('movimentacao.novo', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
         }
     }
 
@@ -128,21 +125,36 @@ class MovimentacaoController extends Controller
         $movimentacao = new Movimentacoes();
         $movimentacao->carregar($movimentacao_id);
 
-        $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
-        $movimentacao->visitante->empresa = (new Empresa())->findById($movimentacao->visitante->empresa_id);
-        $movimentacao->cracha = (new Cracha())->findById($movimentacao->cracha_id);
-
-        $acompanhantes = new Acompanhantes();
-        $acompanhantes->listar($movimentacao->id);
-        $movimentacao->acompanhantes = $acompanhantes->obter();
-
         criarCsrf();
         parent::view('movimentacao.saida', ['movimentacao' => $movimentacao->objeto()]);
     }
 
-    public static function finalizar(array $post, array $get)
+    public static function finalizar(array $post, array $get, string $mensagem = '')
     {
+        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+            parent::logout();
+            exit;
+        }
 
+        $movimentacao = new Movimentacoes();
+        if (!$movimentacao->dados($post)){
+            criarCsrf();
+            parent::view('movimentacao.saida', ['mensagem' => $movimentacao->mensagem, $movimentacao->objeto()]);
+            exit;
+        }
+
+        if ($movimentacao->gravar()){
+            $mensagem = 'Movimentação finalizada!';
+
+            $cracha = new Crachas();
+            if (!$cracha->liberar($post['cracha_id'])){
+                $mensagem .= ' ' . $cracha->mensagem;
+            }
+
+            self::inicio([], [], $mensagem);
+        } else {
+            criarCsrf();
+            parent::view('movimentacao.saida', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+        }
     }
-
 }
