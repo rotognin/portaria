@@ -1,5 +1,5 @@
 <form class="col-12" method="post" 
-      action="index.php?control=movimentacao&action=inicio">
+      action="index.php?control=<?php echo ($ambiente == 'admin') ? 'administracao' : 'movimentacao'; ?>&action=inicio">
     <input type="hidden" id="_token" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
     <input type="hidden" id="movimentacao_id" name="movimentacao_id" value="<?php echo $movimentacao->id; ?>">
     <input type="hidden" id="status" name="status" value="1">

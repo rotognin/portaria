@@ -2,10 +2,32 @@
 
 namespace Src\Controller;
 
+use Src\Model\Funcoes\Movimentacoes;
+
 class AdministracaoController extends Controller
 {
-    public static function inicio()
+    public static function inicio(array $post, array $get)
     {
-        parent::view('admin.index');
+        if (isset($post['data_filtrar'])){
+            if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+                parent::logout();
+                exit;
+            }
+
+            $data = $post['data_filtrar'];
+        } else {
+            $data = date('Y-m-d');
+        }
+
+        $movimentacoes = new Movimentacoes();
+
+        $filtros = array(
+            'data_entrada' => $data
+        );
+
+        $movimentacoes->listar($filtros);
+
+        criarCsrf();
+        parent::view('admin.index', ['movimentacoes' => $movimentacoes->obter(), 'data_filtrar' => $data]);
     }
 }

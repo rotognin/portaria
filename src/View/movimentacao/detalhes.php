@@ -6,7 +6,12 @@
         <?php 
             $titulo = 'Detalhes da movimentação';
             $exibirTopo = false;
-            require_once 'html/movimentacao/topo.php';
+
+            if ($ambiente == 'admin'){
+                require_once 'html/admin/topo.php';
+            } else {
+                require_once 'html/movimentacao/topo.php';
+            }
         ?>
 
         <?php include_once 'lib/mensagem.php'; ?>

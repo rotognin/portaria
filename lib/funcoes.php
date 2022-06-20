@@ -5,7 +5,7 @@
  */
 function ajustarData(string $dataOrigem)
 {
-    if ($dataOrigem == ''){
+    if ($dataOrigem == '' || $dataOrigem == 'NULL'){
         return '';
     }
     
@@ -19,9 +19,15 @@ function ajustarData(string $dataOrigem)
  */
 function ajustarHora(string $dataHoraOrigem)
 {
+    if ($dataHoraOrigem == '' || $dataHoraOrigem == 'NULL'){
+        return '';
+    }
+
     $dataHora = explode(' ', $dataHoraOrigem);
     $hora     = explode(':', $dataHora[1]);
-    return $hora[0] . ':' . $hora[1];
+    $horaAjustada = $hora[0] . ':' . $hora[1];
+
+    return ($horaAjustada != '00:00') ? $horaAjustada : '';
 }
 
 /**

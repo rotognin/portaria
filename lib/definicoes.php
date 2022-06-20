@@ -23,6 +23,12 @@ define ("STATUS", array(
     '3' => 'Bloqueado'
 ));
 
+define ("STATUS_MOVIMENTACAO", array(
+    '0' => 'Em aberto',
+    '1' => 'Finalizado',
+    '2' => 'Cancelado'
+));
+
 define ("STATUS_ATIVO", 0);
 define ("STATUS_INATIVO", 1);
 define ("STATUS_CONSULTA", 2);

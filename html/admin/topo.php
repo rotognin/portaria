@@ -17,5 +17,4 @@
                 </div>
             </div>
         </nav>
-        <br>
         <h4><?php echo $titulo; ?></h4>

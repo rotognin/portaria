@@ -6,6 +6,7 @@ use Src\Model\Entidades\Movimentacao;
 use Src\Model\Entidades\Visitante;
 use Src\Model\Entidades\Cracha;
 use Src\Model\Entidades\Empresa;
+use Src\Model\Entidades\Unidade;
 use Src\Model\Funcoes\Acompanhantes;
 
 class Movimentacoes
@@ -51,6 +52,7 @@ class Movimentacoes
             $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
             $movimentacao->visitante->empresa = (new Empresa())->findById($movimentacao->visitante->empresa_id);
             $movimentacao->cracha = (new Cracha())->findById($movimentacao->cracha_id);
+            $movimentacao->unidade = (new Unidade())->findById($movimentacao->unidade_id);
 
             $acompanhantes = new Acompanhantes();
             $acompanhantes->listar($movimentacao->id);
@@ -73,6 +75,7 @@ class Movimentacoes
         $this->movimentacao->visitante = (new Visitante())->findById($this->movimentacao->visitante_id);
         $this->movimentacao->visitante->empresa = (new Empresa())->findById($this->movimentacao->visitante->empresa_id);
         $this->movimentacao->cracha = (new Cracha())->findById($this->movimentacao->cracha_id);
+        $this->movimentacao->unidade = (new Unidade())->findById($this->movimentacao->unidade_id);
 
         $acompanhantes = new Acompanhantes();
         $acompanhantes->listar($this->movimentacao->id);
@@ -174,6 +177,8 @@ class Movimentacoes
             $this->movimentacao->contato = verificarString($dados['contato']);
             $this->movimentacao->motivo = verificarString($dados['motivo']);
             $this->movimentacao->unidade_id = $_SESSION['uniID'];
+            $this->movimentacao->data_saida = '0000-00-00';
+            $this->movimentacao->hora_saida = '00:00';
         }
 
         $this->movimentacao->observacoes = verificarString($dados['observacoes']);
