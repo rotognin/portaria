@@ -140,3 +140,7 @@ CREATE TABLE `portarias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='O campo status desse cadastro refere-se à portaria que pode estar em reformas ou não funcionando mais. 0 - Ativo, 1 - Inativo';
 
 
+INSERT INTO `portaria_db`.`usuarios`
+(`nome`, `login`, `senha`, `nivel`, `status`)
+VALUES
+('Administrador', 'admin', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1, 0);
