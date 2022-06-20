@@ -1,0 +1,24 @@
+{
+    "name": "rodrigo/portaria",
+    "description": "Controle de portaria",
+    "require": {
+        "coffeecode/datalayer": "1.1.*"
+    },
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        },
+        "files": [
+            "src/config.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Rodrigo Tognin"
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor/"
+    }
+}

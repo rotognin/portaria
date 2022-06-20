@@ -1,6 +1,5 @@
 teste.php
 error_log
 .vscode/
-composer.*
 vendor/
 log.txt
