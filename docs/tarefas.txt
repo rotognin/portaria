@@ -1,1 +1,6 @@
 - Futuramente pensar em agendar uma visita, reservando um crachá para o visitante.
+- Gerar relatório em PDF
+- Gerar gráficos (bibliotecas em JavaScript)
+- Envio de e-mails assim que um visitante entrar
+- Hospedagem do sistema - OK (hospedado)
+- Configurar Github Actions na hospedagem
