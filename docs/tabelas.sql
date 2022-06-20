@@ -23,6 +23,20 @@ CREATE TABLE `unidades` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `empresas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(60) DEFAULT NULL,
+  `documento` varchar(20) DEFAULT NULL,
+  `tipo` tinyint(1) DEFAULT NULL,
+  `endereco` varchar(60) DEFAULT NULL,
+  `complemento` varchar(60) DEFAULT NULL,
+  `cep` varchar(8) DEFAULT NULL,
+  `municipio` varchar(60) DEFAULT NULL,
+  `uf` varchar(2) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='O campo status poderá ser: 0 - Ativo, 1 - Inativo, 2 - Bloqueado (todos os visitantes dessa empresa não poderão entrar)';
+
 
 CREATE TABLE `visitantes` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -39,18 +53,6 @@ CREATE TABLE `visitantes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='O campo status do visitante poderá ser: 0 - Ativo, 1 - Inativo, 2 - Requer conferência, 3 - Bloqueado para visitas';
 
 
-CREATE TABLE `acompanhantes` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `movimentacao_id` int DEFAULT NULL,
-  `nome` varchar(60) DEFAULT NULL,
-  `documento` varchar(20) DEFAULT NULL,
-  `observacoes` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_acompanhante_movimentacoes_id_idx` (`movimentacao_id`),
-  CONSTRAINT `fk_acompanhante_movimentacoes_id` FOREIGN KEY (`movimentacao_id`) REFERENCES `movimentacoes` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Quem está acompanhando o visitante na hora da entrada';
-
-
 CREATE TABLE `crachas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `identificacao` varchar(40) NOT NULL,
@@ -63,20 +65,15 @@ CREATE TABLE `crachas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `empresas` (
+CREATE TABLE `portarias` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(60) DEFAULT NULL,
-  `documento` varchar(20) DEFAULT NULL,
-  `tipo` tinyint(1) DEFAULT NULL,
-  `endereco` varchar(60) DEFAULT NULL,
-  `complemento` varchar(60) DEFAULT NULL,
-  `cep` varchar(8) DEFAULT NULL,
-  `municipio` varchar(60) DEFAULT NULL,
-  `uf` varchar(2) DEFAULT NULL,
+  `descricao` varchar(45) NOT NULL,
+  `unidade_id` int DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='O campo status poderá ser: 0 - Ativo, 1 - Inativo, 2 - Bloqueado (todos os visitantes dessa empresa não poderão entrar)';
-
+  PRIMARY KEY (`id`),
+  KEY `fk_portaria_unidade_id_idx` (`unidade_id`),
+  CONSTRAINT `fk_portaria_unidade_id` FOREIGN KEY (`unidade_id`) REFERENCES `unidades` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='O campo status desse cadastro refere-se à portaria que pode estar em reformas ou não funcionando mais. 0 - Ativo, 1 - Inativo';
 
 CREATE TABLE `logins` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -90,7 +87,6 @@ CREATE TABLE `logins` (
   CONSTRAINT `fk_login_portaria_id` FOREIGN KEY (`portaria_id`) REFERENCES `portarias` (`id`),
   CONSTRAINT `fk_login_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE `movimentacoes` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -129,15 +125,16 @@ CREATE TABLE `movimentacoes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `portarias` (
+CREATE TABLE `acompanhantes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(45) NOT NULL,
-  `unidade_id` int DEFAULT NULL,
-  `status` tinyint(1) DEFAULT NULL,
+  `movimentacao_id` int DEFAULT NULL,
+  `nome` varchar(60) DEFAULT NULL,
+  `documento` varchar(20) DEFAULT NULL,
+  `observacoes` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_portaria_unidade_id_idx` (`unidade_id`),
-  CONSTRAINT `fk_portaria_unidade_id` FOREIGN KEY (`unidade_id`) REFERENCES `unidades` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='O campo status desse cadastro refere-se à portaria que pode estar em reformas ou não funcionando mais. 0 - Ativo, 1 - Inativo';
+  KEY `fk_acompanhante_movimentacoes_id_idx` (`movimentacao_id`),
+  CONSTRAINT `fk_acompanhante_movimentacoes_id` FOREIGN KEY (`movimentacao_id`) REFERENCES `movimentacoes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Quem está acompanhando o visitante na hora da entrada';
 
 
 INSERT INTO `portaria_db`.`usuarios`
