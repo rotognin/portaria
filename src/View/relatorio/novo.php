@@ -6,7 +6,7 @@
         <?php 
             $titulo = 'Relatório de movimentações';
             $exibirTopo = false;
-            require_once 'html/movimentacao/topo.php';
+            require_once 'html/admin/topo.php';
         ?>
 
         <?php include_once ('lib/mensagem.php'); ?>

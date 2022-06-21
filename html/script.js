@@ -81,3 +81,13 @@ function adicionarAcompanhante(){
     $("#nro_" + qtdAcompanhantes).after(inserirAcompanhanteHTML(nroAcompanhante));
     return;
 }
+
+function validarSituacao(){
+    if (!$("#emaberto").prop("checked") && !$("#finalizado").prop("checked") && !$("#cancelado").prop("checked")){
+        $("#mensagem").html("Favor selecionar pelo menos uma situação.");
+        $("#mensagem").show();
+        return false;
+    }
+
+    return true;
+}
