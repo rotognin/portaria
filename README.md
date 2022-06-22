@@ -6,6 +6,8 @@ Este sistema consiste em um controle de visitas em uma empresa, com suporte a ma
 
 No registro de movimentação de entrada, o visitante irá receber um crachá identificado e deverá devolvê-lo na saída. Poderá informar o nome de um contato na empresa com quem irá tratar, além de cadastrar acompanhantes que estiverem junto com o mesmo.
 
+- Estou implementando o framework de testes PHPUnit, e adaptando algumas funções para serem testáveis.
+
 ## Ambientes:
 
 - <strong>Administrativo:</strong> ambiente voltado à gerência, para o cadastro de usuários (administradores e clientes), Unidades (matriz e filiais), Portarias da Unidade, Crachás a serem disponibilizados, acompanhamento das movimentações e relatórios. Apenas usuários cadastrados como <em>Administradores</em> podem acessar esse ambiente.
