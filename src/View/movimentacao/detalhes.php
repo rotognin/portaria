@@ -3,6 +3,8 @@
 <?php include 'html/head.php'; ?>
 <body>
     <div class="container-fluid">
+        <h3>Detalhes da movimentação</h3>
+        <br>
         <?php require('formulariodetalhes.php'); ?>
     </div>
 

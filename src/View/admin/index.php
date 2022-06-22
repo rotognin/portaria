@@ -45,7 +45,7 @@
                             echo '<td>' . ajustarData($movimentacao->data_saida) . ' ' . ajustarHora('00/00/0000' . ' ' . $movimentacao->hora_saida) . '</td>';
                             echo '<td>' . STATUS_MOVIMENTACAO[$movimentacao->status] . '</td>';
                             echo '<td>';
-                                echo '<form method="post" target="_blank" action="index.php?control=movimentacao&action=detalhes&ambiente=admin">';
+                                echo '<form method="post" target="_blank" action="index.php?control=movimentacao&action=detalhes">';
                                     echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
                                     echo '<input type="hidden" name="movimentacao_id" value="' . $movimentacao->id . '">';
                                     echo '<input type="submit" style="margin-left: 10px" value="Detalhes" class="btn botao btn-sm float-left">';

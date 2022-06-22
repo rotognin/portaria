@@ -26,7 +26,7 @@
                     <th>Unidade</th>
                     <th>ID Movimentação</th>
                     <th>Status</th>
-                    <th></th>
+                    <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +39,18 @@
                             echo '<td>' . $cracha->id . '</td>';
                             echo '<td>' . $cracha->identificacao . '</td>';
                             echo '<td>' . $cracha->unidade->nome . '</td>';
-                            echo '<td>' . $cracha->movimentacao_id . '</td>';
+                            echo '<td>';
+                            if ($cracha->movimentacao_id > 0){
+                                echo '<form method="post" target="_blank" action="index.php?control=movimentacao&action=detalhes">';
+                                    echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
+                                    echo '<input type="hidden" name="movimentacao_id" value="' . $cracha->movimentacao_id . '">';
+                                    echo $cracha->movimentacao_id;
+                                    echo '<input type="submit" style="margin-left: 10px" value="Detalhes" class="btn botao btn-sm">';
+                                echo '</form>';
+                            } else {
+                                echo '0';
+                            }
+                            echo '</td>';
 
                             echo '<td>';
                                 echo '<form method="post" action="index.php?control=cracha&action=' . $acao . '">';

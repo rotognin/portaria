@@ -7,6 +7,8 @@ use Src\Model\Entidades\Visitante;
 use Src\Model\Entidades\Cracha;
 use Src\Model\Entidades\Empresa;
 use Src\Model\Entidades\Unidade;
+use Src\Model\Entidades\Usuario;
+use Src\Model\Entidades\Portaria;
 use Src\Model\Funcoes\Acompanhantes;
 
 class Movimentacoes
@@ -47,18 +49,7 @@ class Movimentacoes
             return false;
         }
 
-        // Trazer os registros do Visitante e do crachá da movimentação
-        foreach($movimentacoes as $movimentacao){
-            $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
-            $movimentacao->visitante->empresa = (new Empresa())->findById($movimentacao->visitante->empresa_id);
-            $movimentacao->cracha = (new Cracha())->findById($movimentacao->cracha_id);
-            $movimentacao->unidade = (new Unidade())->findById($movimentacao->unidade_id);
-
-            $acompanhantes = new Acompanhantes();
-            $acompanhantes->listar($movimentacao->id);
-            $movimentacao->acompanhantes = $acompanhantes->obter();
-            unset($acompanhantes);
-        }
+        $movimentacoes = $this->buscarRegistros($movimentacoes);
 
         $this->movimentacoes = $movimentacoes;
         return true;
@@ -79,15 +70,7 @@ class Movimentacoes
     private function buscarRegistros(array $movimentacoes)
     {
         foreach($movimentacoes as $movimentacao){
-            $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
-            $movimentacao->visitante->empresa = (new Empresa())->findById($movimentacao->visitante->empresa_id);
-            $movimentacao->cracha = (new Cracha())->findById($movimentacao->cracha_id);
-            $movimentacao->unidade = (new Unidade())->findById($movimentacao->unidade_id);
-
-            $acompanhantes = new Acompanhantes();
-            $acompanhantes->listar($movimentacao->id);
-            $movimentacao->acompanhantes = $acompanhantes->obter();
-            unset($acompanhantes);
+            $movimentacao = $this->carregarDados($movimentacao);
         }
 
         return $movimentacoes;
@@ -95,21 +78,30 @@ class Movimentacoes
 
     public function carregar(int $id)
     {
-        $this->movimentacao = (new Movimentacao())->findById($id);
-        $this->carregarDados();
+        $movimentacao = (new Movimentacao())->findById($id);
+        $this->movimentacao = $this->carregarDados($movimentacao);
     }
 
-    private function carregarDados()
+    private function carregarDados(Movimentacao $movimentacao)
     {
-        $this->movimentacao->visitante = (new Visitante())->findById($this->movimentacao->visitante_id);
-        $this->movimentacao->visitante->empresa = (new Empresa())->findById($this->movimentacao->visitante->empresa_id);
-        $this->movimentacao->cracha = (new Cracha())->findById($this->movimentacao->cracha_id);
-        $this->movimentacao->unidade = (new Unidade())->findById($this->movimentacao->unidade_id);
+        $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
+        $movimentacao->visitante->empresa = (new Empresa())->findById($movimentacao->visitante->empresa_id);
+        $movimentacao->cracha = (new Cracha())->findById($movimentacao->cracha_id);
+        $movimentacao->unidade = (new Unidade())->findById($movimentacao->unidade_id);
+        $movimentacao->usuario_entrada = (new Usuario())->findById($movimentacao->usuario_entrada_id);
+        $movimentacao->portaria_entrada = (new Portaria())->findById($movimentacao->portaria_entrada_id);
+
+        if ($movimentacao->status == 1){
+            $movimentacao->usuario_saida = (new Usuario())->findById($movimentacao->usuario_saida_id);
+            $movimentacao->portaria_saida = (new Portaria())->findById($movimentacao->portaria_saida_id);
+        }
 
         $acompanhantes = new Acompanhantes();
-        $acompanhantes->listar($this->movimentacao->id);
-        $this->movimentacao->acompanhantes = $acompanhantes->obter();
+        $acompanhantes->listar($movimentacao->id);
+        $movimentacao->acompanhantes = $acompanhantes->obter();
         unset($acompanhantes);
+
+        return $movimentacao;
     }
 
     /**

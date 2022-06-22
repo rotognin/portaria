@@ -38,6 +38,14 @@ O projeto está em constante atualização, sendo adicionadas funcionalidades e 
 
 - Geração de relatórios em PDF
 - Envio de e-mails para a empresa quando o visitante der entrada
-- Criação de parâmetros ("Acompanhante pode sair antes?", "Crachás específicos para acompanhantes", etc...)
+- Criação de parâmetros:
+  - Acompanhante pode sair antes?
+  - Atribuir crachás específicos para acompanhantes
+  - Previsão de saída (exibirá mensagem ao passar do horário previsto)
 - Exibir mais informações nos detalhes de uma movimentação
 - Geração de gráficos
+- Envio de mensagens entre os ambientes
+- Na administração:
+  - verificar quais portarias estão ativas no momento
+  - exibir movimentações não finalizadas de dias anteriores
+- Criação de um log de acompanhamento das movimentações

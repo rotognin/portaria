@@ -5,6 +5,7 @@
     <div class="container-fluid">
         <?php 
             $titulo = 'Visitantes da Empresa';
+            $exibirTopo = false;
             require_once 'html/movimentacao/topo.php';
         ?>
         <p><i>

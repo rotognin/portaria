@@ -42,7 +42,7 @@
                                 echo '</form>';
                             echo '</td>';
                             echo '<td>';
-                                echo '<form method="post" action="index.php?control=movimentacao&action=detalhes">';
+                                echo '<form method="post" target="_blank" action="index.php?control=movimentacao&action=detalhes">';
                                     echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
                                     echo '<input type="hidden" name="movimentacao_id" value="' . $movimentacao->id . '">';
                                     echo '<input type="submit" style="margin-left: 10px" value="Detalhes" class="btn botao btn-sm float-left">';

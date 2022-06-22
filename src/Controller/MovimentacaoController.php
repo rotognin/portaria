@@ -120,19 +120,12 @@ class MovimentacaoController extends Controller
             exit;
         }
 
-        if (!isset($get['ambiente'])){
-            $ambiente = 'movimentacao';
-        } else {
-            $ambiente = $get['ambiente'];
-        }
-
         $movimentacao_id = filter_var($post['movimentacao_id'], FILTER_VALIDATE_INT);
 
         $movimentacao = new Movimentacoes();
         $movimentacao->carregar($movimentacao_id);
 
-        criarCsrf();
-        parent::view('movimentacao.detalhes', ['movimentacao' => $movimentacao->objeto(), 'ambiente' => $ambiente]);
+        parent::view('movimentacao.detalhes', ['movimentacao' => $movimentacao->objeto()]);
     }
 
     public static function saida(array $post, array $get)
