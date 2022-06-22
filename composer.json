@@ -7,10 +7,14 @@
     "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "Src\\": "src/"
+            "Src\\": "src/",
+            "Lib\\": "lib/"
         },
         "files": [
             "src/config.php"
+        ],
+        "classmap": [
+            "src/"
         ]
     },
     "authors": [
@@ -20,5 +24,8 @@
     ],
     "config": {
         "vendor-dir": "vendor/"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9"
     }
 }

@@ -3,6 +3,7 @@
 namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Empresa;
+use Lib\Verificacoes;
 
 class Empresas
 {
@@ -102,7 +103,7 @@ class Empresas
             $this->novo = true;
         }
 
-        $this->empresa->nome = verificarString($dados['nome']);
+        $this->empresa->nome = Verificacoes::verificarString($dados['nome']);
         $this->empresa->documento = $dados['documento'];
         $this->empresa->tipo = $dados['tipo'];
         $this->empresa->endereco = $dados['endereco'];
