@@ -39,10 +39,22 @@ class RelatorioController extends Controller
 
         $movimentacoes = new Movimentacoes();
 
-        // Filtrar as opções escolhidas...
-        self::novo($post, $get, 'Teste... OK');
+        $filtros = self::montarFiltros($post);
+
+        $campos = 'data_inicial=' . $post['data_inicial'] . '&data_final=' . $post['data_final'];
+        $movimentacoes->relatorio($filtros, $campos);
+
+        parent::view('relatorio.movimentacoes', ['movimentacoes' => $movimentacoes->obter()]);
     }
 
+    private static function montarFiltros(array $array)
+    {
+        $filtros = '(data_entrada BETWEEN :data_inicial AND :data_final) AND (';
 
+        $filtros .= (array_key_exists('emaberto', $array)) ? '(status = 0) OR ' : '';
+        $filtros .= (array_key_exists('finalizado', $array)) ? '(status = 1) OR ' : '';
+        $filtros .= (array_key_exists('cancelado', $array)) ? '(status = 2) OR ' : '';
 
+        return substr($filtros, 0, -4) . ')';
+    }
 }

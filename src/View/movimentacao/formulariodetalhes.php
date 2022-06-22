@@ -1,6 +1,5 @@
 <form class="col-12" method="post" 
       action="index.php?control=<?php echo ($ambiente == 'admin') ? 'administracao' : 'movimentacao'; ?>&action=inicio">
-    <input type="hidden" id="_token" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
     <input type="hidden" id="movimentacao_id" name="movimentacao_id" value="<?php echo $movimentacao->id; ?>">
     <input type="hidden" id="status" name="status" value="1">
 
@@ -9,6 +8,11 @@
         <input type="number" id="id" name="id" readonly 
                value="<?php echo ($movimentacao->id ?? '0'); ?>" 
                size="5" class="sem-borda">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="descricao_status" style="margin:0px"><b>Situação: &nbsp;</b></label>
+        <input type="text" id="descricao_status" name="descricao_status" readonly
+               value="<?php echo STATUS_MOVIMENTACAO[$movimentacao->status]; ?>" 
+               size="15" class="sem-borda">
     </div>
     <div class="form-group margem-baixo">
         <label for="empresa_id" style="margin:0px"><b>Empresa: &nbsp;</b></label>
@@ -78,6 +82,16 @@
                readonly>
     </div>
 
-    <br>
-    <button type="submit" value="Voltar" class="btn botao">Voltar</button>
+    <?php
+        if ($movimentacao->status == 2){
+        ?>
+            <div class="form-group margem-baixo">
+                <label for="cancelamento"><b>Motivo do cancelamento: &nbsp;</b></label>
+                <input type="text" id="cancelamento" name="cancelamento" class="sem-borda"
+                    value="<?php echo $movimentacao->cancelamento; ?>" size="100" readonly>
+            </div>
+        <?php
+        }
+    ?>
+    <!--button type="submit" value="Voltar" class="btn botao">Voltar</button-->
 </form>

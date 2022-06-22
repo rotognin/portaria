@@ -4,18 +4,10 @@
 <body>
     <div class="container-fluid">
         <?php 
-            $titulo = 'Página principal da administração';
+            $titulo = 'Relatório de movimentações';
+            $exibirTopo = false;
             require_once 'html/admin/topo.php';
         ?>
-
-        <form method="post" action="index.php?control=administracao&action=inicio">
-            <input type="hidden" id="_token" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
-            <div class="form-group margem-baixo">
-                <label for="data_filtrar" style="margin:0px"><b>Dia: &nbsp;</b></label>
-                <input type="date" id="data_filtrar" name="data_filtrar" value="<?php echo $data_filtrar ?>">
-                <button type="submit" value="Filtrar" class="btn botao">Filtrar</button>
-            </div>
-        </form>
 
         <table class="table table-hover table-sm">
             <thead class="fundo-azul branco">
@@ -55,7 +47,7 @@
                     }
                 } else {
                     echo '<tr>';
-                        echo '<td colspan="9"><i>Nenhuma movimentação em aberto...</i></td>';
+                        echo '<td colspan="9"><i>Nenhuma movimentação encontrada...</i></td>';
                     echo '</tr>';
                 }
             ?>
@@ -63,6 +55,7 @@
         </table>
     </div>
 
+    <script src="html/script.js"></script>
     <?php include 'html/scriptsjs.php'; ?>
 </body>
 </html>

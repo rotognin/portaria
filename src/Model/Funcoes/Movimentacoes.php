@@ -26,7 +26,7 @@ class Movimentacoes
      * Listar as movimentações.
      * Passar um array com filtros a serem considerados
      */
-    public function listar(array $filtros, string $filtro_especifico = '')
+    public function listar(array $filtros)
     {
         $params = '';
         $find = '';
@@ -62,6 +62,35 @@ class Movimentacoes
 
         $this->movimentacoes = $movimentacoes;
         return true;
+    }
+
+    public function relatorio(string $filtros, string $campos)
+    {
+        $movimentacoes = (new Movimentacao())->find($filtros, $campos)->fetch(true);
+
+        if (!$movimentacoes){
+            return false;
+        }
+        
+        $this->movimentacoes = $this->buscarRegistros($movimentacoes);
+        return true;
+    }
+
+    private function buscarRegistros(array $movimentacoes)
+    {
+        foreach($movimentacoes as $movimentacao){
+            $movimentacao->visitante = (new Visitante())->findById($movimentacao->visitante_id);
+            $movimentacao->visitante->empresa = (new Empresa())->findById($movimentacao->visitante->empresa_id);
+            $movimentacao->cracha = (new Cracha())->findById($movimentacao->cracha_id);
+            $movimentacao->unidade = (new Unidade())->findById($movimentacao->unidade_id);
+
+            $acompanhantes = new Acompanhantes();
+            $acompanhantes->listar($movimentacao->id);
+            $movimentacao->acompanhantes = $acompanhantes->obter();
+            unset($acompanhantes);
+        }
+
+        return $movimentacoes;
     }
 
     public function carregar(int $id)
@@ -245,7 +274,7 @@ class Movimentacoes
     {
         foreach ($dados['nome'] as $codigo => $nome){
             $acompanhante = new Acompanhantes();
-            if (!$acompanhante->dados(array (
+            if (!$acompanhante->dados(array(
                     'id' => 0,
                     'movimentacao_id' => $dados['movimentacao_id'],
                     'nome' => $dados['nome'][$codigo],
