@@ -5,8 +5,8 @@
 
     <div class="form-group margem-baixo">
         <label style="margin:0px"><b>Período: &nbsp;</b></label>
-        <input type="date" id="data_entrada" name="data_entrada" value="<?php echo date('Y-m-d'); ?>">
-        <input type="date" id="data_saida" name="data_saida" value="<?php echo date('Y-m-d'); ?>">
+        <input type="date" id="data_inicial" name="data_inicial" value="<?php echo date('Y-m-d'); ?>">
+        <input type="date" id="data_final" name="data_final" value="<?php echo date('Y-m-d'); ?>">
     </div>
 
     <div class="form-group">

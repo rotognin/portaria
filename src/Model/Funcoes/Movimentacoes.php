@@ -26,7 +26,7 @@ class Movimentacoes
      * Listar as movimentações.
      * Passar um array com filtros a serem considerados
      */
-    public function listar(array $filtros)
+    public function listar(array $filtros, string $filtro_especifico = '')
     {
         $params = '';
         $find = '';
