@@ -1,0 +1,2 @@
+- Trocar todas as chamadas para as funções por chamadas estáticas à classe Verificacoes
+- Após isso, excluir o arquivo funcoes.php
