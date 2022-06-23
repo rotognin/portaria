@@ -33,7 +33,7 @@
                             echo '<td>' . $movimentacao->visitante->nome . '</td>';
                             echo '<td>' . $movimentacao->visitante->empresa->nome . '</td>';
                             echo '<td>' . $movimentacao->cracha->identificacao . '</td>';
-                            echo '<td>' . ajustarData($movimentacao->data_entrada) . ' ' . ajustarHora('00/00/0000' . ' ' . $movimentacao->hora_entrada) . '</td>';
+                            echo '<td>' . $movimentacao->ajustarDataEntrada() . ' ' . $movimentacao->ajustarHoraEntrada() . '</td>';
                             echo '<td>';
                                 echo '<form method="post" action="index.php?control=movimentacao&action=saida">';
                                     echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
