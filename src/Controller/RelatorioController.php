@@ -3,12 +3,13 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Movimentacoes;
+use Lib\Verificacoes;
 
 class RelatorioController extends Controller
 {
     public static function novo(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
         parent::view('relatorio.novo', ['mensagem' => $mensagem]);
     }
 

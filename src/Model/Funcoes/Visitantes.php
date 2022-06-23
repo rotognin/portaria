@@ -3,6 +3,7 @@
 namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Visitante;
+use Lib\Verificacoes;
 
 class Visitantes
 {
@@ -92,12 +93,12 @@ class Visitantes
             $this->novo = true;
         }
 
-        $this->visitante->nome = verificarString($dados['nome']);
-        $this->visitante->documento = verificarString($dados['documento']);
+        $this->visitante->nome = Verificacoes::verificarString($dados['nome']);
+        $this->visitante->documento = Verificacoes::verificarString($dados['documento']);
         $this->visitante->empresa_id = filter_var($dados['empresa_id'], FILTER_VALIDATE_INT);
-        $this->visitante->telefone = verificarString($dados['telefone']);
+        $this->visitante->telefone = Verificacoes::verificarString($dados['telefone']);
         $this->visitante->status = filter_var($dados['status'], FILTER_VALIDATE_INT);
-        $this->visitante->observacoes = verificarString($dados['observacoes']);
+        $this->visitante->observacoes = Verificacoes::verificarString($dados['observacoes']);
 
         if ($this->novo){
             $this->visitante->data_cadastro = date('Y-m-d');

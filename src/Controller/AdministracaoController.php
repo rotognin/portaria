@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Movimentacoes;
+use Lib\Verificacoes;
 
 class AdministracaoController extends Controller
 {
@@ -27,7 +28,7 @@ class AdministracaoController extends Controller
 
         $movimentacoes->listar($filtros);
 
-        criarCsrf();
+        Verificacoes::criarCsrf();
         parent::view('admin.index', ['movimentacoes' => $movimentacoes->obter(), 'data_filtrar' => $data]);
     }
 }

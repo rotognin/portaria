@@ -3,6 +3,7 @@
 namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Unidade;
+use Lib\Verificacoes;
 
 class Unidades
 {
@@ -106,12 +107,12 @@ class Unidades
             $this->novo = true;
         }
 
-        $this->unidade->nome = verificarString($dados['nome']);
-        $this->unidade->cnpj = verificarString($dados['cnpj']);
-        $this->unidade->endereco = verificarString($dados['endereco']);
-        $this->unidade->complemento = verificarString($dados['complemento']);
-        $this->unidade->municipio = verificarString($dados['municipio']);
-        $this->unidade->uf = verificarString($dados['uf']);
+        $this->unidade->nome = Verificacoes::verificarString($dados['nome']);
+        $this->unidade->cnpj = Verificacoes::verificarString($dados['cnpj']);
+        $this->unidade->endereco = Verificacoes::verificarString($dados['endereco']);
+        $this->unidade->complemento = Verificacoes::verificarString($dados['complemento']);
+        $this->unidade->municipio = Verificacoes::verificarString($dados['municipio']);
+        $this->unidade->uf = Verificacoes::verificarString($dados['uf']);
         $this->unidade->tipo = filter_var($dados['tipo'], FILTER_VALIDATE_INT);
 
         if ($this->novo){

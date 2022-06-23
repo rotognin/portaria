@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Usuarios;
+use Lib\Verificacoes;
 
 class UsuarioController extends Controller
 {
@@ -16,8 +17,7 @@ class UsuarioController extends Controller
             $mensagem = $usuarios->mensagem;
         }
 
-        criarCsrf();
-
+        Verificacoes::criarCsrf();
         parent::view('usuario.lista', ['usuarios' => $usuarios->obter(), 'mensagem' => $mensagem]);
     }
 
@@ -26,7 +26,7 @@ class UsuarioController extends Controller
      */
     public static function novo(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
         parent::view('usuario.novo', ['mensagem' => $mensagem]);
     }
 
@@ -51,7 +51,7 @@ class UsuarioController extends Controller
 
         $usuario = new Usuarios();
         if (!$usuario->dados($post)){
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('usuario.' . $view, ['mensagem' => $usuario->mensagem, 'usuario' => $usuario->objeto()]);
             exit;
         }
@@ -59,14 +59,15 @@ class UsuarioController extends Controller
         if ($usuario->gravar()){
             self::usuarios([], [], 'Usuário gravado com sucesso.');
         } else {
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('usuario.' . $view, ['mensagem' => $usuario->mensagem, 'usuario' => $usuario->objeto()]);
         }
     }
 
     public static function alterar(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
+        
         $id = filter_var($post['usuario_id'], FILTER_VALIDATE_INT);
         $usuario = new Usuarios();
         $usuario->carregar($id);

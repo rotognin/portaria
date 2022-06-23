@@ -4,6 +4,7 @@ namespace Src\Controller;
 
 use Src\Model\Funcoes\Portarias;
 use Src\Model\Funcoes\Unidades;
+use Lib\Verificacoes;
 
 class PortariaController extends Controller
 {
@@ -19,8 +20,7 @@ class PortariaController extends Controller
             exit;
         }
 
-        criarCsrf();
-
+        Verificacoes::criarCsrf();
         parent::view('portaria.selecionar', ['portarias' => $portarias->obter(), 'mensagem' => $mensagem]);
     }
 
@@ -36,8 +36,7 @@ class PortariaController extends Controller
             $portarias->listar();
         }
 
-        criarCsrf();
-
+        Verificacoes::criarCsrf();
         parent::view('portaria.lista', 
             ['portarias' => $portarias->obter() ?? false, 
              'mensagem'  => $mensagem,
@@ -49,7 +48,7 @@ class PortariaController extends Controller
      */
     public static function novo(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
 
         $unidades = new Unidades();
         $unidades->listar();
@@ -78,7 +77,7 @@ class PortariaController extends Controller
 
         $portaria = new Portarias();
         if (!$portaria->dados($post)){
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('portaria.' . $view, ['mensagem' => $portaria->mensagem, 'portaria' => $portaria->objeto()]);
             exit;
         }
@@ -86,14 +85,14 @@ class PortariaController extends Controller
         if ($portaria->gravar()){
             self::portarias([], [], 'Portaria gravada com sucesso.');
         } else {
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('portaria.' . $view, ['mensagem' => $portaria->mensagem, 'portaria' => $portaria->objeto()]);
         }
     }
 
     public static function alterar(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
         $id = filter_var($post['portaria_id'], FILTER_VALIDATE_INT);
         $portaria = new Portarias();
         $portaria->carregar($id);

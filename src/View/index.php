@@ -1,6 +1,10 @@
 <?php
 
-$_SESSION['usuId'] = 0;
+if (session_status() == PHP_SESSION_NONE){
+    session_start();
+}
+
+$_SESSION['usuID'] = 0;
 
 if (!isset($mensagem)){
     $mensagem = '';

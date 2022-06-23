@@ -8,6 +8,7 @@ use Src\Model\Funcoes\Movimentacoes;
 use Src\Model\Entidades\Visitante;
 use Src\Model\Entidades\Empresa;
 use Src\Model\Entidades\Cracha;
+use Lib\Verificacoes;
 
 class MovimentacaoController extends Controller
 {
@@ -23,13 +24,13 @@ class MovimentacaoController extends Controller
 
         $movimentacoes->listar($filtros);
 
-        criarCsrf();
+        Verificacoes::criarCsrf();
         parent::view('movimentacao.index', ['mensagem' => $mensagem, 'movimentacoes' => $movimentacoes->obter()]);
     }
 
     public static function novo(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
 
         $empresas = new Empresas();
 
@@ -71,14 +72,14 @@ class MovimentacaoController extends Controller
 
         $movimentacao = new Movimentacoes();
         if (!$movimentacao->dados($post)){
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('movimentacao.novo', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
             exit;
         }
 
         if ($movimentacao->existemAcompanhantes($post)){
             if (!$movimentacao->ajustarAcompanhantes($post)){
-                criarCsrf();
+                Verificacoes::criarCsrf();
                 parent::view('movimentacao.novo', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
                 exit;
             }
@@ -102,7 +103,7 @@ class MovimentacaoController extends Controller
 
             self::inicio([], [], $mensagem);
         } else {
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('movimentacao.novo', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
         }
     }
@@ -146,7 +147,7 @@ class MovimentacaoController extends Controller
         $movimentacao = new Movimentacoes();
         $movimentacao->carregar($movimentacao_id);
 
-        criarCsrf();
+        Verificacoes::criarCsrf();
         parent::view('movimentacao.saida', ['movimentacao' => $movimentacao->objeto()]);
     }
 
@@ -168,7 +169,7 @@ class MovimentacaoController extends Controller
         $movimentacao = new Movimentacoes();
         $movimentacao->carregar($movimentacao_id);
 
-        criarCsrf();
+        Verificacoes::criarCsrf();
         parent::view('movimentacao.cancelar', ['movimentacao' => $movimentacao->objeto()]);
     }
 
@@ -184,7 +185,7 @@ class MovimentacaoController extends Controller
 
         $movimentacao = new Movimentacoes();
         if (!$movimentacao->dados($post)){
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('movimentacao.' . $acao, ['mensagem' => $movimentacao->mensagem, $movimentacao->objeto()]);
             exit;
         }
@@ -199,7 +200,7 @@ class MovimentacaoController extends Controller
 
             self::inicio([], [], $mensagem);
         } else {
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('movimentacao.' . $acao, ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
         }
     }

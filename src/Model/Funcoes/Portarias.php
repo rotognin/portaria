@@ -4,6 +4,7 @@ namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Portaria;
 use Src\Model\Entidades\Unidade;
+use Lib\Verificacoes;
 
 class Portarias
 {
@@ -94,7 +95,7 @@ class Portarias
             $this->novo = true;
         }
 
-        $this->portaria->descricao = verificarString($dados['descricao']);
+        $this->portaria->descricao = Verificacoes::verificarString($dados['descricao']);
         $this->portaria->unidade_id = filter_var($dados['unidade_id'], FILTER_VALIDATE_INT);
 
         if ($this->novo){

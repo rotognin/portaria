@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Unidades;
+use Lib\Verificacoes;
 
 class UnidadeController extends Controller
 {
@@ -16,8 +17,7 @@ class UnidadeController extends Controller
             $mensagem = $unidades->mensagem;
         }
 
-        criarCsrf();
-
+        Verificacoes::criarCsrf();
         parent::view('unidade.lista', ['unidades' => $unidades->obter(), 'mensagem' => $mensagem]);
     }
 
@@ -26,7 +26,7 @@ class UnidadeController extends Controller
      */
     public static function novo(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
         parent::view('unidade.novo', ['mensagem' => $mensagem]);
     }
 
@@ -51,7 +51,7 @@ class UnidadeController extends Controller
 
         $unidade = new Unidades();
         if (!$unidade->dados($post)){
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('unidade.' . $view, ['mensagem' => $unidade->mensagem, 'unidade' => $unidade->objeto()]);
             exit;
         }
@@ -59,14 +59,15 @@ class UnidadeController extends Controller
         if ($unidade->gravar()){
             self::unidades([], [], 'Unidade gravado com sucesso.');
         } else {
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('unidade.' . $view, ['mensagem' => $unidade->mensagem, 'unidade' => $unidade->objeto()]);
         }
     }
 
     public static function alterar(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
+        
         $id = filter_var($post['unidade_id'], FILTER_VALIDATE_INT);
         $unidade = new Unidades();
         $unidade->carregar($id);

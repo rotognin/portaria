@@ -56,13 +56,13 @@ class Verificacoes
     /**
      * Formatar o CNPJ
      */
-    public static function Cnpj(string $cnpj)
+    public static function montarCnpj(string $cnpj)
     {
         return substr($cnpj, 0, 2) . '.' . 
-            substr($cnpj, 2, 3) . '.' .
-            substr($cnpj, 5, 3) . '/' .
-            substr($cnpj, 8, 4) . '-' .
-            substr($cnpj, 12, 2);
+               substr($cnpj, 2, 3) . '.' .
+               substr($cnpj, 5, 3) . '/' .
+               substr($cnpj, 8, 4) . '-' .
+               substr($cnpj, 12, 2);
     }
 
     /**

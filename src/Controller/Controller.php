@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Logins;
+use Lib\Verificacoes;
 
 class Controller
 {
@@ -15,7 +16,6 @@ class Controller
         }
 
         if (NIVEL[$login->nivel] == 'Administrador'){
-            //self::view('admin.index');
             AdministracaoController::inicio($post, $get);
         } else {
             PortariaController::selecionar();

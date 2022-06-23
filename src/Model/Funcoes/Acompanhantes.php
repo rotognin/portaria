@@ -3,6 +3,7 @@
 namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Acompanhante;
+use Lib\Verificacoes;
 
 class Acompanhantes
 {
@@ -82,9 +83,9 @@ class Acompanhantes
             $this->novo = true;
         }
 
-        $this->acompanhante->nome = verificarString($dados['nome']);
-        $this->acompanhante->documento = verificarString($dados['documento']);
-        $this->acompanhante->observacoes = verificarString($dados['observacoes']);
+        $this->acompanhante->nome = Verificacoes::verificarString($dados['nome']);
+        $this->acompanhante->documento = Verificacoes::verificarString($dados['documento']);
+        $this->acompanhante->observacoes = Verificacoes::verificarString($dados['observacoes']);
         $this->acompanhante->movimentacao_id = filter_var($dados['movimentacao_id'], FILTER_VALIDATE_INT);
 
         if (!$this->validarCampos()){

@@ -4,12 +4,13 @@ namespace Src\Controller;
 
 use Src\Model\Funcoes\Crachas;
 use Src\Model\Funcoes\Unidades;
+use Lib\Verificacoes;
 
 class CrachaController extends Controller
 {
     public static function crachas(array $post, array $get, string $mensagem = '')
     {
-        // Só poderá cadastrar novos crachá se pelo menos uma unidade
+        // Só poderá cadastrar novos crachás se pelo menos uma unidade
         // estiver cadastrada no sistema
         $unidades = new Unidades();
         if ($unidades->contar() > 0){
@@ -19,24 +20,19 @@ class CrachaController extends Controller
             $crachas->listar(true, 0, false);
         }
 
-        criarCsrf();
-
+        Verificacoes::criarCsrf();
         parent::view('cracha.lista', 
             ['crachas' => $crachas->obter() ?? false, 
              'mensagem'  => $mensagem,
              'botaoNovo' => $botaoNovo]);
     }
 
-     /**
-     * Criação de um novo crachá
-     */
     public static function novo(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
-
         $unidades = new Unidades();
         $unidades->listar();
 
+        Verificacoes::criarCsrf();
         parent::view('cracha.novo', ['mensagem' => $mensagem, 'unidades' => $unidades->obter()]);
     }
 
@@ -61,7 +57,7 @@ class CrachaController extends Controller
 
         $cracha = new Crachas();
         if (!$cracha->dados($post)){
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('cracha.' . $view, ['mensagem' => $cracha->mensagem, 'cracha' => $cracha->objeto()]);
             exit;
         }
@@ -69,14 +65,13 @@ class CrachaController extends Controller
         if ($cracha->gravar()){
             self::crachas([], [], 'Cracha gravada com sucesso.');
         } else {
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('cracha.' . $view, ['mensagem' => $cracha->mensagem, 'cracha' => $cracha->objeto()]);
         }
     }
 
     public static function alterar(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
         $id = filter_var($post['cracha_id'], FILTER_VALIDATE_INT);
         $cracha = new Crachas();
         $cracha->carregar($id);
@@ -84,6 +79,7 @@ class CrachaController extends Controller
         $unidades = new Unidades();
         $unidades->listar();
 
+        Verificacoes::criarCsrf();
         parent::view('cracha.alterar', ['cracha' => $cracha->objeto(), 'mensagem' => $mensagem, 'unidades' => $unidades->obter()]);
     }
 

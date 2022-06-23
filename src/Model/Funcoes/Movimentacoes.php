@@ -10,6 +10,7 @@ use Src\Model\Entidades\Unidade;
 use Src\Model\Entidades\Usuario;
 use Src\Model\Entidades\Portaria;
 use Src\Model\Funcoes\Acompanhantes;
+use Lib\Verificacoes;
 
 class Movimentacoes
 {
@@ -145,23 +146,23 @@ class Movimentacoes
             $retorno = false;
         }
 
-        if (!dataValida($this->movimentacao->data_entrada)){
+        if (!Verificacoes::dataValida($this->movimentacao->data_entrada)){
             $this->mensagem .= 'Data incorreta <br>';
             $retorno = false;
         }
 
-        if (!horaValida($this->movimentacao->hora_entrada)){
+        if (!Verificacoes::horaValida($this->movimentacao->hora_entrada)){
             $this->mensagem .= 'Hora incorreta <br>';
             $retorno = false;
         }
 
         if ($this->movimentacao->status == 1){
-            if (!dataValida($this->movimentacao->data_saida)){
+            if (!Verificacoes::dataValida($this->movimentacao->data_saida)){
                 $this->mensagem .= 'Data incorreta <br>';
                 $retorno = false;
             }
     
-            if (!horaValida($this->movimentacao->hora_saida)){
+            if (!Verificacoes::horaValida($this->movimentacao->hora_saida)){
                 $this->mensagem .= 'Hora incorreta <br>';
                 $retorno = false;
             }
@@ -188,21 +189,21 @@ class Movimentacoes
         $this->movimentacao->status = filter_var($dados['status'], FILTER_VALIDATE_INT);
 
         if ($this->movimentacao->status == 0){
-            $this->movimentacao->placa = verificarString($dados['placa']);
+            $this->movimentacao->placa = Verificacoes::verificarString($dados['placa']);
             $this->movimentacao->visitante_id = filter_var($dados['visitante_id'], FILTER_VALIDATE_INT);
             $this->movimentacao->cracha_id = filter_var($dados['cracha_id'], FILTER_VALIDATE_INT);
             $this->movimentacao->usuario_entrada_id = filter_var($_SESSION['usuID'], FILTER_VALIDATE_INT);
             $this->movimentacao->data_entrada = $dados['data_entrada'];
             $this->movimentacao->hora_entrada = $dados['hora_entrada'];
             $this->movimentacao->portaria_entrada_id = filter_var($_SESSION['porID'], FILTER_VALIDATE_INT);
-            $this->movimentacao->contato = verificarString($dados['contato']);
-            $this->movimentacao->motivo = verificarString($dados['motivo']);
+            $this->movimentacao->contato = Verificacoes::verificarString($dados['contato']);
+            $this->movimentacao->motivo = Verificacoes::verificarString($dados['motivo']);
             $this->movimentacao->unidade_id = $_SESSION['uniID'];
             $this->movimentacao->data_saida = '0000-00-00';
             $this->movimentacao->hora_saida = '00:00';
         }
 
-        $this->movimentacao->observacoes = verificarString($dados['observacoes']);
+        $this->movimentacao->observacoes = Verificacoes::verificarString($dados['observacoes']);
 
         if ($this->movimentacao->status == 1){
             // Está finalizando a movimentação
@@ -214,7 +215,7 @@ class Movimentacoes
 
         if ($this->movimentacao->status == 2){
             // Está cancelando a movimentação
-            $this->movimentacao->cancelamento = verificarString($dados['cancelamento']);
+            $this->movimentacao->cancelamento = Verificacoes::verificarString($dados['cancelamento']);
         }
 
         if (!$this->validarCampos()){
@@ -246,9 +247,9 @@ class Movimentacoes
         while ($qtd > 0){
             $qtd--;
 
-            $dados['nome'][$qtd] = verificarString($dados['nome'][$qtd]);
-            $dados['documento'][$qtd] = verificarString($dados['documento'][$qtd]);
-            $dados['obsacompanhante'][$qtd] = verificarString($dados['obsacompanhante'][$qtd]);
+            $dados['nome'][$qtd] = Verificacoes::verificarString($dados['nome'][$qtd]);
+            $dados['documento'][$qtd] = Verificacoes::verificarString($dados['documento'][$qtd]);
+            $dados['obsacompanhante'][$qtd] = Verificacoes::verificarString($dados['obsacompanhante'][$qtd]);
 
             if ($dados['nome'][$qtd] == ''){
                 $this->mensagem = 'Verificar o nome do(s) acompanhante(s), pois não pode estar em branco.';
@@ -266,6 +267,7 @@ class Movimentacoes
     {
         foreach ($dados['nome'] as $codigo => $nome){
             $acompanhante = new Acompanhantes();
+            
             if (!$acompanhante->dados(array(
                     'id' => 0,
                     'movimentacao_id' => $dados['movimentacao_id'],

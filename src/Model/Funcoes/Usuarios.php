@@ -3,6 +3,7 @@
 namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Usuario;
+use Lib\Verificacoes;
 
 class Usuarios
 {
@@ -106,8 +107,8 @@ class Usuarios
             $this->novo = true;
         }
 
-        $this->usuario->nome = verificarString($dados['nome']);
-        $this->usuario->login = verificarString($dados['login']);
+        $this->usuario->nome = Verificacoes::verificarString($dados['nome']);
+        $this->usuario->login = Verificacoes::verificarString($dados['login']);
 
         if ($dados['senha'] != ''){
             $this->usuario->senha = sha1($dados['senha']);

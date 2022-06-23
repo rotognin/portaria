@@ -4,6 +4,7 @@ namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Cracha;
 use Src\Model\Entidades\Unidade;
+use Lib\Verificacoes;
 
 class Crachas
 {
@@ -63,9 +64,6 @@ class Crachas
         return true;
     }
 
-    /**
-     * Traz um registro de Crachá do banco e o carrega internamente
-     */
     public function carregar(int $id)
     {
         $this->cracha = (new Cracha())->findById($id);
@@ -76,17 +74,11 @@ class Crachas
         return $this->crachas ?? false;
     }
 
-    /**
-     * Retorna a cracha carregada do banco
-     */
     public function objeto()
     {
         return $this->cracha ?? false;
     }
 
-    /**
-     * Validação dos campos do Crachá
-     */
     private function validarCampos()
     {
         $retorno = true;
@@ -116,7 +108,7 @@ class Crachas
             $this->novo = true;
         }
 
-        $this->cracha->identificacao = verificarString($dados['identificacao']);
+        $this->cracha->identificacao = Verificacoes::verificarString($dados['identificacao']);
         $this->cracha->unidade_id = filter_var($dados['unidade_id'], FILTER_VALIDATE_INT);
 
         if ($this->novo){

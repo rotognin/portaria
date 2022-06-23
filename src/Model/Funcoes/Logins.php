@@ -6,6 +6,7 @@ use Src\Model\Entidades\Usuario;
 use Src\Model\Entidades\Portaria;
 use Src\Model\Entidades\Login;
 use Src\Model\Entidades\Unidade;
+use Lib\Verificacoes;
 
 class Logins
 {
@@ -17,7 +18,7 @@ class Logins
 
     public function __construct(string $login = '', string $senha = '')
     {
-        $this->login = verificarString($login);
+        $this->login = Verificacoes::verificarString($login);
         $this->senha = sha1($senha);
         $this->mensagem = '';
     }

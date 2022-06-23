@@ -4,6 +4,7 @@ namespace Src\Controller;
 
 use Src\Model\Funcoes\Visitantes;
 use Src\Model\Entidades\Empresa;
+use Lib\Verificacoes;
 
 class VisitanteController extends Controller
 {
@@ -14,7 +15,8 @@ class VisitanteController extends Controller
             exit;
         }
 
-        criarCsrf();
+        Verificacoes::criarCsrf();
+
         $empresa_id = filter_var($post['empresa_id'], FILTER_VALIDATE_INT);
         $empresa = (new Empresa())->findById($empresa_id);
 
@@ -38,7 +40,7 @@ class VisitanteController extends Controller
             exit;
         }
 
-        criarCsrf();
+        Verificacoes::criarCsrf();
         parent::view('visitante.novo', ['empresa_id' => $empresa_id]);
     }
 
@@ -63,7 +65,7 @@ class VisitanteController extends Controller
 
         $visitante = new Visitantes();
         if (!$visitante->dados($post)){
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('visitante.' . $view, ['mensagem' => $visitante->mensagem, 'visitante' => $visitante->objeto()]);
             exit;
         }
@@ -73,14 +75,15 @@ class VisitanteController extends Controller
 
             self::visitantes($post, $get, $mensagem);
         } else {
-            criarCsrf();
+            Verificacoes::criarCsrf();
             parent::view('visitante.' . $view, ['mensagem' => $visitante->mensagem, 'visitante' => $visitante->objeto()]);
         }
     }
 
     public static function alterar(array $post, array $get, string $mensagem = '')
     {
-        criarCsrf();
+        Verificacoes::criarCsrf();
+        
         $id = filter_var($post['visitante_id'], FILTER_VALIDATE_INT);
         $visitante = new Visitantes();
         $visitante->carregar($id);
