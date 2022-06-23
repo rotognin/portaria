@@ -23,7 +23,7 @@
             </form>
             <?php 
                 $regra = 'danger';
-                include_once ('./lib/mensagem.php');
+                include_once ('./html/mensagem.php');
             ?>
             <br>
         </div>

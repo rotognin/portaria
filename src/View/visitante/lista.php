@@ -61,7 +61,7 @@
             ?>
             </tbody>
         </table>
-        <?php include 'lib/mensagem.php'; ?>
+        <?php include 'html/mensagem.php'; ?>
     </div>
 
     <?php include 'html/scriptsjs.php'; ?>

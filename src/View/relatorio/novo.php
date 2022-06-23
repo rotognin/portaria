@@ -9,7 +9,7 @@
             require_once 'html/admin/topo.php';
         ?>
 
-        <?php include_once ('lib/mensagem.php'); ?>
+        <?php include_once ('html/mensagem.php'); ?>
         <?php require('formulario.php'); ?>
     </div>
 

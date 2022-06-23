@@ -33,7 +33,7 @@
         ?>
 
         <br>
-        <?php include_once 'lib/mensagem.php'; ?>
+        <?php include_once 'html/mensagem.php'; ?>
     </div>
 
     <?php include 'html/scriptsjs.php'; ?>

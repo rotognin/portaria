@@ -8,7 +8,7 @@
             $exibirTopo = true;
             require_once 'html/movimentacao/topo.php';
         ?>
-        <?php include_once 'lib/mensagem.php'; ?>
+        <?php include_once 'html/mensagem.php'; ?>
 
         <table class="table table-hover table-sm">
             <thead class="fundo-azul branco">

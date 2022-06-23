@@ -9,7 +9,7 @@
         ?>
 
         <br>
-        <?php include_once 'lib/mensagem.php'; ?>
+        <?php include_once 'html/mensagem.php'; ?>
         <?php 
             $acao = 'atualizar';
             require('formulario.php'); 
