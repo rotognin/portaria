@@ -22,6 +22,8 @@ Sistema sendo desenvolvido em PHP 7.4+, usando a arquitetura MVC (POO), CoffeeCo
 
 Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer.
 
+- Este projeto está rodando [neste link](https://rodrigotognin.com.br/portaria/). Usuário: "admin", senha: "123"
+
 ## Procedimentos para instalação local:
 
 - Baixe o projeto em uma pasta
