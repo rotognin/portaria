@@ -1,0 +1,20 @@
+body { font-family: 'Noto Sans', sans-serif !important; }
+.branco { color:white; }
+.azul { color:#003366; }
+.fundo-azul { background-color:#003366; }
+.laranja { color:#cc9900; }
+.fundo-laranja { background-color:#cc9900; }
+.botao {
+    background-color:#003366;
+    color:white;
+}
+.botao-atencao {
+    background-color:#cc9900;
+    color:white;
+}
+a.acesso:link { color:#003366; }
+a.acesso:visited { color:#003366; }
+a.acesso:hover { color:#cc9900; }
+.borda-redonda { border-radius:0.25rem; }
+.margem-baixo { margin-bottom: 8px; }
+.sem-borda { border:0px; }
