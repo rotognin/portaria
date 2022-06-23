@@ -21,17 +21,16 @@ class Verificacoes
     /**
      * Recebe o campo Hora do banco e o formata para HH:MM
      */
-    public static function ajustarHora(string $dataHoraOrigem)
+    public static function ajustarHora(string $horaOrigem)
     {
-        if ($dataHoraOrigem == '' || $dataHoraOrigem == 'NULL'){
+        if ($horaOrigem == '' || $horaOrigem == 'NULL'){
             return '';
         }
 
-        $dataHora = explode(' ', $dataHoraOrigem);
-        $hora     = explode(':', $dataHora[1]);
+        $hora = explode(':', $horaOrigem);
         $horaAjustada = $hora[0] . ':' . $hora[1];
 
-        return ($horaAjustada != '00:00') ? $horaAjustada : '';
+        return ($horaAjustada == '00:00') ? '' : $horaAjustada;
     }
 
     /**

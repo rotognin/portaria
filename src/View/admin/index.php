@@ -41,8 +41,8 @@
                             echo '<td>' . $movimentacao->visitante->nome . '</td>';
                             echo '<td>' . $movimentacao->visitante->empresa->nome . '</td>';
                             echo '<td>' . $movimentacao->cracha->identificacao . '</td>';
-                            echo '<td>' . ajustarData($movimentacao->data_entrada) . ' ' . ajustarHora('00/00/0000' . ' ' . $movimentacao->hora_entrada) . '</td>';
-                            echo '<td>' . ajustarData($movimentacao->data_saida) . ' ' . ajustarHora('00/00/0000' . ' ' . $movimentacao->hora_saida) . '</td>';
+                            echo '<td>' . $movimentacao->ajustarDataEntrada() . ' ' . $movimentacao->ajustarHoraEntrada() . '</td>';
+                            echo '<td>' . $movimentacao->ajustarDataSaida() . ' ' . $movimentacao->ajustarHoraSaida() . '</td>';
                             echo '<td>' . STATUS_MOVIMENTACAO[$movimentacao->status] . '</td>';
                             echo '<td>';
                                 echo '<form method="post" target="_blank" action="index.php?control=movimentacao&action=detalhes">';

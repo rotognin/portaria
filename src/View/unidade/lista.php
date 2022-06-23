@@ -33,7 +33,7 @@
                         echo '<tr>';
                             echo '<td>' . $unidade->id . '</td>';
                             echo '<td>' . $unidade->nome . '</td>';
-                            echo '<td>' . $unidade->montarCnpj() . '</td>';
+                            echo '<td>' . $unidade->ajustarCnpj() . '</td>';
                             echo '<td>' . TIPO_UNIDADE[$unidade->tipo] . '</td>';
                             echo '<td>' . $unidade->municipio . '/' . $unidade->uf . '</td>';
 

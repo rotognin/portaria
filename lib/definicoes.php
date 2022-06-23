@@ -5,11 +5,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 require ('./vendor/autoload.php');
 
-//require_once('funcoes.php');
 require_once('auxiliares.php');
-require_once('Verificacoes.php');
-
-use Lib\Verificacoes;
 
 define("DS", DIRECTORY_SEPARATOR);
 

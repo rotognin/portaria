@@ -12,7 +12,7 @@ class Unidade extends DataLayer
         parent::__construct('unidades', ['nome'], 'id', false);
     }
 
-    public function montarCnpj()
+    public function ajustarCnpj()
     {
         return Verificacoes::montarCnpj($this->cnpj);
     }
