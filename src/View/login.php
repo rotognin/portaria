@@ -7,7 +7,7 @@
     <div class="container">
         <br>
         <div class="card text-center" style="border:0px solid white">
-            <h3><span style="color:#003366">Acesso ao sistema de portarias</span></h3>
+            <h3><span style="color:#003366">Acesso ao sistema de portarias.</span></h3>
             <br>
             <form method="post" action="index.php?action=login">
                 <div class="form-group">

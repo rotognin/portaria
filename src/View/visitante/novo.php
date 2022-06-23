@@ -5,6 +5,7 @@
     <div class="container-fluid">
         <?php 
             $titulo = 'Criação de novo Visitante';
+            $exibir_topo = false;
             require_once 'html/movimentacao/topo.php';
         ?>
 
