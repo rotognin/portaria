@@ -70,6 +70,13 @@ class MovimentacaoController extends Controller
             exit;
         }
 
+        // Verificar se o visitante selecionado está em outra movimentação Em Aberto
+
+
+        // Verificar se tem outra movimentação Em Aberto com a mesma placa de veículo
+
+        
+
         $movimentacao = new Movimentacoes();
         if (!$movimentacao->dados($post)){
             Verificacoes::criarCsrf();
