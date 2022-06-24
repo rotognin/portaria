@@ -108,6 +108,20 @@ class MovimentacaoController extends Controller
         }
     }
 
+    private static function carregarMovimentacao(array $dados)
+    {
+        if (!filter_var($dados['movimentacao_id'], FILTER_VALIDATE_INT)){
+            return false;
+        }
+
+        $movimentacao_id = filter_var($dados['movimentacao_id'], FILTER_VALIDATE_INT);
+
+        $movimentacao = new Movimentacoes();
+        $movimentacao->carregar($movimentacao_id);
+
+        return $movimentacao;
+    }
+
     public static function detalhes(array $post, array $get)
     {
         if (!Verificacoes::token($post)){
@@ -115,16 +129,13 @@ class MovimentacaoController extends Controller
             exit;
         }
 
-        if (!isset($post['movimentacao_id']) || $post['movimentacao_id'] == 0){
+        $movimentacao = self::carregarMovimentacao($post);
+
+        if (!$movimentacao){
             $mensagem = 'Movimentação não informada.';
             self::inicio([], [], $mensagem);
             exit;
         }
-
-        $movimentacao_id = filter_var($post['movimentacao_id'], FILTER_VALIDATE_INT);
-
-        $movimentacao = new Movimentacoes();
-        $movimentacao->carregar($movimentacao_id);
 
         parent::view('movimentacao.detalhes', ['movimentacao' => $movimentacao->objeto()]);
     }
@@ -136,16 +147,13 @@ class MovimentacaoController extends Controller
             exit;
         }
 
-        if (!isset($post['movimentacao_id']) || $post['movimentacao_id'] == 0){
+        $movimentacao = self::carregarMovimentacao($post);
+
+        if (!$movimentacao){
             $mensagem = 'Movimentação não informada.';
             self::inicio([], [], $mensagem);
             exit;
         }
-
-        $movimentacao_id = filter_var($post['movimentacao_id'], FILTER_VALIDATE_INT);
-
-        $movimentacao = new Movimentacoes();
-        $movimentacao->carregar($movimentacao_id);
 
         Verificacoes::criarCsrf();
         parent::view('movimentacao.saida', ['movimentacao' => $movimentacao->objeto()]);
@@ -158,16 +166,13 @@ class MovimentacaoController extends Controller
             exit;
         }
 
-        if (!isset($post['movimentacao_id']) || $post['movimentacao_id'] == 0){
+        $movimentacao = self::carregarMovimentacao($post);
+
+        if (!$movimentacao){
             $mensagem = 'Movimentação não informada.';
             self::inicio([], [], $mensagem);
             exit;
         }
-
-        $movimentacao_id = filter_var($post['movimentacao_id'], FILTER_VALIDATE_INT);
-
-        $movimentacao = new Movimentacoes();
-        $movimentacao->carregar($movimentacao_id);
 
         Verificacoes::criarCsrf();
         parent::view('movimentacao.cancelar', ['movimentacao' => $movimentacao->objeto()]);
