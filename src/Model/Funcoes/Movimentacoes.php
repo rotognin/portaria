@@ -180,8 +180,11 @@ class Movimentacoes
      */
     public function dados(array $dados)
     {
+        $id = filter_var($dados['id'], FILTER_VALIDATE_INT);
+
         if ($dados['id'] > 0){
-            $this->movimentacao = (new Movimentacao())->findById(filter_var($dados['id'], FILTER_VALIDATE_INT));
+            $this->movimentacao = (new Movimentacao())->findById($id);
+            $this->movimentacao->id = $id;
         } else {
             $this->movimentacao = new Movimentacao();
         }
@@ -312,5 +315,20 @@ class Movimentacoes
         );
 
         return $this->listar($filtros);
+    }
+
+    public function verificarDatas()
+    {
+        if ($this->movimentacao->data_entrada == $this->movimentacao->data_saida){
+            if ($this->movimentacao->hora_entrada > $this->movimentacao->hora_saida){
+                return false;
+            }
+        }
+
+        if ($this->movimentacao->data_entrada > $this->movimentacao->data_saida){
+            return false;
+        }
+
+        return true;
     }
 }

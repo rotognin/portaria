@@ -154,7 +154,7 @@ class MovimentacaoController extends Controller
         parent::view('movimentacao.detalhes', ['movimentacao' => $movimentacao->objeto()]);
     }
 
-    public static function saida(array $post, array $get)
+    public static function saida(array $post, array $get, string $mensagem = '')
     {
         if (!Verificacoes::token($post)){
             parent::logout();
@@ -170,10 +170,10 @@ class MovimentacaoController extends Controller
         }
 
         Verificacoes::criarCsrf();
-        parent::view('movimentacao.saida', ['movimentacao' => $movimentacao->objeto()]);
+        parent::view('movimentacao.saida', ['movimentacao' => $movimentacao->objeto(), 'mensagem' => $mensagem]);
     }
 
-    public static function cancelar(array $post, array $get)
+    public static function cancelar(array $post, array $get, string $mensagem = '')
     {
         if (!Verificacoes::token($post)){
             parent::logout();
@@ -189,7 +189,7 @@ class MovimentacaoController extends Controller
         }
 
         Verificacoes::criarCsrf();
-        parent::view('movimentacao.cancelar', ['movimentacao' => $movimentacao->objeto()]);
+        parent::view('movimentacao.cancelar', ['movimentacao' => $movimentacao->objeto(), 'mensagem' => $mensagem]);
     }
 
     public static function finalizar(array $post, array $get, string $mensagem = '')
@@ -206,6 +206,13 @@ class MovimentacaoController extends Controller
         if (!$movimentacao->dados($post)){
             Verificacoes::criarCsrf();
             parent::view('movimentacao.' . $acao, ['mensagem' => $movimentacao->mensagem, $movimentacao->objeto()]);
+            exit;
+        }
+
+        if (!$movimentacao->verificarDatas()){
+            $mensagem = 'Data e hora de encerramento menor que a data e hora de abertura';
+
+            self::$acao(array('movimentacao_id' => $post['id'], '_token' => $post['_token']), [], $mensagem);
             exit;
         }
 
