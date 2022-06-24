@@ -7,7 +7,7 @@ use Lib\Verificacoes;
 
 class AdministracaoController extends Controller
 {
-    public static function inicio(array $post, array $get)
+    public static function inicio(array $post, array $get, string $mensagem = '')
     {
         if (isset($post['data_filtrar'])){
             if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
@@ -16,6 +16,13 @@ class AdministracaoController extends Controller
             }
 
             $data = $post['data_filtrar'];
+            if (!Verificacoes::dataValida($data)){
+                $mensagem = 'Data inválida.';
+
+                Verificacoes::criarCsrf();
+                parent::view('admin.index', ['mensagem' => $mensagem]);
+                exit;
+            }
         } else {
             $data = date('Y-m-d');
         }
@@ -29,6 +36,6 @@ class AdministracaoController extends Controller
         $movimentacoes->listar($filtros);
 
         Verificacoes::criarCsrf();
-        parent::view('admin.index', ['movimentacoes' => $movimentacoes->obter(), 'data_filtrar' => $data]);
+        parent::view('admin.index', ['movimentacoes' => $movimentacoes->obter(), 'data_filtrar' => $data, 'mensagem' => $mensagem]);
     }
 }

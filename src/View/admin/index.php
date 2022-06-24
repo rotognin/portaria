@@ -17,6 +17,8 @@
             </div>
         </form>
 
+        <?php include('html/mensagem.php'); ?>
+
         <table class="table table-hover table-sm">
             <thead class="fundo-azul branco">
                 <tr>

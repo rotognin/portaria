@@ -20,13 +20,13 @@ class RelatorioController extends Controller
             exit;
         }
 
-        if (!dataValida($post['data_inicial'])){
+        if (!Verificacoes::dataValida($post['data_inicial'])){
             $mensagem = 'Data inicial inválida: ' . $post['data_inicial'];
             self::novo($post, $get, $mensagem);
             exit;
         }
 
-        if (!dataValida($post['data_final'])){
+        if (!Verificacoes::dataValida($post['data_final'])){
             $mensagem = 'Data final inválida: ' . $post['data_final'];
             self::novo($post, $get, $mensagem);
             exit;
