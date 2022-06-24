@@ -110,11 +110,11 @@ class MovimentacaoController extends Controller
 
     private static function carregarMovimentacao(array $dados)
     {
-        if (!filter_var($dados['movimentacao_id'], FILTER_VALIDATE_INT)){
+        $movimentacao_id = filter_var($dados['movimentacao_id'], FILTER_VALIDATE_INT);
+
+        if (!$movimentacao_id){
             return false;
         }
-
-        $movimentacao_id = filter_var($dados['movimentacao_id'], FILTER_VALIDATE_INT);
 
         $movimentacao = new Movimentacoes();
         $movimentacao->carregar($movimentacao_id);
