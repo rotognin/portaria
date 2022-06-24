@@ -289,4 +289,28 @@ class Movimentacoes
 
         return true;
     }
+
+    public function visitanteEmAberto()
+    {
+        $filtros = array(
+            'visitante_id' => $this->movimentacao->visitante_id,
+            'status' => 0
+        );
+
+        return $this->listar($filtros);
+    }
+
+    public function veiculoEmAberto()
+    {
+        if (empty($this->movimentacao->placa)){
+            return false;
+        }
+
+        $filtros = array(
+            'placa' => $this->movimentacao->placa,
+            'status' => 0
+        );
+
+        return $this->listar($filtros);
+    }
 }

@@ -8,6 +8,7 @@ use Src\Model\Funcoes\Movimentacoes;
 use Src\Model\Entidades\Visitante;
 use Src\Model\Entidades\Empresa;
 use Src\Model\Entidades\Cracha;
+use Src\Model\Entidades\Movimentacao;
 use Lib\Verificacoes;
 
 class MovimentacaoController extends Controller
@@ -28,7 +29,7 @@ class MovimentacaoController extends Controller
         parent::view('movimentacao.index', ['mensagem' => $mensagem, 'movimentacoes' => $movimentacoes->obter()]);
     }
 
-    public static function novo(array $post, array $get, string $mensagem = '')
+    public static function novo(array $post, array $get, string $mensagem = '', Movimentacao $movimentacao = NULL)
     {
         Verificacoes::criarCsrf();
 
@@ -49,7 +50,8 @@ class MovimentacaoController extends Controller
         parent::view('movimentacao.novo', [
             'mensagem' => $mensagem, 
             'empresas' => $empresas->obter(),
-            'crachas' => $crachas->obter()
+            'crachas' => $crachas->obter(),
+            'movimentacao' => $movimentacao
         ]);
     }
 
@@ -70,24 +72,29 @@ class MovimentacaoController extends Controller
             exit;
         }
 
-        // Verificar se o visitante selecionado está em outra movimentação Em Aberto
-
-
-        // Verificar se tem outra movimentação Em Aberto com a mesma placa de veículo
-
-        
-
         $movimentacao = new Movimentacoes();
         if (!$movimentacao->dados($post)){
-            Verificacoes::criarCsrf();
-            parent::view('movimentacao.novo', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+            self::novo([], [], $movimentacao->mensagem, $movimentacao->objeto());
+            exit;
+        }
+
+        // Verificar se o visitante selecionado está em outra movimentação Em Aberto
+        if ($movimentacao->visitanteEmAberto()){
+            $mensagem = 'Esse visitante já está em uma movimentação em aberto.';
+            self::novo([], [], $mensagem, $movimentacao->objeto());
+            exit;
+        }
+
+        // Verificar se tem outra movimentação Em Aberto com a mesma placa de veículo
+        if ($movimentacao->veiculoEmAberto()){
+            $mensagem = 'Esse veículo já está em uma movimentação em aberto.';
+            self::novo([], [], $mensagem, $movimentacao->objeto());
             exit;
         }
 
         if ($movimentacao->existemAcompanhantes($post)){
             if (!$movimentacao->ajustarAcompanhantes($post)){
-                Verificacoes::criarCsrf();
-                parent::view('movimentacao.novo', ['mensagem' => $movimentacao->mensagem, 'movimentacao' => $movimentacao->objeto()]);
+                self::novo([], [], $movimentacao->mensagem, $movimento->objeto());
                 exit;
             }
         }
