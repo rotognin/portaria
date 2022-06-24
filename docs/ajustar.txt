@@ -1,6 +1,6 @@
 - no arquivo View\index.php do sistema:
-  - Verificar se o controlador passado existe
-  - Verificar se o método passado existe
+  - (OK) Verificar se o controlador passado existe
+  - (OK) Verificar se o método passado existe
   - Avaliar melhor os parâmetros passados por GET
   - Desviar para uma página padrão caso o controlador ou o método não existam
 
@@ -9,4 +9,4 @@
   - (OK) Verificar se a placa do veículo de entrada está em outra movimentação em aberto
 
 - Na finalização ou cancelamento de uma visita:
-  - Verificar se a data de finalização é maior que a data de entrada
+  - (OK) Verificar se a data de finalização é maior que a data de entrada
