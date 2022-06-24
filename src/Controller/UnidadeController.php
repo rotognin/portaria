@@ -42,7 +42,7 @@ class UnidadeController extends Controller
 
     private static function persistir(array $post, array $get, bool $novo)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }
@@ -87,7 +87,7 @@ class UnidadeController extends Controller
 
     private static function alterarStatus(array $post, array $get, int $status)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }

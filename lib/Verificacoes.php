@@ -53,6 +53,14 @@ class Verificacoes
     }
 
     /**
+     * Verificar se o token foi passado e se é válido
+     */
+    public static function token(array $dados)
+    {
+        return (isset($dados['_token']) && $dados['_token'] == $_SESSION['csrf']);
+    }
+
+    /**
      * Formatar o CNPJ
      */
     public static function montarCnpj(string $cnpj)

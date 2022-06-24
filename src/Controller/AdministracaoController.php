@@ -10,7 +10,7 @@ class AdministracaoController extends Controller
     public static function inicio(array $post, array $get, string $mensagem = '')
     {
         if (isset($post['data_filtrar'])){
-            if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+            if (!Verificacoes::token($post)){
                 parent::logout();
                 exit;
             }

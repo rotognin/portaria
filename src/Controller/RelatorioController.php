@@ -15,7 +15,7 @@ class RelatorioController extends Controller
 
     public static function filtrar(array $post, array $get)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }

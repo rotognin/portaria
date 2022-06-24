@@ -3,12 +3,13 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Logins;
+use Lib\Verificacoes;
 
 class LoginController extends Controller
 {
     public static function entrar(array $post, array $get)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }

@@ -1,2 +1,12 @@
-- Trocar todas as chamadas para as funções por chamadas estáticas à classe Verificacoes
-- Após isso, excluir o arquivo funcoes.php
+- no arquivo View\index.php do sistema:
+  - Verificar se o controlador passado existe
+  - Verificar se o método passado existe
+  - Avaliar melhor os parâmetros passados por GET
+  - Desviar para uma página padrão caso o controlador ou o método não existam
+
+- Na movimentação de entrada:
+  - Verificar se o visitante já está em outra movimentação em aberto
+  - Verificar se a placa do veículo de entrada está em outra movimentação em aberto
+
+- Na finalização ou cancelamento de uma visita:
+  - Verificar se a data de finalização é maior que a data de entrada

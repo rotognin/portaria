@@ -65,7 +65,7 @@ class MovimentacaoController extends Controller
 
     public static function persistir(array $post, array $get, bool $novo)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }
@@ -110,7 +110,7 @@ class MovimentacaoController extends Controller
 
     public static function detalhes(array $post, array $get)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }
@@ -131,7 +131,7 @@ class MovimentacaoController extends Controller
 
     public static function saida(array $post, array $get)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }
@@ -153,7 +153,7 @@ class MovimentacaoController extends Controller
 
     public static function cancelar(array $post, array $get)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }
@@ -175,7 +175,7 @@ class MovimentacaoController extends Controller
 
     public static function finalizar(array $post, array $get, string $mensagem = '')
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }

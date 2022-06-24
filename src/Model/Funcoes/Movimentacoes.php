@@ -92,7 +92,7 @@ class Movimentacoes
         $movimentacao->usuario_entrada = (new Usuario())->findById($movimentacao->usuario_entrada_id);
         $movimentacao->portaria_entrada = (new Portaria())->findById($movimentacao->portaria_entrada_id);
 
-        if ($movimentacao->status == 1){
+        if (STATUS_MOVIMENTACAO[$movimentacao->status] == 'Finalizado'){
             $movimentacao->usuario_saida = (new Usuario())->findById($movimentacao->usuario_saida_id);
             $movimentacao->portaria_saida = (new Portaria())->findById($movimentacao->portaria_saida_id);
         }
@@ -188,7 +188,7 @@ class Movimentacoes
 
         $this->movimentacao->status = filter_var($dados['status'], FILTER_VALIDATE_INT);
 
-        if ($this->movimentacao->status == 0){
+        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Em aberto'){
             $this->movimentacao->placa = Verificacoes::verificarString($dados['placa']);
             $this->movimentacao->visitante_id = filter_var($dados['visitante_id'], FILTER_VALIDATE_INT);
             $this->movimentacao->cracha_id = filter_var($dados['cracha_id'], FILTER_VALIDATE_INT);
@@ -205,7 +205,7 @@ class Movimentacoes
 
         $this->movimentacao->observacoes = Verificacoes::verificarString($dados['observacoes']);
 
-        if ($this->movimentacao->status == 1){
+        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Finalizado'){
             // Está finalizando a movimentação
             $this->movimentacao->usuario_saida_id = filter_var($_SESSION['usuID'], FILTER_VALIDATE_INT);
             $this->movimentacao->portaria_saida_id = filter_var($_SESSION['porID'], FILTER_VALIDATE_INT);
@@ -213,9 +213,11 @@ class Movimentacoes
             $this->movimentacao->hora_saida = $dados['hora_saida'];
         }
 
-        if ($this->movimentacao->status == 2){
+        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Cancelado'){
             // Está cancelando a movimentação
             $this->movimentacao->cancelamento = Verificacoes::verificarString($dados['cancelamento']);
+            $this->movimentacao->data_saida = $dados['data_saida'];
+            $this->movimentacao->hora_saida = $dados['hora_saida'];
         }
 
         if (!$this->validarCampos()){

@@ -10,7 +10,7 @@ class VisitanteController extends Controller
 {
     public static function visitantes(array $post, array $get, string $mensagem = '')
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }
@@ -27,7 +27,7 @@ class VisitanteController extends Controller
 
     public static function novo(array $post, array $get)
     {
-        if (!isset($post['_token']) || $post['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($post)){
             parent::logout();
             exit;
         }
@@ -91,6 +91,9 @@ class VisitanteController extends Controller
         parent::view('visitante.alterar', ['visitante' => $visitante->objeto(), 'mensagem' => $mensagem]);
     }
 
+    /**
+     * Função chamada usando AJAX, retorna com "echo".
+     */
     public static function buscar(array $post, array $get)
     {
         $empresa_id = filter_var($get['empresa_id'], FILTER_VALIDATE_INT);
@@ -100,7 +103,7 @@ class VisitanteController extends Controller
             exit;
         }
 
-        if (!isset($get['_token']) || $get['_token'] != $_SESSION['csrf']){
+        if (!Verificacoes::token($get)){
             echo 'nada..';
             exit;
         }
