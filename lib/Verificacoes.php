@@ -14,6 +14,11 @@ class Verificacoes
         }
         
         $data = explode('-', $dataOrigem);
+
+        if (count($data) != 3){
+            return '';
+        }
+
         $dataAjustada = $data[2] . '/' . $data[1] . '/' . $data[0];
         return ($dataAjustada == '00/00/0000') ? '' : $dataAjustada;
     }
@@ -28,6 +33,11 @@ class Verificacoes
         }
 
         $hora = explode(':', $horaOrigem);
+
+        if (count($hora) < 2){
+            return '';
+        }
+
         $horaAjustada = $hora[0] . ':' . $hora[1];
 
         return ($horaAjustada == '00:00') ? '' : $horaAjustada;

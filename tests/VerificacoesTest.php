@@ -19,7 +19,23 @@ final class VerificacoesTest extends TestCase
         );
 
         $this->assertEquals(
+            Verificacoes::ajustarData('123'), ''
+        );
+
+        $this->assertEquals(
+            Verificacoes::ajustarData('123-321-000'), '000/321/123'
+        );
+
+        $this->assertEquals(
+            Verificacoes::ajustarData('1-2-3-4-5'), ''
+        );
+
+        $this->assertEquals(
             Verificacoes::ajustarHora('08:38'), '08:38'
+        );
+
+        $this->assertEquals(
+            Verificacoes::ajustarHora('123'), ''
         );
     }
 
