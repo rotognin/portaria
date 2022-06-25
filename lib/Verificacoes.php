@@ -49,7 +49,9 @@ class Verificacoes
      */
     public static function criarCsrf()
     {
-        $_SESSION['csrf'] = sha1(date('d-m-Y H-i-s'));
+        $csrf = sha1(date('d-m-Y H-i-s'));
+        $_SESSION['csrf'] = $csrf;
+        return $csrf;
     }
 
     /**
@@ -79,9 +81,10 @@ class Verificacoes
     public static function dataValida(string $data)
     {
         $data_array = explode('-', $data);
-        $ano = $data_array[0];
-        $mes = $data_array[1];
-        $dia = $data_array[2];
+
+        $ano = filter_var($data_array[0] ?? 0, FILTER_VALIDATE_INT);
+        $mes = filter_var($data_array[1] ?? 0, FILTER_VALIDATE_INT);
+        $dia = filter_var($data_array[2] ?? 0, FILTER_VALIDATE_INT);
 
         return checkdate($mes, $dia, $ano);
     }
