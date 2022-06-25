@@ -60,22 +60,58 @@ final class VerificacoesTest extends TestCase
     }
 
     /**
-     * @dataProvider datasInvalidasProvider
+     * @dataProvider datasValidasProvider
      */
-    public function testDataInvalida(array $datasInvalidas)
+    public function testDataValida(string $data)
     {
-        foreach($datasInvalidas as $dataInvalida)
-        {
-            $this->assertFalse(
-                Verificacoes::dataValida($dataInvalida)
-            );
-        }
+        $this->assertTrue(Verificacoes::dataValida($data));
     }
 
-    public function datasInvalidasProvider(): array
+    public function datasValidasProvider() : array
     {
-        $datasInvalidas = array('2022-01-01', '2022-13-01', '123465789', 'abcdefg', '2022-01-01');
+        $datasValidas = array('2022-01-01', '2022-12-31', '2022-02-28');
+        return array($datasValidas);
+    }
 
-        return array(array($datasInvalidas));
+    /**
+     * @dataProvider datasInvalidasProvider
+     */
+    public function testDataInvalida(string $data)
+    {
+        $this->assertFalse(Verificacoes::dataValida($data));
+    }
+
+    public function datasInvalidasProvider() : array
+    {
+        $datasValidas = array('2022-01-00', '2022-31-12', '2022-02-29');
+        return array($datasValidas);
+    }
+
+    /**
+     * @dataProvider horasValidasProvider
+     */
+    public function testHoraValida(string $hora)
+    {
+        $this->assertTrue(Verificacoes::horaValida($hora));
+    }
+
+    public function horasValidasProvider() : array
+    {
+        $horasValidas = array('00:00', '00:00:00', '23:59');
+        return array($horasValidas);
+    }
+
+    /**
+     * @dataProvider horasInvalidasProvider
+     */
+    public function testHoraInvalida(string $hora)
+    {
+        $this->assertFalse(Verificacoes::horaValida($hora));
+    }
+
+    public function horasInvalidasProvider() : array
+    {
+        $horasInvalidas = array('123', '12-12', '24:00', 'abcde');
+        return array($horasInvalidas);
     }
 }

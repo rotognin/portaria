@@ -82,9 +82,13 @@ class Verificacoes
     {
         $data_array = explode('-', $data);
 
-        $ano = filter_var($data_array[0] ?? 0, FILTER_VALIDATE_INT);
-        $mes = filter_var($data_array[1] ?? 0, FILTER_VALIDATE_INT);
-        $dia = filter_var($data_array[2] ?? 0, FILTER_VALIDATE_INT);
+        if (count($data_array) != 3){
+            return false;
+        }
+
+        $ano = $data_array[0];
+        $mes = $data_array[1];
+        $dia = $data_array[2];
 
         return checkdate($mes, $dia, $ano);
     }
@@ -96,6 +100,11 @@ class Verificacoes
     public static function horaValida(string $horario)
     {
         $hora_array = explode(':', $horario);
+
+        if (count($hora_array) < 2){
+            return false;
+        }
+
         $hora = $hora_array[0];
         $minuto = $hora_array[1];
 
