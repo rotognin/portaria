@@ -156,7 +156,7 @@ class Movimentacoes
             $retorno = false;
         }
 
-        if ($this->movimentacao->status == 1){
+        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Finalizado'){
             if (!Verificacoes::dataValida($this->movimentacao->data_saida)){
                 $this->mensagem .= 'Data incorreta <br>';
                 $retorno = false;
