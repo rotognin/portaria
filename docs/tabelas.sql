@@ -34,6 +34,9 @@ CREATE TABLE `empresas` (
   `municipio` varchar(60) DEFAULT NULL,
   `uf` varchar(2) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
+  `responsavel` varchar(60) DEFAULT NULL,
+  `email` varchar(120) DEFAULT NULL,
+  `enviar_email` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='O campo status poderá ser: 0 - Ativo, 1 - Inativo, 2 - Bloqueado (todos os visitantes dessa empresa não poderão entrar)';
 

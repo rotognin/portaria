@@ -32,6 +32,21 @@
                value="<?php echo ($empresa->uf ?? ''); ?>" size="3" 
                style="margin-left:10px; text-transform: uppercase;">
     </div>
+    <div class="form-group">
+        <label for="responsavel" style="margin:0px"><b>Responsável: &nbsp;</b></label><br>
+        <input type="text" id="responsavel" name="responsavel" value="<?php echo ($empresa->responsavel ?? ''); ?>" size="100">
+    </div>
+    <div class="form-group">
+        <label for="email" style="margin:0px"><b>E-mail principal: &nbsp;</b></label><br>
+        <input type="text" id="email" name="email" value="<?php echo ($empresa->email ?? ''); ?>" size="80">
+        <input type="checkbox" id="enviar_email" name="enviar_email" 
+               value="1" style="margin-left:10px" 
+            <?php
+                $checked = (($empresa->enviar_email ?? 0) != 0) ? ' checked ' : '';
+                echo $checked;
+            ?>>
+        <label for="enviar_email">Enviar e-mail ao abrir visita</label>
+    </div>
     
     <input type="hidden" id="tipo" name="tipo" value="<?php echo ($empresa->tipo ?? '0'); ?>">
     <input type="hidden" id="status" name="status" value="<?php echo ($empresa->status ?? '0'); ?>">

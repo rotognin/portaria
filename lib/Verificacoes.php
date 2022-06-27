@@ -126,4 +126,16 @@ class Verificacoes
 
         return $retorno;
     }
+
+    /**
+     * Fazer a validação de campos e-mail
+     */
+    public static function emailValido(string $email, bool $okBranco = true)
+    {
+        if (empty($email)){
+            return $okBranco;
+        }
+
+        return (bool)filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
 }

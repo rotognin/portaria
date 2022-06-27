@@ -2,7 +2,7 @@
   - (OK) Verificar se o controlador passado existe
   - (OK) Verificar se o método passado existe
   - Avaliar melhor os parâmetros passados por GET
-  - Desviar para uma página padrão caso o controlador ou o método não existam
+  - (OK) Desviar para uma página padrão caso o controlador ou o método não existam
 
 - Na movimentação de entrada:
   - (OK) Verificar se o visitante já está em outra movimentação em aberto
@@ -10,3 +10,17 @@
 
 - Na finalização ou cancelamento de uma visita:
   - (OK) Verificar se a data de finalização é maior que a data de entrada
+
+- Na parte administrativa
+  - Adicionar o cadastro de empresas (implementando...)
+  - (OK) No cadastro de empresas, criar um campo de e-mail e um campo "responsável"
+  - (OK) Flag indicando se receberá e-mails ao abrir uma visita para a empresa
+  - Criar parametrizações gerais para o sistema
+
+- Nos cadastros do sistema
+  - Melhorar a apresentação dos campos (margem, fonte, tamanho, estilo...)
+
+- Instalar dependência para envio de e-mail
+
+- Na movimentação de entrada:
+  - Ao abrir movimentação, verificar o flag de envio de e-mail da empresa e, caso positivo, enviar

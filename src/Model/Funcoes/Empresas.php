@@ -84,6 +84,11 @@ class Empresas
             $retorno = false;
         }
 
+        if (!Verificacoes::emailValido($this->empresa->email)){
+            $this->mensagem .= 'E-mail inválido <br>';
+            $retorno = false;
+        }
+
         if (!$retorno){
             $this->mensagem = substr($this->mensagem, 0, -4);
         }
@@ -111,6 +116,9 @@ class Empresas
         $this->empresa->cep = $dados['cep'];
         $this->empresa->municipio = $dados['municipio'];
         $this->empresa->uf = strtoupper($dados['uf']);
+        $this->empresa->responsavel = Verificacoes::verificarString($dados['responsavel']);
+        $this->empresa->email = Verificacoes::verificarString($dados['email']);
+        $this->empresa->enviar_email = (isset($dados['enviar_email'])) ? 1 : 0;
 
         if ($this->novo){
             $this->empresa->status = 0;
