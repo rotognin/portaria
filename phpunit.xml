@@ -2,8 +2,7 @@
 <phpunit bootstrap="vendor/autoload.php"
          colors="true"
          verbose="true"
-         stopOnFailure="false"
-         testdox="true">
+         stopOnFailure="false">
     <testsuites>
         <testsuite name="Testes Gerais">
             <directory>tests</directory>
