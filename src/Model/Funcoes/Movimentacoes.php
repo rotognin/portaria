@@ -136,6 +136,11 @@ class Movimentacoes
             $retorno = false;
         }
 
+        if ($this->movimentacao->cracha_id == 0){
+            $this->mensagem .= 'Necessário selecionar um crachá <br>';
+            $retorno = false;
+        }
+
         if ($this->movimentacao->usuario_entrada_id == 0){
             $this->mensagem .= 'Usuário não informado. Favor sair do sistema e entrar novamente <br>';
             $retorno = false;
@@ -222,6 +227,8 @@ class Movimentacoes
             $this->movimentacao->data_saida = $dados['data_saida'];
             $this->movimentacao->hora_saida = $dados['hora_saida'];
         }
+
+        //var_dump($this->movimentacao);
 
         if (!$this->validarCampos()){
             return false;

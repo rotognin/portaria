@@ -1,13 +1,16 @@
 <?php
 
-//declare(strict_types = 1);
+declare(strict_types = 1);
 
 use PHPUnit\Framework\TestCase;
 use Src\Model\Funcoes\Movimentacoes;
 
 final class MovimentacoesTest extends TestCase
 {
-    public function testValidarDados()
+    /**
+     * @dataProvider dadosMovimentacoesProvider
+     */
+    public function testValidarDados(array $dados)
     {
         $movimentacoes = new Movimentacoes();
         $_SESSION['usuID'] = 1;
@@ -20,23 +23,66 @@ final class MovimentacoesTest extends TestCase
             2 => 'Cancelado'
         ));
 
-        $dados = array(
-            'id' => 0,
-            'status' => 0,
-            'placa' => 'ABC1234',
-            'visitante_id' => 0,
-            'cracha_id' => 0,
-            'data_entrada' => '2022-06-27',
-            'hora_entrada' => '07:11',
-            'contato' => 'Setor financeiro',
-            'motivo' => 'Visita técnica',
-            'observacoes' => 'Observações diversas'
-        );
-
-        $this->expectOutputString('');
-
-        $this->assertTrue(
+        $this->assertFalse(
             $movimentacoes->dados($dados)
         );
+    }
+
+    public function dadosMovimentacoesProvider() : array
+    {
+        $dados = array(
+            array(
+                'id' => 0,
+                'status' => 0,
+                'placa' => 'ABC1234',
+                'visitante_id' => 0, // falhar
+                'cracha_id' => 1,
+                'data_entrada' => '2022-06-27',
+                'hora_entrada' => '07:11',
+                'contato' => 'Setor financeiro',
+                'motivo' => 'Visita técnica',
+                'observacoes' => 'Observações diversas'
+            ),
+            array(
+                'id' => 0,
+                'status' => 0,
+                'placa' => 'ABC1234',
+                'visitante_id' => 1,
+                'cracha_id' => 0, // falhar
+                'data_entrada' => '2022-06-27',
+                'hora_entrada' => '07:11',
+                'contato' => 'Setor financeiro',
+                'motivo' => 'Visita técnica',
+                'observacoes' => 'Observações diversas'
+            ),
+            array(
+                'id' => 0,
+                'status' => 0,
+                'placa' => 'ABC1234',
+                'visitante_id' => 'abc', // falhar
+                'cracha_id' => 1,
+                'data_entrada' => '2022-06-27',
+                'hora_entrada' => '07:11',
+                'contato' => 'Setor financeiro',
+                'motivo' => 'Visita técnica',
+                'observacoes' => 'Observações diversas'
+            ),
+            array(
+                'id' => 0,
+                'status' => 1, // Finalizado
+                'placa' => 'ABC1234',
+                'visitante_id' => 1,
+                'cracha_id' => 1,
+                'data_entrada' => '2022-06-27',
+                'hora_entrada' => '07:11',
+                'contato' => 'Setor financeiro',
+                'motivo' => 'Visita técnica',
+                'observacoes' => 'Observações diversas',
+                'data_saida' => '2022-06-27',
+                'hora_saida' => '09:13'
+            )
+        );
+
+        return array($dados);
     }
 }
