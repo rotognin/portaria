@@ -1,6 +1,7 @@
 - Futuramente pensar em agendar uma visita, reservando um crachá para o visitante.
 - Gerar relatório em PDF
+- Gerar exportação das informações em arquivo CSV
 - Gerar gráficos (bibliotecas em JavaScript)
-- Envio de e-mails assim que um visitante entrar
+- Envio de e-mails assim que um visitante entrar - OK (implementado)
 - Hospedagem do sistema - OK (hospedado)
 - Configurar Github Actions na hospedagem - OK (hospedado)

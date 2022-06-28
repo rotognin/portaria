@@ -20,7 +20,7 @@
 - Nos cadastros do sistema
   - Melhorar a apresentação dos campos (margem, fonte, tamanho, estilo...)
 
-- Instalar dependência para envio de e-mail
+- (OK) Instalar dependência para envio de e-mail
 
 - Na movimentação de entrada:
-  - Ao abrir movimentação, verificar o flag de envio de e-mail da empresa e, caso positivo, enviar
+  - (OK) Ao abrir movimentação, verificar o flag de envio de e-mail da empresa e, caso positivo, enviar

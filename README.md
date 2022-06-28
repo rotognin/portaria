@@ -6,8 +6,6 @@ Este sistema consiste em um controle de visitas em uma empresa, com suporte a ma
 
 No registro de movimentação de entrada, o visitante irá receber um crachá identificado e deverá devolvê-lo na saída. Poderá informar o nome de um contato na empresa com quem irá tratar, além de cadastrar acompanhantes que estiverem junto com o mesmo.
 
-- Estou implementando o framework de testes PHPUnit, e adaptando algumas funções para serem testáveis.
-
 ## Ambientes:
 
 - <strong>Administrativo:</strong> ambiente voltado à gerência, para o cadastro de usuários (administradores e clientes), Unidades (matriz e filiais), Portarias da Unidade, Crachás a serem disponibilizados, acompanhamento das movimentações e relatórios. Apenas usuários cadastrados como <em>Administradores</em> podem acessar esse ambiente.
@@ -20,6 +18,8 @@ Um usuário cadastrado como "Usuário Comum" não tem acesso ao sistema administ
 
 Sistema sendo desenvolvido em PHP 7.4+, usando a arquitetura MVC (POO), CoffeeCode DataLayer como ORM, banco de dados MySQL, seguindo as melhores práticas de programação (separação de camadas, separação de responsabilidades, nomes de variáveis e métodos com coerência).
 
+- Estou implementando o framework de testes PHPUnit, e adaptando algumas funções para serem testáveis.
+
 Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer.
 
 - Este projeto está rodando [neste link](https://rodrigotognin.com.br/portaria/). Usuário: "admin", senha: "123"
@@ -31,7 +31,11 @@ Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer.
 - Entre com o seguinte comando: <code> composer update </code>
 - Crie um banco com o nome <code>portaria_db</code>
 - Verifique as configurações de acesso ao banco de dados no arquivo <code>src/config.php</code>
-- As configurações de envio de e-mail deverão ser configurados no arquivo <code>src/configemail.php</code>
+- As configurações de envio de e-mail deverão ser configurados no arquivo <code>src/configemail.php</code> da segunite forma:
+  - <code>$email_remetente = 'remetente@email.com';</code>
+  - <code>$email_servidor = 'smtp.servidor.com';</code>
+  - <code>$email_usuario = 'login@email.com';</code>
+  - <code>$email_senha = '123456';</code>
 - Rode o script <code>docs/tabelas.sql</code> no banco para criar as tabelas do sistema
 - Será criado o usuário "admin" no banco, senha "123", com acesso ao ambiente administrativo.
 
