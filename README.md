@@ -33,11 +33,12 @@ Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer, GIT (par
 - Execute o comando: <code>composer update</code> para baixar as dependências do projeto
 - Crie um banco com o nome <code>portaria_db</code>
 - Verifique as configurações de acesso ao banco de dados no arquivo <code>src/config.php</code>
-- As configurações de envio de e-mail deverão ser configurados no arquivo <code>src/configemail.php</code> da segunite forma:
-  - <code>$email_remetente = 'remetente@email.com';</code>
-  - <code>$email_servidor = 'smtp.servidor.com';</code>
-  - <code>$email_usuario = 'login@email.com';</code>
-  - <code>$email_senha = '123456';</code>
+- Crie o arquivo <code>src/configemail.php</code> para ajustar as configurações de envio de e-mail
+  - Neste arquivo deverão ser informadas as segunites configurações:
+  - <code>$email_remetente = 'remetente@email.com';</code> <i> Remetente do e-mail </i>
+  - <code>$email_servidor = 'smtp.servidor.com';</code> <i> Host, endereço do servidor de disparo de e-mails (SMTP) </i>
+  - <code>$email_usuario = 'login@email.com';</code> <i> Login da conta de e-mail </i>
+  - <code>$email_senha = '123456';</code> <i> Senha da conta de e-mail </i>
 - Rode o script <code>docs/tabelas.sql</code> no banco para criar as tabelas do sistema
   - Será criado o usuário "admin" no banco, senha "123", com acesso ao ambiente administrativo.
 
