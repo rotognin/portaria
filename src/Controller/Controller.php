@@ -3,7 +3,6 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Logins;
-use Lib\Verificacoes;
 
 class Controller
 {

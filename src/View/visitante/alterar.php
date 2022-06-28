@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <?php 
             $titulo = 'Alteração de Visitante';
-            require_once 'html/movimentacao/topo.php';
+            require_once 'html/' . $_SESSION['ambiente'] . '/topo.php';
         ?>
 
         <br>

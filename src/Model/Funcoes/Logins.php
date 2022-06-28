@@ -46,6 +46,7 @@ class Logins
         $_SESSION['usuID'] = $usuario->id;
         $_SESSION['usuNome'] = $usuario->nome;
         $_SESSION['usuNivel'] = $usuario->nivel;
+        $_SESSION['ambiente'] = (NIVEL[$usuario->nivel] == 'Administrador') ? 'admin' : 'movimentacao';
 
         $this->nivel = $usuario->nivel;
 

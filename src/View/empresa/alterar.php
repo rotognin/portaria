@@ -6,7 +6,7 @@
         <?php 
             $titulo = 'Alteração de Empresa';
             $exibirTopo = false;
-            require_once 'html/movimentacao/topo.php';
+            require_once 'html/' . $_SESSION['ambiente'] . '/topo.php';
         ?>
 
         <br>
