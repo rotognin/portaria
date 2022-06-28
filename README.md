@@ -20,15 +20,17 @@ Sistema sendo desenvolvido em PHP 7.4+, usando a arquitetura MVC (POO), CoffeeCo
 
 - Estou implementando o framework de testes PHPUnit, e adaptando algumas funções para serem testáveis.
 
-Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer.
+Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer, GIT (para clonar o repositório, caso queira).
 
 - Este projeto está rodando [neste link](https://rodrigotognin.com.br/portaria/). Usuário: "admin", senha: "123"
 
 ## Procedimentos para instalação local:
 
 - Baixe o projeto em uma pasta
+  - Com o GIT instalado, use o comando <code>git clone https://github.com/rotognin/portaria.git</code>
+  - Será criada a pasta <code>portaria</code>
 - Acesse a pasta via linha de comando
-- Entre com o seguinte comando: <code> composer update </code>
+- Execute o comando: <code>composer update</code> para baixar as dependências do projeto
 - Crie um banco com o nome <code>portaria_db</code>
 - Verifique as configurações de acesso ao banco de dados no arquivo <code>src/config.php</code>
 - As configurações de envio de e-mail deverão ser configurados no arquivo <code>src/configemail.php</code> da segunite forma:
@@ -37,7 +39,7 @@ Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer.
   - <code>$email_usuario = 'login@email.com';</code>
   - <code>$email_senha = '123456';</code>
 - Rode o script <code>docs/tabelas.sql</code> no banco para criar as tabelas do sistema
-- Será criado o usuário "admin" no banco, senha "123", com acesso ao ambiente administrativo.
+  - Será criado o usuário "admin" no banco, senha "123", com acesso ao ambiente administrativo.
 
 ### Considerações
 
