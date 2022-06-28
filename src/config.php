@@ -14,3 +14,17 @@ define("DATA_LAYER_CONFIG", [
         PDO::ATTR_CASE => PDO::CASE_NATURAL
     ]
 ]);
+
+define("INFORMACOES", array(
+    'empresa' => 'Empresa Matriz - portaria'
+));
+
+require_once('configemail.php');
+
+define("EMAIL_CONFIG", array(
+    'remetente' => $email_remetente,
+    'servidor' => $email_servidor,
+    'usuario' => $email_usuario,
+    'senha' => $email_senha,
+    'porta' => 465
+));

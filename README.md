@@ -31,6 +31,7 @@ Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer.
 - Entre com o seguinte comando: <code> composer update </code>
 - Crie um banco com o nome <code>portaria_db</code>
 - Verifique as configurações de acesso ao banco de dados no arquivo <code>src/config.php</code>
+- As configurações de envio de e-mail deverão ser configurados no arquivo <code>src/configemail.php</code>
 - Rode o script <code>docs/tabelas.sql</code> no banco para criar as tabelas do sistema
 - Será criado o usuário "admin" no banco, senha "123", com acesso ao ambiente administrativo.
 

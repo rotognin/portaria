@@ -94,7 +94,7 @@ class MovimentacaoController extends Controller
 
         if ($movimentacao->existemAcompanhantes($post)){
             if (!$movimentacao->ajustarAcompanhantes($post)){
-                self::novo([], [], $movimentacao->mensagem, $movimento->objeto());
+                self::novo([], [], $movimentacao->mensagem, $movimentacao->objeto());
                 exit;
             }
         }
@@ -113,6 +113,10 @@ class MovimentacaoController extends Controller
                 if (!$movimentacao->gravarAcompanhantes($post)){
                     $mensagem .= '<br>Acompanhantes não gravados corretamente.';
                 }
+            }
+
+            if (!$movimentacao->checarEnviarEmail('Abertura de movimentação - visita')){
+                $mensagem .= '<br>O e-mail de abertura não foi enviado: [ ' . $movimentacao->mensagem . ' ]';
             }
 
             self::inicio([], [], $mensagem);

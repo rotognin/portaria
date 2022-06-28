@@ -10,7 +10,9 @@ use Src\Model\Entidades\Unidade;
 use Src\Model\Entidades\Usuario;
 use Src\Model\Entidades\Portaria;
 use Src\Model\Funcoes\Acompanhantes;
+use Src\Model\Funcoes\Emails;
 use Lib\Verificacoes;
+use Lib\Email;
 
 class Movimentacoes
 {
@@ -334,6 +336,48 @@ class Movimentacoes
 
         if ($this->movimentacao->data_entrada > $this->movimentacao->data_saida){
             return false;
+        }
+
+        return true;
+    }
+
+    public function checarEnviarEmail(string $assunto = '')
+    {
+        if (empty($assunto)){
+            $this->mensagem = 'Assunto do e-mail em branco.';
+            return false;
+        }
+
+        $this->movimentacao = $this->carregarDados($this->movimentacao);
+
+        if ($this->movimentacao->visitante->empresa->enviar_email == 1){
+            if (empty($this->movimentacao->visitante->empresa->email)){
+                $this->mensagem = 'E-mail da empresa em branco.';
+                return false;
+            }
+
+            $email = new Emails();
+            $email->adicionarRemetente();
+            $email->adicionarDestinatario(Verificacoes::verificarString($this->movimentacao->visitante->empresa->email));
+            $email->adicionarAssunto($assunto);
+            $email->adicionarCorpo(
+                Email::aberturaDeVisita(
+                    $this->movimentacao->visitante->nome, 
+                    $this->movimentacao->data_entrada, 
+                    $this->movimentacao->hora_entrada)
+            );
+
+            if (!$email->checarCampos()){
+                $this->mensagem = $email->obterMensagemErro();
+                return false;
+            }
+
+            $email->enviar();
+
+            if (!$email->okEnvio()){
+                $this->mensagem = $email->obterMensagemErro();
+                return false;
+            }
         }
 
         return true;
