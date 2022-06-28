@@ -12,7 +12,7 @@
   - (OK) Verificar se a data de finalização é maior que a data de entrada
 
 - Na parte administrativa
-  - Adicionar o cadastro de empresas (implementando...)
+  - (OK) Adicionar o cadastro de empresas
   - (OK) No cadastro de empresas, criar um campo de e-mail e um campo "responsável"
   - (OK) Flag indicando se receberá e-mails ao abrir uma visita para a empresa
   - Criar parametrizações gerais para o sistema
