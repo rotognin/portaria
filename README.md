@@ -8,11 +8,11 @@ No registro de movimentação de entrada, o visitante irá receber um crachá id
 
 ## Ambientes:
 
-- <strong>Administrativo:</strong> ambiente voltado à gerência, para o cadastro de usuários (administradores e clientes), Unidades (matriz e filiais), Portarias da Unidade, Crachás a serem disponibilizados, acompanhamento das movimentações e relatórios. Apenas usuários cadastrados como <em>Administradores</em> podem acessar esse ambiente.
+- <strong>Administrativo:</strong> ambiente voltado à gerência, para o cadastro de usuários (administradores e clientes), Unidades (matriz e filiais), Portarias da Unidade, Crachás a serem disponibilizados, acompanhamento das movimentações, parametrizações e relatórios. Apenas usuários cadastrados como <em>Administradores</em> podem acessar esse ambiente.
 
-- <strong>Movimentações:</strong> movimentações de entrada e saída, cadastro de empresas e visitantes, listagem de relatório. Quaisquer usuários que não estiverem cadastrados como <em>Administradores</em> irão acecssar esse ambiente automaticamente, devendo selecionar a unidade e a portaria em que irão atuar após o login.
+- <strong>Movimentações:</strong> movimentações de entrada e saída, cadastro de empresas e visitantes, acompanhamento das visitas em andamento. Quaisquer usuários que não estiverem cadastrados como <em>Administradores</em> irão acecssar esse ambiente automaticamente, devendo selecionar a unidade e a portaria em que irão atuar ao efetuar o login.
 
-Um usuário cadastrado como "Usuário Comum" não tem acesso ao sistema administrativo, assim como administradores não terão acesso ao ambiente de movimentações.
+Um usuário cadastrado como "Usuário Comum" não terá acesso ao sistema administrativo, assim como administradores não terão acesso ao ambiente de movimentações.
 
 ## Detalhes técnicos:
 
@@ -31,9 +31,9 @@ Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer, GIT (par
   - Será criada a pasta <code>portaria</code>
 - Acesse a pasta via linha de comando
 - Execute o comando: <code>composer update</code> para baixar as dependências do projeto
-- Crie um banco com o nome <code>portaria_db</code>
-- Verifique as configurações de acesso ao banco de dados no arquivo <code>src/config.php</code>
-- Crie o arquivo <code>src/configemail.php</code> para ajustar as configurações de envio de e-mail
+- No MySQL crie um banco com o nome <code>portaria_db</code>
+- Ajuste as configurações de acesso ao banco de dados no arquivo <code>src/config.php</code>
+- Crie o arquivo <code>src/configemail.php</code> para ajustar as configurações de envio de e-mail, caso queira utilizar essa opção
   - Neste arquivo deverão ser informadas as segunites configurações:
   - <code>$email_remetente = 'remetente@email.com';</code> <i> Remetente do e-mail </i>
   - <code>$email_servidor = 'smtp.servidor.com';</code> <i> Host, endereço do servidor de disparo de e-mails (SMTP) </i>
@@ -49,11 +49,12 @@ O projeto está em constante atualização, sendo adicionadas funcionalidades e 
 ### Melhorias futuras
 
 - Geração de relatórios em PDF
-- Envio de e-mails para a empresa quando o visitante der entrada
+- Envio de e-mails para a empresa quando o visitante der entrada <i>(implementado)</i>
 - Criação de parâmetros:
   - Acompanhante pode sair antes?
   - Atribuir crachás específicos para acompanhantes
   - Previsão de saída (exibirá mensagem ao passar do horário previsto)
+  - Limitar o número de acompanhantes
 - Exibir mais informações nos detalhes de uma movimentação
 - Geração de gráficos
 - Envio de mensagens entre os ambientes
