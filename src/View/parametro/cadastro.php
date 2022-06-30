@@ -8,7 +8,6 @@
             require_once 'html/admin/topo.php';
         ?>
 
-        <br>
         <?php include_once 'html/mensagem.php'; ?>
         <?php require('formulario.php'); ?>
     </div>

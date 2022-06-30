@@ -8,7 +8,7 @@
             require_once 'html/admin/topo.php';
         ?>
     </div>
-    
+    <?php include_once 'html/mensagem.php'; ?>
     <div class="container-fluid">
         <a class="btn fundo-azul text-white" href="index.php?action=novo&control=unidade">Nova Unidade</a>
 
@@ -63,7 +63,7 @@
                                 echo '<form method="post" action="index.php?control=parametro&action=parametros">';
                                     echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
                                     echo '<input type="hidden" name="unidade_id" value="' . $unidade->id . '">';
-                                    echo '<input type="submit" style="margin-left: 10px" value="Parâmetros" class="btn botao btn-sm float-left" disabled>';
+                                    echo '<input type="submit" style="margin-left: 10px" value="Parâmetros" class="btn botao btn-sm float-left">';
                                 echo '</form>';
                             echo '</td>';
                         echo '</tr>';
