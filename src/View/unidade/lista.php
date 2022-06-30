@@ -63,7 +63,7 @@
                                 echo '<form method="post" action="index.php?control=parametro&action=parametros">';
                                     echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
                                     echo '<input type="hidden" name="unidade_id" value="' . $unidade->id . '">';
-                                    echo '<input type="submit" style="margin-left: 10px" value="Parâmetros" class="btn botao btn-sm float-left">';
+                                    echo '<input type="submit" style="margin-left: 10px" value="Parâmetros" class="btn botao btn-sm float-left" disabled>';
                                 echo '</form>';
                             echo '</td>';
                         echo '</tr>';
