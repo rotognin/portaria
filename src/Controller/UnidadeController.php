@@ -98,6 +98,6 @@ class UnidadeController extends Controller
         $unidade->carregar($id);
         $unidade->alterarStatus($status);
 
-        self::unidadeds([], []);
+        self::unidades([], []);
     }
 }

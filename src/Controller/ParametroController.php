@@ -8,9 +8,9 @@ use Lib\Verificacoes;
 class ParametroController extends Controller
 {
     /**
-     * Na criação de uma Unidade, os parâmetros para ela serão criados automaticamente
+     * Verifica se a unidade tem parametrização. Se não tiver, cria
      */
-    public static function criarParametrosUnidade(int $unidade_id)
+    public static function verificarParametrosUnidade(int $unidade_id)
     {
         $id = filter_var($unidade_id, FILTER_VALIDATE_INT);
 
@@ -19,7 +19,7 @@ class ParametroController extends Controller
         }
 
         $parametros = new Parametros();
-        $parametros->criarParametrosUnidade($id);
+        $parametros->verificarParametrosUnidade($id);
         return true;
     }
 
@@ -39,8 +39,10 @@ class ParametroController extends Controller
         }
 
         // Checar se existem parametrizações para a unidade passada
+        self::verificarParametrosUnidade($unidade_id);
+        $parametros = new Parametros();
+        $parametros->carregar($unidade_id);
 
-
-
+        parent::view('parametro.cadastro', ['parametros' => $parametros->objeto()]);
     }
 }

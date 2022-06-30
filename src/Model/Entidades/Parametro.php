@@ -4,7 +4,7 @@ namespace Src\Model\Entidades;
 
 use CoffeeCode\DataLayer\DataLayer;
 
-class Entidades extends DataLayer
+class Parametro extends DataLayer
 {
     public function __construct()
     {
