@@ -30,13 +30,15 @@ class Parametros
         $params = http_build_query(['unidade_id' => $unidade_id]);
         $find = 'unidade_id = :unidade_id';
 
-        $parametro = (new Parametro())->find($find, $params)->fetch();
+        $parametro = (new Parametro())->find($find, $params)->limit(1)->fetch(true);
         
-        if ($parametro->fail()){
+        if (!$parametro){
             $this->criarParametros($unidade_id);
         } else {
-            $this->parametro = $parametro;
+            $this->carregar($parametro[0]->id);
         }
+
+        return $this->parametro->id;
     }
 
     private function criarParametros(int $unidade_id)
@@ -74,17 +76,22 @@ class Parametros
         $this->parametro = (new Parametro())->findById($id);
     }
 
+    public function objeto()
+    {
+        return $this->parametro ?? false;
+    }
+
     private function validarCampos()
     {
         $retorno = true;
         $this->mensagem = '';
 
-        if (!Verificacoes::horaValida($this->limite_horario_entrada)){
+        if (!Verificacoes::horaValida($this->parametro->limite_horario_entrada)){
             $this->mensagem .= 'Horário limite de entrada incorreto';
             $retorno = false;
         }
 
-        if (!Verificacoes::horaValida($this->limite_horario_saida)){
+        if (!Verificacoes::horaValida($this->parametro->limite_horario_saida)){
             $this->mensagem .= 'Horário limite de saída incorreto';
             $retorno = false;
         }

@@ -3,26 +3,11 @@
 namespace Src\Controller;
 
 use Src\Model\Funcoes\Parametros;
+use Src\Model\Funcoes\Unidades;
 use Lib\Verificacoes;
 
 class ParametroController extends Controller
 {
-    /**
-     * Verifica se a unidade tem parametrização. Se não tiver, cria
-     */
-    public static function verificarParametrosUnidade(int $unidade_id)
-    {
-        $id = filter_var($unidade_id, FILTER_VALIDATE_INT);
-
-        if (!$id){
-            return false;
-        }
-
-        $parametros = new Parametros();
-        $parametros->verificarParametrosUnidade($id);
-        return true;
-    }
-
     public static function parametros(array $post, array $get, string $mensagem = '')
     {
         if (!Verificacoes::token($post)){
@@ -38,11 +23,13 @@ class ParametroController extends Controller
             exit;
         }
 
-        // Checar se existem parametrizações para a unidade passada
-        self::verificarParametrosUnidade($unidade_id);
         $parametros = new Parametros();
-        $parametros->carregar($unidade_id);
+        $parametro_id = $parametros->verificarParametrosUnidade($unidade_id);
+        $parametros->carregar($parametro_id);
 
-        parent::view('parametro.cadastro', ['parametros' => $parametros->objeto()]);
+        $unidade = new Unidades();
+        $unidade->carregar($unidade_id);
+
+        parent::view('parametro.cadastro', ['parametros' => $parametros->objeto(), 'unidade' => $unidade->objeto()]);
     }
 }
