@@ -140,6 +140,21 @@ CREATE TABLE `acompanhantes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Quem está acompanhando o visitante na hora da entrada';
 
 
+CREATE TABLE `parametros` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `unidade_id` int DEFAULT NULL COMMENT 'ID da unidade parametrizada',
+  `limite_acompanhantes` int DEFAULT NULL COMMENT 'Número máximo de acompanhantes (0 - não pode ter acompanhante, registrar um por um)',
+  `limitar_hora_entrada` tinyint(1) DEFAULT NULL COMMENT 'Vai limitar o horário de início das visitas?',
+  `limite_horario_entrada` time DEFAULT NULL COMMENT 'Horário inicial para liberar as visitas',
+  `limitar_hora_saida` tinyint(1) DEFAULT NULL COMMENT 'Vai limitar o horário de saída das visitas?',
+  `limite_horario_saida` time DEFAULT NULL COMMENT 'Horário final para registrar as saídas',
+  `motivo_obrigatorio` tinyint(1) DEFAULT NULL COMMENT 'Obrigatório informar o motivo da visita',
+  PRIMARY KEY (`id`),
+  KEY `fk_par_unidade_id_idx` (`unidade_id`),
+  CONSTRAINT `fk_par_unidade_id` FOREIGN KEY (`unidade_id`) REFERENCES `unidades` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 INSERT INTO `portaria_db`.`usuarios`
 (`nome`, `login`, `senha`, `nivel`, `status`)
 VALUES

@@ -22,6 +22,7 @@
                     <th>Município/UF</th>
                     <th>Status</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -57,11 +58,19 @@
                                     echo '<input type="submit" style="margin-left: 10px" value="Alterar" class="btn botao btn-sm float-left">';
                                 echo '</form>';
                             echo '</td>';
+
+                            echo '<td>';
+                                echo '<form method="post" action="index.php?control=parametro&action=parametros">';
+                                    echo '<input type="hidden" name="_token" value="' . $_SESSION['csrf'] . '">';
+                                    echo '<input type="hidden" name="unidade_id" value="' . $unidade->id . '">';
+                                    echo '<input type="submit" style="margin-left: 10px" value="Parâmetros" class="btn botao btn-sm float-left">';
+                                echo '</form>';
+                            echo '</td>';
                         echo '</tr>';
                     }
                 } else {
                     echo '<tr>';
-                        echo '<td colspan="7"><i>Nenhuma unidade cadastrada...</i></td>';
+                        echo '<td colspan="8"><i>Nenhuma unidade cadastrada...</i></td>';
                     echo '</tr>';
                 }
             ?>

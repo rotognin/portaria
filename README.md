@@ -49,13 +49,14 @@ O projeto está em constante atualização, sendo adicionadas funcionalidades e 
 ### Melhorias futuras
 
 - Geração de relatórios em PDF
-- Envio de e-mails para a empresa quando o visitante der entrada <i>(implementado)</i>
-- Criação de parâmetros:
+- <b>OK</b> - Envio de e-mails para a empresa quando o visitante der entrada
+- <b>Em andamento</b> - Criação de parâmetros:
   - Acompanhante pode sair antes?
   - Atribuir crachás específicos para acompanhantes
   - Previsão de saída (exibirá mensagem ao passar do horário previsto)
   - Limitar o número de acompanhantes
-- Exibir mais informações nos detalhes de uma movimentação
+- Ao criar uma Unidade nova (matriz ou filial), criar um registro com valores iniciais
+- <b>OK</b> - Exibir mais informações nos detalhes de uma movimentação
 - Geração de gráficos
 - Envio de mensagens entre os ambientes
 - Na administração:

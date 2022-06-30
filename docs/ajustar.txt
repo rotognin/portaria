@@ -15,7 +15,8 @@
   - (OK) Adicionar o cadastro de empresas
   - (OK) No cadastro de empresas, criar um campo de e-mail e um campo "responsável"
   - (OK) Flag indicando se receberá e-mails ao abrir uma visita para a empresa
-  - Criar parametrizações gerais para o sistema
+  - (Em andamento...) Criar parametrizações gerais para o sistema
+  - Ao criar uma nova Unidade, já criar as parametrizações com valores padrão para a Unidade
 
 - Nos cadastros do sistema
   - Melhorar a apresentação dos campos (margem, fonte, tamanho, estilo...)

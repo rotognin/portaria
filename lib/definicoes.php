@@ -6,7 +6,7 @@ date_default_timezone_set('America/Sao_Paulo');
 require ('./vendor/autoload.php');
 
 define("DS", DIRECTORY_SEPARATOR);
-define("APP_VERSION", '2022.06.28-002');
+define("APP_VERSION", '2022.06.30-001a');
 
 define("NIVEL", array(
     '1' => 'Administrador',
