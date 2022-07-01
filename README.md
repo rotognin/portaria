@@ -32,6 +32,8 @@ Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer, GIT (par
 - Acesse a pasta via linha de comando
 - Execute o comando: <code>composer update</code> para baixar as dependências do projeto
 - No MySQL crie um banco com o nome <code>portaria_db</code>
+- Rode o script <code>docs/tabelas.sql</code> no banco para criar as tabelas do sistema
+  - Será criado o usuário "admin" no banco, senha "123", com acesso ao ambiente administrativo.
 - Ajuste as configurações de acesso ao banco de dados no arquivo <code>src/config.php</code>
 - Crie o arquivo <code>src/configemail.php</code> para ajustar as configurações de envio de e-mail, caso queira utilizar essa opção
   - Neste arquivo deverão ser informadas as segunites configurações:
@@ -39,8 +41,6 @@ Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer, GIT (par
   - <code>$email_servidor = 'smtp.servidor.com';</code> <i> Host, endereço do servidor de disparo de e-mails (SMTP) </i>
   - <code>$email_usuario = 'login@email.com';</code> <i> Login da conta de e-mail </i>
   - <code>$email_senha = '123456';</code> <i> Senha da conta de e-mail </i>
-- Rode o script <code>docs/tabelas.sql</code> no banco para criar as tabelas do sistema
-  - Será criado o usuário "admin" no banco, senha "123", com acesso ao ambiente administrativo.
 
 ### Considerações
 
@@ -55,11 +55,11 @@ O projeto está em constante atualização, sendo adicionadas funcionalidades e 
   - Atribuir crachás específicos para acompanhantes
   - Previsão de saída (exibirá mensagem ao passar do horário previsto)
   - Limitar o número de acompanhantes
-- Ao criar uma Unidade nova (matriz ou filial), criar um registro com valores iniciais
+- <b>OK</b> - Ao criar uma Unidade nova (matriz ou filial), criar um registro com valores iniciais
 - <b>OK</b> - Exibir mais informações nos detalhes de uma movimentação
 - Geração de gráficos
 - Envio de mensagens entre os ambientes
 - Na administração:
-  - verificar quais portarias estão ativas no momento
+  - verificar quais portarias estão ativas no momento (monitoramento de visitas)
   - exibir movimentações não finalizadas de dias anteriores
-- Criação de um log de acompanhamento das movimentações
+- No cadastro das portarias de uma unidade, informar se será entrada/saída de veículos, pessoas ou ambos
