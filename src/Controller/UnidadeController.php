@@ -57,6 +57,10 @@ class UnidadeController extends Controller
         }
 
         if ($unidade->gravar()){
+            if ($novo){
+                $unidade->criarParametros();
+            }
+
             self::unidades([], [], 'Unidade gravado com sucesso.');
         } else {
             Verificacoes::criarCsrf();

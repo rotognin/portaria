@@ -113,11 +113,18 @@ class Parametros
 
         $this->parametro->unidade_id = filter_var($dados['unidade_id'], FILTER_VALIDATE_INT);
         $this->parametro->limite_acompanhantes = filter_var($dados['limite_acompanhantes'], FILTER_VALIDATE_INT);
-        $this->parametro->limitar_hora_entrada = (isset($dados['limitar_hora_entrada'])) ? 1 : 0;
         $this->parametro->limite_horario_entrada = Verificacoes::verificarString($dados['limite_horario_entrada']);
-        $this->parametro->limitar_hora_saida = (isset($dados['limitar_hora_saida'])) ? 1 : 0;
         $this->parametro->limite_horario_saida = Verificacoes::verificarString($dados['limite_horario_saida']);
-        $this->parametro->motivo_obrigatorio = (isset($dados['motivo_obrigatorio'])) ? 1 : 0;
+
+        if ($this->novo){
+            $this->parametro->limitar_hora_entrada = 0;
+            $this->parametro->limitar_hora_saida = 0;
+            $this->parametro->motivo_obrigatorio = 0;
+        } else {
+            $this->parametro->limitar_hora_entrada = (isset($dados['limitar_hora_entrada'])) ? 1 : 0;
+            $this->parametro->limitar_hora_saida = (isset($dados['limitar_hora_saida'])) ? 1 : 0;
+            $this->parametro->motivo_obrigatorio = (isset($dados['motivo_obrigatorio'])) ? 1 : 0;
+        }
 
         if (!$this->validarCampos()){
             return false;

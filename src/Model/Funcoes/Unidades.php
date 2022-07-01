@@ -3,6 +3,7 @@
 namespace Src\Model\Funcoes;
 
 use Src\Model\Entidades\Unidade;
+use Src\Model\Funcoes\Parametros;
 use Lib\Verificacoes;
 
 class Unidades
@@ -145,5 +146,11 @@ class Unidades
     public function contar()
     {
         return (new Unidade())->find()->count();
+    }
+
+    public function criarParametros()
+    {
+        $parametros = new Parametros();
+        $parametros->verificarParametrosUnidade($this->unidade->id);
     }
 }
