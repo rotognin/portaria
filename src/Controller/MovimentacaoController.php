@@ -5,6 +5,7 @@ namespace Src\Controller;
 use Src\Model\Funcoes\Empresas;
 use Src\Model\Funcoes\Crachas;
 use Src\Model\Funcoes\Movimentacoes;
+use Src\Model\Funcoes\Parametros;
 use Src\Model\Entidades\Visitante;
 use Src\Model\Entidades\Empresa;
 use Src\Model\Entidades\Cracha;
@@ -47,10 +48,15 @@ class MovimentacaoController extends Controller
             exit;
         }
 
+        $parametros = new Parametros();
+        $param_id = $parametros->verificarParametrosUnidade($_SESSION['uniID']);
+        $parametros->carregar($param_id);
+
         parent::view('movimentacao.novo', [
             'mensagem' => $mensagem, 
             'empresas' => $empresas->obter(),
             'crachas' => $crachas->obter(),
+            'parametros' => $parametros->objeto(),
             'movimentacao' => $movimentacao
         ]);
     }

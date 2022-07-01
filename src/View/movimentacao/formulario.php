@@ -5,6 +5,13 @@
     <input type="hidden" id="movimentacao_id" name="movimentacao_id" value="0">
     <input type="hidden" id="status" name="status" value="0">
 
+    <input type="hidden" id="param_hora_entrada" name="param_hora_entrada" 
+    <?php 
+        echo 'data-limitar-hora-entrada="' . $parametros->limitar_hora_entrada . '" ';
+        echo 'data-limite-horario-entrada="' . $parametros->limite_horario_entrada . '" ';
+    ?>
+    >
+
     <div class="form-group margem-baixo">
         <label for="id" style="margin:0px"><b>ID: &nbsp;</b></label>
         <input type="number" id="id" name="id" readonly 
@@ -61,18 +68,29 @@
     </div>
     <div class="form-group margem-baixo">
         <label for="motivo"><b>Motivo: &nbsp;</b></label>
-        <input type="text" id="motivo" name="motivo" value="<?php echo ($movimentacao->motivo ?? ''); ?>" size="80">
+        <input type="text" id="motivo" name="motivo" value="<?php echo ($movimentacao->motivo ?? ''); ?>" size="80" 
+        <?php
+            if ($parametros->motivo_obrigatorio == 1){
+                echo ' required ';
+            }
+        ?>
+        >
     </div>
     <div class="form-group margem-baixo">
         <label for="observacoes"><b>Observações: &nbsp;</b></label>
         <input type="text" id="observacoes" name="observacoes" value="<?php echo ($movimentacao->observacoes ?? ''); ?>" size="100">
     </div>
     
-    
-    <button type="button" class="btn btn-primary margem-baixo" onclick="adicionarAcompanhante()">Adicionar Acompanhante</button>
-    <div id="acompanhantes" style="display:none" data-acompanhantes="0">
+    <?php
+    if ($parametros->limite_acompanhantes > 0){
+    ?>
+        <button type="button" id="btnAddAcompanhantes" class="btn btn-primary margem-baixo" onclick="adicionarAcompanhante()">Adicionar Acompanhante</button>
+        <div id="acompanhantes" style="display:none" data-acompanhantes="0" data-maximo="<?php echo $parametros->limite_acompanhantes; ?>">
         
-    </div>
+        </div>
+    <?php
+    }
+    ?>
 
     <div class="alert alert-danger" role="alert" id="mensagem" style="display:none">
     </div>

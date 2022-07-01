@@ -32,6 +32,18 @@ function validarMovimentacao(){
         return false;
     }
 
+    var limite_hora_entrada = parseInt($("#param_hora_entrada").data("limitar-hora-entrada"));
+    var limite_horario_entrada = $("#param_hora_entrada").data("limite-horario-entrada");
+
+    if (limite_hora_entrada == 1){
+        var horario_entrada = $("#hora_entrada").val();
+
+        if (horario_entrada < limite_horario_entrada){
+            alert("Hora de abertura abaixo do limite permitido: " + limite_horario_entrada);
+            return false;
+        }
+    }
+
     return true;
 }
 
@@ -64,13 +76,26 @@ function removerAcompanhante(numero){
     var qtdAcompanhantes = parseInt($("#acompanhantes").data("acompanhantes"));
     qtdAcompanhantes -= 1;
     $("#acompanhantes").data("acompanhantes", qtdAcompanhantes);
+
+    $("#btnAddAcompanhantes").show();
 }
 
 function adicionarAcompanhante(){
     var nroAcompanhante = parseInt($("#acompanhantes").data("acompanhantes"));
+    var maxAcompanhante = parseInt($("#acompanhantes").data("maximo"));
+
+    if (nroAcompanhante == maxAcompanhante){
+        alert("Máximo de acompanhantes atingido.");
+        return;
+    }
+
     var qtdAcompanhantes = nroAcompanhante;
     nroAcompanhante += 1;
     $("#acompanhantes").data("acompanhantes", nroAcompanhante);
+
+    if (nroAcompanhante == maxAcompanhante){
+        $("#btnAddAcompanhantes").hide();
+    }
 
     if (nroAcompanhante == 1){
         $("#acompanhantes").html(inserirAcompanhanteHTML(nroAcompanhante));
