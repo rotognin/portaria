@@ -51,7 +51,7 @@ function inserirAcompanhanteHTML(numero){
     return '<div class="card" id="nro_' + numero + '">' +
             '<div class="card-body">' +
                 '<p><b>Acompanhante ' + numero + '</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 
-                '<button type="button" class="btn btn-danger btn-sm" onclick="removerAcompanhante(' + numero + ')">Remover</button></p>' +
+                '<button id="remove_' + numero + '" type="button" class="btn btn-danger btn-sm" onclick="removerAcompanhante(' + numero + ')">Remover</button></p>' +
                 '<div class="form-group margem-baixo">' +
                     '<label for="nome_' + numero + '">Nome: &nbsp;</label>' +
                     '<input type="text" id="nome_' + numero + '" name="nome[]" size="20" required>' +
@@ -76,6 +76,7 @@ function removerAcompanhante(numero){
     var qtdAcompanhantes = parseInt($("#acompanhantes").data("acompanhantes"));
     qtdAcompanhantes -= 1;
     $("#acompanhantes").data("acompanhantes", qtdAcompanhantes);
+    $("#remove_" + qtdAcompanhantes).show();
 
     $("#btnAddAcompanhantes").show();
 }
@@ -102,6 +103,8 @@ function adicionarAcompanhante(){
         $("#acompanhantes").show();
         return;
     }
+
+    $("#remove_" + qtdAcompanhantes).hide();
 
     $("#nro_" + qtdAcompanhantes).after(inserirAcompanhanteHTML(nroAcompanhante));
     return;
