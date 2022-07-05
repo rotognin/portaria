@@ -47,6 +47,22 @@ function validarMovimentacao(){
     return true;
 }
 
+function validarMovimentacaoSaida(){
+    var limite_hora_saida = parseInt($("#param_hora_saida").data("limitar-hora-saida"));
+    var limite_horario_saida = $("#param_hora_saida").data("limite-horario-saida");
+
+    if (limite_hora_saida == 1){
+        var horario_saida = $("#hora_saida").val();
+
+        if (horario_saida > limite_horario_saida){
+            alert("Hora de saída acima do limite permitido: " + limite_horario_saida);
+            return false;
+        }
+    }
+
+    return true;
+}
+
 function inserirAcompanhanteHTML(numero){
     return '<div class="card" id="nro_' + numero + '">' +
             '<div class="card-body">' +

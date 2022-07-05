@@ -1,8 +1,16 @@
 <form class="col-12" method="post" 
+      onsubmit="return validarMovimentacaoSaida()"
       action="index.php?control=movimentacao&action=finalizar">
     <input type="hidden" id="_token" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
     <input type="hidden" id="movimentacao_id" name="movimentacao_id" value="<?php echo $movimentacao->id; ?>">
     <input type="hidden" id="status" name="status" value="1">
+
+    <input type="hidden" id="param_hora_saida" name="param_hora_saida" 
+    <?php 
+        echo ' data-limitar-hora-saida="' . $parametros->limitar_hora_saida . '" ';
+        echo ' data-limite-horario-saida="' . $parametros->limite_horario_saida . '" ';
+    ?>
+    >
 
     <div class="form-group margem-baixo">
         <label for="id" style="margin:0px"><b>ID: &nbsp;</b></label>

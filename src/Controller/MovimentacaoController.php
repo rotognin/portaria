@@ -179,8 +179,16 @@ class MovimentacaoController extends Controller
             exit;
         }
 
+        $parametros = new Parametros();
+        $param_id = $parametros->verificarParametrosUnidade($_SESSION['uniID']);
+        $parametros->carregar($param_id);
+
         Verificacoes::criarCsrf();
-        parent::view('movimentacao.saida', ['movimentacao' => $movimentacao->objeto(), 'mensagem' => $mensagem]);
+        parent::view('movimentacao.saida', [
+            'movimentacao' => $movimentacao->objeto(), 
+            'mensagem' => $mensagem,
+            'parametros' => $parametros->objeto()
+        ]);
     }
 
     public static function cancelar(array $post, array $get, string $mensagem = '')

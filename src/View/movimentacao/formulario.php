@@ -7,8 +7,8 @@
 
     <input type="hidden" id="param_hora_entrada" name="param_hora_entrada" 
     <?php 
-        echo 'data-limitar-hora-entrada="' . $parametros->limitar_hora_entrada . '" ';
-        echo 'data-limite-horario-entrada="' . $parametros->limite_horario_entrada . '" ';
+        echo ' data-limitar-hora-entrada="' . $parametros->limitar_hora_entrada . '" ';
+        echo ' data-limite-horario-entrada="' . $parametros->limite_horario_entrada . '" ';
     ?>
     >
 

@@ -2,5 +2,5 @@
 
 - (OK) Limitar o número de acompanhantes
 - (OK) Hora inicial para abertura de movimentação: não permitir abrir visitas antes do horário
-- Hora final para abertura de movimentação: não permitir abrir visitas após esse horário
-- Informar o motivo da visita obrigatoriamente
+- (OK) Hora final para abertura de movimentação: não permitir abrir visitas após esse horário
+- (OK) Informar o motivo da visita obrigatoriamente
