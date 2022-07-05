@@ -6,7 +6,7 @@ date_default_timezone_set('America/Sao_Paulo');
 require ('./vendor/autoload.php');
 
 define("DS", DIRECTORY_SEPARATOR);
-define("APP_VERSION", '2022.07.05-001');
+define("APP_VERSION", '2022.07.05-002a');
 
 define("NIVEL", array(
     '1' => 'Administrador',
@@ -24,6 +24,12 @@ define ("STATUS_MOVIMENTACAO", array(
     '0' => 'Em aberto',
     '1' => 'Finalizado',
     '2' => 'Cancelado'
+));
+
+define("TIPO_PASSAGEM", array(
+    '1' => 'Pessoas e Veículos',
+    '2' => 'Pessoas apenas',
+    '3' => 'Veículos apenas'
 ));
 
 define ("STATUS_ATIVO", 0);

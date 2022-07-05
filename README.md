@@ -2,7 +2,8 @@
 
 <em>Projeto de estudo particular</em>
 
-Este sistema consiste em um controle de visitas em uma empresa, com suporte a matriz e filiais, podendo ter uma ou mais portarias em uma mesma unidade. O registro de login do operador estará ligado à unidade e à portaria onde ele irá atuar.
+Este sistema consiste em um controle de visitas em uma empresa, com suporte a matriz e filiais, podendo ter uma ou mais portarias em uma mesma unidade. O registro de login do operador estará ligado à unidade e à portaria onde ele irá atuar. As portarias podem ser de entrada de pessoas apenas, 
+veículos apenas ou ambos, de acordo com o cadastro da mesma.
 
 No registro de movimentação de entrada, o visitante irá receber um crachá identificado e deverá devolvê-lo na saída. Poderá informar o nome de um contato na empresa com quem irá tratar, além de cadastrar acompanhantes que estiverem junto com o mesmo.
 
@@ -46,11 +47,11 @@ Necessário para o funcionamento do sistema: PHP 7.4+, MySQL, Composer, GIT (par
 
 O projeto está em constante atualização, sendo adicionadas funcionalidades e melhorias. Sugestões serão muito bem vindas.
 
-### Melhorias futuras
+### Melhorias sendo desenvolvidas e futuras
 
 - Geração de relatórios em PDF
 - <b>OK</b> - Envio de e-mails para a empresa quando o visitante der entrada
-- <b>Em andamento</b> - Criação de parâmetros:
+- <b>OK</b> - Criação de parâmetros:
   - Acompanhante pode sair antes?
   - Atribuir crachás específicos para acompanhantes
   - Previsão de saída (exibirá mensagem ao passar do horário previsto)
@@ -62,4 +63,4 @@ O projeto está em constante atualização, sendo adicionadas funcionalidades e 
 - Na administração:
   - verificar quais portarias estão ativas no momento (monitoramento de visitas)
   - exibir movimentações não finalizadas de dias anteriores
-- No cadastro das portarias de uma unidade, informar se será entrada/saída de veículos, pessoas ou ambos
+- <b>Em andamento</b> No cadastro das portarias de uma unidade, informar se será entrada/saída de veículos, pessoas ou ambos

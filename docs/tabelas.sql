@@ -73,10 +73,12 @@ CREATE TABLE `portarias` (
   `descricao` varchar(45) NOT NULL,
   `unidade_id` int DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
+  `tipo_passagem` tinyint(1) DEFAULT NULL COMMENT '1 - Pessoas e veículos, 2 - Pessoas apenas, 3 - Veículos apenas',
   PRIMARY KEY (`id`),
   KEY `fk_portaria_unidade_id_idx` (`unidade_id`),
   CONSTRAINT `fk_portaria_unidade_id` FOREIGN KEY (`unidade_id`) REFERENCES `unidades` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='O campo status desse cadastro refere-se à portaria que pode estar em reformas ou não funcionando mais. 0 - Ativo, 1 - Inativo';
+
 
 CREATE TABLE `logins` (
   `id` int NOT NULL AUTO_INCREMENT,

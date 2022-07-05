@@ -24,6 +24,7 @@
                     <th>ID</th>
                     <th>Unidade</th>
                     <th>Descrição</th>
+                    <th>Tipo de Passagem</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -38,6 +39,7 @@
                             echo '<td>' . $portaria->id . '</td>';
                             echo '<td>' . $portaria->unidade->nome . '</td>';
                             echo '<td>' . $portaria->descricao . '</td>';
+                            echo '<td>' . TIPO_PASSAGEM[$portaria->tipo_passagem ?? 1] . '</td>';
 
                             echo '<td>';
                                 echo '<form method="post" action="index.php?control=portaria&action=' . $acao . '">';

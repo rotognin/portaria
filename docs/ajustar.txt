@@ -15,9 +15,10 @@
   - (OK) Adicionar o cadastro de empresas
   - (OK) No cadastro de empresas, criar um campo de e-mail e um campo "responsável"
   - (OK) Flag indicando se receberá e-mails ao abrir uma visita para a empresa
-  - (Em andamento...) Criar parametrizações gerais para o sistema
+  - (OK) Criar parametrizações gerais para o sistema
   - (OK) Ao criar uma nova Unidade, já criar as parametrizações com valores padrão para a Unidade
-  - No cadastro de portarias, marcar se permite a entrada apenas de pessoas, de veículos ou ambos
+  - (OK) No cadastro de portarias, marcar se permite a entrada apenas de pessoas, de veículos ou ambos
+  - (Em andamento...) Verficar na hora de abrir movimentação qual o tipo de portaria (pessoas, veículos ou ambos)
 
 - Nos cadastros do sistema
   - Melhorar a apresentação dos campos (margem, fonte, tamanho, estilo...)

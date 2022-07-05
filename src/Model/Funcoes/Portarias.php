@@ -76,6 +76,11 @@ class Portarias
             $retorno = false;
         }
 
+        if (!$this->portaria->tipo_passagem){
+            $this->mensagem = 'Tipo de passagem incorreto.';
+            $retorno = false;
+        }
+
         if (!$retorno){
             $this->mensagem = substr($this->mensagem, 0, -4);
         }
@@ -97,6 +102,7 @@ class Portarias
 
         $this->portaria->descricao = Verificacoes::verificarString($dados['descricao']);
         $this->portaria->unidade_id = filter_var($dados['unidade_id'], FILTER_VALIDATE_INT);
+        $this->portaria->tipo_passagem = filter_var($dados['tipo_passagem'], FILTER_VALIDATE_INT);
 
         if ($this->novo){
             $this->portaria->status = 0;
