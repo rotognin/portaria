@@ -50,10 +50,18 @@
         </select>
     </div>
 
-    <div class="form-group margem-baixo">
-        <label for="placa" style="margin:0px"><b>Placa veículo: &nbsp;</b></label>
-        <input type="text" id="placa" name="placa" value="<?php echo ($movimentacao->placa ?? ''); ?>" size="10">
-    </div>
+    <?php
+        if (in_array(TIPO_PASSAGEM[$portaria->tipo_passagem ?? 1], ['Pessoas e Veículos', 'Veículos apenas'])){
+    ?>
+        <div class="form-group margem-baixo">
+            <label for="placa" style="margin:0px"><b>Placa veículo: &nbsp;</b></label>
+            <input type="text" id="placa" name="placa" value="<?php echo ($movimentacao->placa ?? ''); ?>" size="10"
+            <?php echo (TIPO_PASSAGEM[$portaria->tipo_passagem] == 'Veículos apenas') ? ' required ' : ''; ?>
+            >
+        </div>
+    <?php
+        }
+    ?>
 
     <div class="form-group margem-baixo">
         <label for="data_entrada" style="margin:0px"><b>Data da Entrada: &nbsp;</b></label>

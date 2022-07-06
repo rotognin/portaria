@@ -6,6 +6,7 @@ use Src\Model\Funcoes\Empresas;
 use Src\Model\Funcoes\Crachas;
 use Src\Model\Funcoes\Movimentacoes;
 use Src\Model\Funcoes\Parametros;
+use Src\Model\Funcoes\Portarias;
 use Src\Model\Entidades\Visitante;
 use Src\Model\Entidades\Empresa;
 use Src\Model\Entidades\Cracha;
@@ -52,12 +53,16 @@ class MovimentacaoController extends Controller
         $param_id = $parametros->verificarParametrosUnidade($_SESSION['uniID']);
         $parametros->carregar($param_id);
 
+        $portaria = new Portarias();
+        $portaria->carregar($_SESSION['porID']);
+
         parent::view('movimentacao.novo', [
             'mensagem' => $mensagem, 
             'empresas' => $empresas->obter(),
             'crachas' => $crachas->obter(),
             'parametros' => $parametros->objeto(),
-            'movimentacao' => $movimentacao
+            'movimentacao' => $movimentacao,
+            'portaria' => $portaria->objeto()
         ]);
     }
 
