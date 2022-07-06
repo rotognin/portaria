@@ -18,7 +18,7 @@
   - (OK) Criar parametrizações gerais para o sistema
   - (OK) Ao criar uma nova Unidade, já criar as parametrizações com valores padrão para a Unidade
   - (OK) No cadastro de portarias, marcar se permite a entrada apenas de pessoas, de veículos ou ambos
-  - (Em andamento...) Verficar na hora de abrir movimentação qual o tipo de portaria (pessoas, veículos ou ambos)
+  - (OK) Verficar na hora de abrir movimentação qual o tipo de portaria (pessoas, veículos ou ambos)
 
 - Nos cadastros do sistema
   - Melhorar a apresentação dos campos (margem, fonte, tamanho, estilo...)

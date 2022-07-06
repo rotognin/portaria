@@ -54,8 +54,8 @@ O projeto está em constante atualização, sendo adicionadas funcionalidades e 
 - <b>OK</b> - Criação de parâmetros:
   - Acompanhante pode sair antes?
   - Atribuir crachás específicos para acompanhantes
-  - Previsão de saída (exibirá mensagem ao passar do horário previsto)
-  - Limitar o número de acompanhantes
+  - <b>OK</b> Previsão de saída (exibirá mensagem ao passar do horário previsto)
+  - <b>OK</b> Limitar o número de acompanhantes
 - <b>OK</b> - Ao criar uma Unidade nova (matriz ou filial), criar um registro com valores iniciais
 - <b>OK</b> - Exibir mais informações nos detalhes de uma movimentação
 - Geração de gráficos
@@ -63,4 +63,5 @@ O projeto está em constante atualização, sendo adicionadas funcionalidades e 
 - Na administração:
   - verificar quais portarias estão ativas no momento (monitoramento de visitas)
   - exibir movimentações não finalizadas de dias anteriores
-- <b>Em andamento</b> No cadastro das portarias de uma unidade, informar se será entrada/saída de veículos, pessoas ou ambos
+- <b>OK</b> No cadastro das portarias de uma unidade, informar se será entrada/saída de veículos, pessoas ou ambos
+- Criação de especificações para rodar o projeto usando Docker e Docker-compose.
