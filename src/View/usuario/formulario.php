@@ -1,6 +1,6 @@
 <form class="col-12" method="post" action="index.php?control=usuario&action=<?php echo $acao; ?>">
     <input type="hidden" name="_token" value="<?php echo $_SESSION['csrf']; ?>">
-    
+
     <div class="form-group">
         <label for="id" style="margin:0px"><b>ID: &nbsp;</b></label><br>
         <input type="number" id="id" name="id" readonly value="<?php echo ($usuario->id ?? '0'); ?>">
@@ -13,14 +13,17 @@
         <label for="login" style="margin:0px"><b>Login: &nbsp;</b></label><br>
         <input type="text" id="login" name="login" value="<?php echo ($usuario->login ?? ''); ?>" size="60">
     </div>
-    <div class="form-group">
-        <label for="senha" style="margin:0px"><b>Senha: &nbsp;</b></label><br>
-        <input type="password" id="senha" name="senha" value="">
-    </div>
+
+    <?php if ($usuario->login != 'admin') { ?>
+        <div class="form-group">
+            <label for="senha" style="margin:0px"><b>Senha: &nbsp;</b></label><br>
+            <input type="password" id="senha" name="senha" value="">
+        </div>
+    <?php } ?>
 
     <div class="form-group">
         <?php
-            $nivel = ($usuario->nivel ?? 2);
+        $nivel = ($usuario->nivel ?? 2);
         ?>
         <label for="nivel" style="margin:0px"><b>Nível: &nbsp;</b></label><br>
         <select name="nivel" id="nivel">
