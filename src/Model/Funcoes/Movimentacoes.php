@@ -37,18 +37,18 @@ class Movimentacoes
         $find = '';
         $and = '';
 
-        foreach ($filtros as $campo => $valor){
+        foreach ($filtros as $campo => $valor) {
             $find .= $and . $campo . ' = :' . $campo;
             $and = ' AND ';
         }
 
-        if (count($filtros) > 0){
+        if (count($filtros) > 0) {
             $params = http_build_query($filtros);
         }
 
         $movimentacoes = (new Movimentacao())->find($find, $params)->fetch(true);
 
-        if (!$movimentacoes){
+        if (!$movimentacoes) {
             return false;
         }
 
@@ -62,17 +62,17 @@ class Movimentacoes
     {
         $movimentacoes = (new Movimentacao())->find($filtros, $campos)->fetch(true);
 
-        if (!$movimentacoes){
+        if (!$movimentacoes) {
             return false;
         }
-        
+
         $this->movimentacoes = $this->buscarRegistros($movimentacoes);
         return true;
     }
 
     private function buscarRegistros(array $movimentacoes)
     {
-        foreach($movimentacoes as $movimentacao){
+        foreach ($movimentacoes as $movimentacao) {
             $movimentacao = $this->carregarDados($movimentacao);
         }
 
@@ -94,7 +94,7 @@ class Movimentacoes
         $movimentacao->usuario_entrada = (new Usuario())->findById($movimentacao->usuario_entrada_id);
         $movimentacao->portaria_entrada = (new Portaria())->findById($movimentacao->portaria_entrada_id);
 
-        if (STATUS_MOVIMENTACAO[$movimentacao->status] == 'Finalizado'){
+        if (STATUS_MOVIMENTACAO[$movimentacao->status] == 'Finalizado') {
             $movimentacao->usuario_saida = (new Usuario())->findById($movimentacao->usuario_saida_id);
             $movimentacao->portaria_saida = (new Portaria())->findById($movimentacao->portaria_saida_id);
         }
@@ -133,49 +133,49 @@ class Movimentacoes
         $retorno = true;
         $this->mensagem = '';
 
-        if ($this->movimentacao->visitante_id == 0){
+        if ($this->movimentacao->visitante_id == 0) {
             $this->mensagem .= 'Necessário selecionar o visitante <br>';
             $retorno = false;
         }
 
-        if ($this->movimentacao->cracha_id == 0){
+        if ($this->movimentacao->cracha_id == 0) {
             $this->mensagem .= 'Necessário selecionar um crachá <br>';
             $retorno = false;
         }
 
-        if ($this->movimentacao->usuario_entrada_id == 0){
+        if ($this->movimentacao->usuario_entrada_id == 0) {
             $this->mensagem .= 'Usuário não informado. Favor sair do sistema e entrar novamente <br>';
             $retorno = false;
         }
 
-        if ($this->movimentacao->portaria_entrada_id == 0){
+        if ($this->movimentacao->portaria_entrada_id == 0) {
             $this->mensagem .= 'Portaria não informada. Favor sair do sistema e entrar novamente <br>';
             $retorno = false;
         }
 
-        if (!Verificacoes::dataValida($this->movimentacao->data_entrada)){
+        if (!Verificacoes::dataValida($this->movimentacao->data_entrada)) {
             $this->mensagem .= 'Data incorreta <br>';
             $retorno = false;
         }
 
-        if (!Verificacoes::horaValida($this->movimentacao->hora_entrada)){
+        if (!Verificacoes::horaValida($this->movimentacao->hora_entrada)) {
             $this->mensagem .= 'Hora incorreta <br>';
             $retorno = false;
         }
 
-        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Finalizado'){
-            if (!Verificacoes::dataValida($this->movimentacao->data_saida)){
+        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Finalizado') {
+            if (!Verificacoes::dataValida($this->movimentacao->data_saida)) {
                 $this->mensagem .= 'Data incorreta <br>';
                 $retorno = false;
             }
-    
-            if (!Verificacoes::horaValida($this->movimentacao->hora_saida)){
+
+            if (!Verificacoes::horaValida($this->movimentacao->hora_saida)) {
                 $this->mensagem .= 'Hora incorreta <br>';
                 $retorno = false;
             }
         }
 
-        if (!$retorno){
+        if (!$retorno) {
             $this->mensagem = substr($this->mensagem, 0, -4);
         }
 
@@ -189,7 +189,7 @@ class Movimentacoes
     {
         $id = filter_var($dados['id'], FILTER_VALIDATE_INT);
 
-        if ($dados['id'] > 0){
+        if ($dados['id'] > 0) {
             $this->movimentacao = (new Movimentacao())->findById($id);
             $this->movimentacao->id = $id;
         } else {
@@ -198,8 +198,8 @@ class Movimentacoes
 
         $this->movimentacao->status = filter_var($dados['status'], FILTER_VALIDATE_INT);
 
-        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Em aberto'){
-            $this->movimentacao->placa = Verificacoes::verificarString($dados['placa']);
+        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Em aberto') {
+            $this->movimentacao->placa = Verificacoes::verificarString($dados['placa'] ?? '');
             $this->movimentacao->visitante_id = filter_var($dados['visitante_id'], FILTER_VALIDATE_INT);
             $this->movimentacao->cracha_id = filter_var($dados['cracha_id'], FILTER_VALIDATE_INT);
             $this->movimentacao->usuario_entrada_id = filter_var($_SESSION['usuID'], FILTER_VALIDATE_INT);
@@ -215,7 +215,7 @@ class Movimentacoes
 
         $this->movimentacao->observacoes = Verificacoes::verificarString($dados['observacoes']);
 
-        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Finalizado'){
+        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Finalizado') {
             // Está finalizando a movimentação
             $this->movimentacao->usuario_saida_id = filter_var($_SESSION['usuID'], FILTER_VALIDATE_INT);
             $this->movimentacao->portaria_saida_id = filter_var($_SESSION['porID'], FILTER_VALIDATE_INT);
@@ -223,7 +223,7 @@ class Movimentacoes
             $this->movimentacao->hora_saida = $dados['hora_saida'];
         }
 
-        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Cancelado'){
+        if (STATUS_MOVIMENTACAO[$this->movimentacao->status] == 'Cancelado') {
             // Está cancelando a movimentação
             $this->movimentacao->cancelamento = Verificacoes::verificarString($dados['cancelamento']);
             $this->movimentacao->data_saida = $dados['data_saida'];
@@ -232,7 +232,7 @@ class Movimentacoes
 
         //var_dump($this->movimentacao);
 
-        if (!$this->validarCampos()){
+        if (!$this->validarCampos()) {
             return false;
         }
 
@@ -241,7 +241,7 @@ class Movimentacoes
 
     public function gravar()
     {
-        if (!$this->movimentacao->save()){
+        if (!$this->movimentacao->save()) {
             $this->mensagem = $this->movimentacao->fail()->getMessage();
             return false;
         }
@@ -258,14 +258,14 @@ class Movimentacoes
     {
         $qtd = count($dados['nome']);
 
-        while ($qtd > 0){
+        while ($qtd > 0) {
             $qtd--;
 
             $dados['nome'][$qtd] = Verificacoes::verificarString($dados['nome'][$qtd]);
             $dados['documento'][$qtd] = Verificacoes::verificarString($dados['documento'][$qtd]);
             $dados['obsacompanhante'][$qtd] = Verificacoes::verificarString($dados['obsacompanhante'][$qtd]);
 
-            if ($dados['nome'][$qtd] == ''){
+            if ($dados['nome'][$qtd] == '') {
                 $this->mensagem = 'Verificar o nome do(s) acompanhante(s), pois não pode estar em branco.';
                 return false;
             }
@@ -279,20 +279,21 @@ class Movimentacoes
      */
     public function gravarAcompanhantes(array $dados)
     {
-        foreach ($dados['nome'] as $codigo => $nome){
+        foreach ($dados['nome'] as $codigo => $nome) {
             $acompanhante = new Acompanhantes();
-            
+
             if (!$acompanhante->dados(array(
-                    'id' => 0,
-                    'movimentacao_id' => $dados['movimentacao_id'],
-                    'nome' => $dados['nome'][$codigo],
-                    'documento' => $dados['documento'][$codigo], 
-                    'observacoes' => $dados['obsacompanhante'][$codigo]))){
+                'id' => 0,
+                'movimentacao_id' => $dados['movimentacao_id'],
+                'nome' => $dados['nome'][$codigo],
+                'documento' => $dados['documento'][$codigo],
+                'observacoes' => $dados['obsacompanhante'][$codigo]
+            ))) {
                 $this->mensagem = $acompanhante->mensagem;
                 return false;
             }
 
-            if (!$acompanhante->gravar()){
+            if (!$acompanhante->gravar()) {
                 return false;
             }
 
@@ -314,7 +315,7 @@ class Movimentacoes
 
     public function veiculoEmAberto()
     {
-        if (empty($this->movimentacao->placa)){
+        if (empty($this->movimentacao->placa)) {
             return false;
         }
 
@@ -328,13 +329,13 @@ class Movimentacoes
 
     public function verificarDatas()
     {
-        if ($this->movimentacao->data_entrada == $this->movimentacao->data_saida){
-            if ($this->movimentacao->hora_entrada > $this->movimentacao->hora_saida){
+        if ($this->movimentacao->data_entrada == $this->movimentacao->data_saida) {
+            if ($this->movimentacao->hora_entrada > $this->movimentacao->hora_saida) {
                 return false;
             }
         }
 
-        if ($this->movimentacao->data_entrada > $this->movimentacao->data_saida){
+        if ($this->movimentacao->data_entrada > $this->movimentacao->data_saida) {
             return false;
         }
 
@@ -343,15 +344,15 @@ class Movimentacoes
 
     public function checarEnviarEmail(string $assunto = '')
     {
-        if (empty($assunto)){
+        if (empty($assunto)) {
             $this->mensagem = 'Assunto do e-mail em branco.';
             return false;
         }
 
         $this->movimentacao = $this->carregarDados($this->movimentacao);
 
-        if ($this->movimentacao->visitante->empresa->enviar_email == 1){
-            if (empty($this->movimentacao->visitante->empresa->email)){
+        if ($this->movimentacao->visitante->empresa->enviar_email == 1) {
+            if (empty($this->movimentacao->visitante->empresa->email)) {
                 $this->mensagem = 'E-mail da empresa em branco.';
                 return false;
             }
@@ -362,19 +363,20 @@ class Movimentacoes
             $email->adicionarAssunto($assunto);
             $email->adicionarCorpo(
                 Email::aberturaDeVisita(
-                    $this->movimentacao->visitante->nome, 
-                    $this->movimentacao->data_entrada, 
-                    $this->movimentacao->hora_entrada)
+                    $this->movimentacao->visitante->nome,
+                    $this->movimentacao->data_entrada,
+                    $this->movimentacao->hora_entrada
+                )
             );
 
-            if (!$email->checarCampos()){
+            if (!$email->checarCampos()) {
                 $this->mensagem = $email->obterMensagemErro();
                 return false;
             }
 
             $email->enviar();
 
-            if (!$email->okEnvio()){
+            if (!$email->okEnvio()) {
                 $this->mensagem = $email->obterMensagemErro();
                 return false;
             }
